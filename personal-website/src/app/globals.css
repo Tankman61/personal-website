@@ -5,13 +5,6 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -22,5 +15,31 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer theme {
+  :root {
+    --color-airbus-green: #00FE2B;
+    --color-airbus-blue: #02FFFA;
+    --color-airbus-yellow: #FFFE10;
+    --color-airbus-magenta: #EE4CED;
+  }
+}
+
+@layer utilities {
+  .text-airbus-green { color: var(--color-airbus-green); }
+  .text-airbus-blue { color: var(--color-airbus-blue); }
+  .text-airbus-yellow { color: var(--color-airbus-yellow); }
+  .text-airbus-magenta { color: var(--color-airbus-magenta); }
+}
+
+@font-face {
+  font-family: 'MFDFont';
+  src: url('/assets/MFDFont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  font-family: 'MFDFont', sans-serif;
 }

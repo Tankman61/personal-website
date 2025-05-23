@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CursorOverlayClient from '../components/CursorOverlayClient';
 
 export const metadata: Metadata = {
     title: "William Yang",
@@ -15,6 +16,7 @@ export default function RootLayout({
         <html lang="en">
         <body className="antialiased">
         {children}
+        <CursorOverlayClient />
         </body>
         </html>
     );

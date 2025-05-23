@@ -23,6 +23,8 @@ body {
     --color-airbus-blue: #02FFFA;
     --color-airbus-yellow: #FFFE10;
     --color-airbus-magenta: #EE4CED;
+    --color-airbus-gray: #999AAA;
+    --color-airbus-white: #dedee3;
   }
 }
 
@@ -31,6 +33,7 @@ body {
   .text-airbus-blue { color: var(--color-airbus-blue); }
   .text-airbus-yellow { color: var(--color-airbus-yellow); }
   .text-airbus-magenta { color: var(--color-airbus-magenta); }
+  .text-airbus-gray { color: var(--color-airbus-gray); }
 }
 
 @font-face {
@@ -42,4 +45,8 @@ body {
 
 html {
   font-family: 'MFDFont', sans-serif;
+}
+
+html, body {
+  cursor: none !important;
 }

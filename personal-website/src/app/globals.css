@@ -22,7 +22,7 @@ body {
     --color-airbus-blue: #02FFFA;
     --color-airbus-yellow: #FFFE10;
     --color-airbus-magenta: #EE4CED;
-    --color-airbus-gray: #999AAA;
+    --color-airbus-gray: #48495a;
     --color-airbus-white: #dedee3;
   }
 }
@@ -46,6 +46,6 @@ html {
   font-family: 'MFDFont', sans-serif !important;
 }
 
-html, body {
+html, body, * {
   cursor: none !important;
 }

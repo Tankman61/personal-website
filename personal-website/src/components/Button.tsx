@@ -45,9 +45,9 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         if (isHovered && !isClicked) {
             return {
                 ...baseStyle,
-                backgroundColor: "#48495a",
+                backgroundColor: "var(--color-airbus-gray)",
                 border: "2px solid cyan",
-                background: "#48495a",
+                background: "var(--color-airbus-gray)",
             };
         }
 
@@ -65,9 +65,9 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         // Default state
         return {
             ...baseStyle,
-            backgroundColor: "#48495a",
+            backgroundColor: "var(--color-airbus-gray)",
             background: `
-                linear-gradient(#48495a, #48495a) padding-box,
+                linear-gradient(var(--color-airbus-gray), var(--color-airbus-gray)) padding-box,
                 linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
             `,
         };

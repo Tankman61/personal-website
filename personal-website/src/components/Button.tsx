@@ -5,95 +5,93 @@ import React, { useState, memo } from "react";
 interface ButtonProps {
     width?: number;
     height?: number;
-    disabled?: boolean;
     onClick?: () => void;
     children: React.ReactNode;
     className?: string;
 }
 
-export const Button: React.FC<ButtonProps> = memo(
-    ({
-         width = 120,
-         height = 40,
-         disabled = false,
-         onClick,
-         children,
-         className = "",
-         ...props
-     }) => {
-        const [isHovered, setIsHovered] = useState(false);
-        const [isClicked, setIsClicked] = useState(false);
+const ButtonComponent: React.FC<ButtonProps> = ({
+                                                    width = 120,
+                                                    height = 40,
+                                                    onClick,
+                                                    children,
+                                                    className = "",
+                                                    ...props
+                                                }) => {
+    const [isHovered, setIsHovered] = useState(false);
+    const [isClicked, setIsClicked] = useState(false);
 
-        const handleMouseDown = () => {
-            if (!disabled) {
-                setIsClicked(true);
-            }
+    const handleMouseDown = () => {
+        setIsClicked(true);
+    };
+
+    const handleMouseUp = () => {
+        setIsClicked(false);
+        onClick?.();
+    };
+
+    const handleMouseLeave = () => {
+        setIsClicked(false);
+        setIsHovered(false);
+    };
+
+    const getButtonStyle = () => {
+        const baseStyle = {
+            width: `${width}px`,
+            height: `${height}px`,
+            border: "2px solid transparent",
         };
 
-        const handleMouseUp = () => {
-            if (!disabled) {
-                setIsClicked(false);
-                onClick?.();
-            }
-        };
+        if (isHovered && !isClicked) {
+            return {
+                ...baseStyle,
+                backgroundColor: "#48495a",
+                border: "2px solid cyan",
+                background: "#48495a",
+            };
+        }
 
-        const handleMouseLeave = () => {
-            setIsClicked(false);
-            setIsHovered(false);
-        };
+        if (isClicked) {
+            return {
+                ...baseStyle,
+                backgroundColor: "#868995",
+                background: `
+                    linear-gradient(#868995, #868995) padding-box,
+                    linear-gradient(162deg, #292a34 0%, #48495b 50%, #d0d0d2 100%) border-box
+                `,
+            };
+        }
 
-        const getBorderStyle = () => {
-            if (isHovered && !disabled && !isClicked) {
-                return {
-                    border: "3px solid cyan",
-                };
-            } else if (isClicked && !disabled) {
-                // Inverse gradient for clicked state
-                return {
-                    border: "3px solid transparent",
-                    background: `
-            linear-gradient(#696969, #696969) padding-box,
-            linear-gradient(135deg, #000000 0%, #555555 40%, #555555 50%, #ffffff 65%) border-box
-          `,
-                };
-            } else {
-                // Normal gradient border
-                return {
-                    border: "3px solid transparent",
-                    background: `
-            linear-gradient(#696969, #696969) padding-box,
-            linear-gradient(135deg, #ffffff 35%, #555555 50%, #555555 60%, #000000 100%) border-box
-          `,
-                };
-            }
+        // Default state
+        return {
+            ...baseStyle,
+            backgroundColor: "#48495a",
+            background: `
+                linear-gradient(#48495a, #48495a) padding-box,
+                linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
+            `,
         };
+    };
 
-        return (
-            <button
-                className={`
-          relative rounded-sm text-white font-medium text-center cursor-pointer
-          transition-all duration-100 select-none flex items-center justify-center
-          ${disabled ? "cursor-not-allowed text-gray-400" : "text-white"}
-          ${isClicked && !disabled ? "bg-gray-400" : ""}
-          ${className}
-        `}
-                style={{
-                    width: `${width}px`,
-                    height: `${height}px`,
-                    backgroundColor: isClicked && !disabled ? "#a0a0a0" : "#696969",
-                    ...getBorderStyle(),
-                }}
-                onMouseDown={handleMouseDown}
-                onMouseUp={handleMouseUp}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={handleMouseLeave}
-                disabled={disabled}
-                {...props}
-            >
-        <span className={`text-lg ${disabled ? "text-gray-400" : "text-white"}`}>
-          {children}
-        </span>
-            </button>
-        );
-    }
-);
+    return (
+        <button
+            className={`
+                relative rounded-xs font-medium text-center cursor-pointer
+                transition-all duration-100 select-none flex items-center justify-center
+                ${className}
+            `}
+            style={getButtonStyle()}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={handleMouseLeave}
+            {...props}
+        >
+            <span className="text-lg text-white">
+                {children}
+            </span>
+        </button>
+    );
+};
+
+export const Button = memo(ButtonComponent);

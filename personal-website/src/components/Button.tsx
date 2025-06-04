@@ -42,6 +42,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             width: `${width}px`,
             height: `${height}px`,
             border: "2px solid transparent",
+            transition: 'background 0.2s, border 0.2s',
         };
 
         // Active state takes precedence
@@ -68,9 +69,9 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         if (isClicked) {
             return {
                 ...baseStyle,
-                backgroundColor: "#868995",
+                backgroundColor: "var(--color-airbus-light-gray)",
                 background: `
-                    linear-gradient(#868995, #868995) padding-box,
+                    linear-gradient(var(--color-airbus-light-gray), var(--color-airbus-light-gray)) padding-box,
                     linear-gradient(162deg, #292a34 0%, #48495b 50%, #d0d0d2 100%) border-box
                 `,
             };

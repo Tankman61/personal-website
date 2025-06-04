@@ -7,16 +7,16 @@ export default function About() {
     const [activeTab, setActiveTab] = useState(0);
 
     // Easy to change border width here!
-    const borderWidth = 3;
+    const borderWidth = 2;
 
     return (
         <div className="min-h-screen bg-black p-8 flex items-center justify-center">
             <div className="w-full max-w-4xl">
                 {/* Tab Container */}
-                <div className="relative flex justify-start">
+                <div className="relative flex w-full">
                     {/* Left Tab */}
                     <div
-                        className={`relative w-48 h-8 cursor-pointer ${
+                        className={`relative flex-1 h-8 cursor-pointer ${
                             activeTab === 0 ? 'z-20' : 'z-10'
                         }`}
                         onClick={() => setActiveTab(0)}
@@ -25,9 +25,10 @@ export default function About() {
                         <div
                             className="relative h-full flex items-center justify-center"
                             style={{
-                                background: activeTab === 0 ? 'black' : '#4a5568',
-                                clipPath: 'polygon(18.5px 0%, calc(100% - 18.5px) 0%, 100% 100%, 0% 100%)',
-                                borderBottom: activeTab !== 0 ? `${borderWidth}px solid white` : 'none'
+                                // fix background colors to use airbus gray later
+                                background: activeTab === 0 ? 'black' : 'var(--color-airbus-gray)',
+                                clipPath: 'polygon(18.5px 0%, calc(100% - 18.5px) 0%, 100% 102%, 0% 102%)',
+                                borderBottom: activeTab === 0 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >
                             <span className="text-green-400 font-medium text-sm">MCDU LEFT</span>
@@ -36,30 +37,34 @@ export default function About() {
                         {/* SVG Border Overlay */}
                         <svg
                             className="absolute inset-0 pointer-events-none"
-                            width="192"
+                            width="100%"
                             height="32"
-                            viewBox="0 0 192 32"
+                            viewBox="0 0 200 32"
+                            preserveAspectRatio="none"
                         >
                             <path
-                                d="M 18.5 0 L 173.5 0 L 192 32"
+                                d="M 8 0 L 192 0 L 200 32"
                                 fill="none"
                                 stroke="white"
                                 strokeWidth={borderWidth}
                                 strokeLinejoin="miter"
+                                vectorEffect="non-scaling-stroke"
                             />
+
                             <path
-                                d="M 0 32 L 18.5 0"
+                                d="M 0.3 32.25 L 8 0"
                                 fill="none"
                                 stroke="white"
                                 strokeWidth={borderWidth}
                                 strokeLinejoin="miter"
+                                vectorEffect="non-scaling-stroke"
                             />
                         </svg>
                     </div>
 
                     {/* Right Tab */}
                     <div
-                        className={`relative w-48 h-8 cursor-pointer -ml-6 ${
+                        className={`relative flex-1 h-8 cursor-pointer -ml-6 ${
                             activeTab === 1 ? 'z-20' : 'z-10'
                         }`}
                         onClick={() => setActiveTab(1)}
@@ -68,9 +73,9 @@ export default function About() {
                         <div
                             className="relative h-full flex items-center justify-center"
                             style={{
-                                background: activeTab === 1 ? 'black' : '#4a5568',
-                                clipPath: 'polygon(18.5px 0%, calc(100% - 18.5px) 0%, 100% 100%, 0% 100%)',
-                                borderBottom: activeTab !== 1 ? `${borderWidth}px solid white` : 'none'
+                                background: activeTab === 1 ? 'black' : 'var(--color-airbus-gray)',
+                                clipPath: 'polygon(18.5px 0%, calc(100% - 18.5px) 0%, 100% 102%, 0% 102%)',
+                                borderBottom: activeTab === 1 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >
                             <span className="text-green-400 font-medium text-sm">MCDU RIGHT</span>
@@ -79,23 +84,27 @@ export default function About() {
                         {/* SVG Border Overlay */}
                         <svg
                             className="absolute inset-0 pointer-events-none"
-                            width="192"
+                            width="100%"
                             height="32"
-                            viewBox="0 0 192 32"
+                            viewBox="0 0 200 32"
+                            preserveAspectRatio="none"
                         >
                             <path
-                                d="M 18.5 0 L 173.5 0 L 192 32"
+                                d="M 8 0 L 192 0 L 199.7 32.25"
                                 fill="none"
                                 stroke="white"
                                 strokeWidth={borderWidth}
                                 strokeLinejoin="miter"
+                                vectorEffect="non-scaling-stroke"
+                            />
                             />
                             <path
-                                d="M 0 32 L 18.5 0"
+                                d="M 0 32 L 8 0"
                                 fill="none"
                                 stroke="white"
                                 strokeWidth={borderWidth}
                                 strokeLinejoin="miter"
+                                vectorEffect="non-scaling-stroke"
                             />
                         </svg>
                     </div>
@@ -106,7 +115,7 @@ export default function About() {
                     className="relative bg-black overflow-hidden shadow-2xl"
                     style={{
                         border: `${borderWidth}px solid white`,
-                        marginTop: `-${borderWidth}px` // Overlap with tabs
+                        borderTop: 'none',
                     }}
                 >
                     {/* Screen bezel effect */}

@@ -1,194 +1,190 @@
 "use client";
-import { useEffect, useState } from "react";
-import SplashScreen from "../components/SplashScreen";
+import React, { useState } from 'react';
 
 export default function Home() {
-    // TODO: MOVE TO LAYOUT LOL
-    const [loading, setLoading] = useState(
-        typeof window === "undefined"
-            ? false
-            : !localStorage.getItem("hasSeenSplash")
-    )
+    const [activeTab, setActiveTab] = useState(0);
 
-    useEffect(() => {
-        const hasSeenSplash = localStorage.getItem("hasSeenSplash");
-        if (!hasSeenSplash) {
-            setLoading(true);
-            const timer = setTimeout(() => {
-                setLoading(false);
-                localStorage.setItem("hasSeenSplash", "true");
-            }, 3000);
-            return () => clearTimeout(timer);
-        } else {
-            setLoading(false);
-        }
-    }, []);
-
-    if (loading) {
-        return <SplashScreen />;
-    }
+    // Easy to change border width here!
+    const borderWidth = 2;
 
     return (
-        <main className="min-h-screen flex items-center justify-center p-4">
-            <div className="w-full max-w-7xl">
-                {/* Header */}
-                <div className="text-right mb-4">
-                    <span className="text-airbus-gray text-sm">Portfolio Progress - @YourHandle</span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-6">
-                    {/* Left Panel - Personal Info */}
-                    <div className="bg-gray-800 border border-gray-600" style={{clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))'}}>
-                        {/* Header Tabs */}
-                        <div className="flex border-b border-gray-600">
-                            <div className="bg-gray-700 px-4 py-2 text-airbus-white text-sm border-r border-gray-600">PERS 1</div>
-                            <div className="flex-1 px-4 py-2 text-airbus-white text-sm text-center">PROFILE</div>
-                            <div className="bg-gray-700 px-4 py-2 text-airbus-white text-sm">DATA</div>
+        <main className="min-h-screen bg-black p-8 flex items-center justify-center">
+            <div className="w-full" style={{ maxWidth: '612px' }}>
+                {/* Tab Container */}
+                <div className="relative flex w-full">
+                    {/* Left Tab */}
+                    <div
+                        className={`relative flex-1 h-8 cursor-pointer ${
+                            activeTab === 0 ? 'z-20' : 'z-10'
+                        }`}
+                        onClick={() => setActiveTab(0)}
+                    >
+                        {/* Main tab body */}
+                        <div
+                            className="relative h-full flex items-center justify-center"
+                            style={{
+                                background: activeTab === 0 ? 'black' : 'var(--color-airbus-gray)',
+                                clipPath: 'polygon(18.5px 0%, calc(100% - 18.5px) 0%, 100% 102%, 0% 102%)',
+                                borderBottom: activeTab === 0 ? 'none' : `${borderWidth}px solid white`,
+                            }}
+                        >
+                            <span className="text-green-400 font-medium text-sm">PROJECTS</span>
                         </div>
 
-                        {/* Sub Navigation */}
-                        <div className="bg-gray-750 border-b border-gray-600 px-4 py-2">
-                            <span className="text-airbus-white text-sm">INFO/BACKGROUND</span>
-                        </div>
+                        {/* SVG Border Overlay */}
+                        <svg
+                            className="absolute inset-0 pointer-events-none"
+                            width="100%"
+                            height="32"
+                            viewBox="0 0 200 32"
+                            preserveAspectRatio="none"
+                        >
+                            <path
+                                d="M 11 0 L 189 0 L 200 32"
+                                fill="none"
+                                stroke="white"
+                                strokeWidth={borderWidth}
+                                strokeLinejoin="miter"
+                                vectorEffect="non-scaling-stroke"
+                            />
 
-                        {/* Content Area */}
-                        <div className="p-6">
-                            {/* Profile Section */}
-                            <div className="mb-6">
-                                <div className="flex items-center mb-4">
-                                    <div className="bg-airbus-blue text-black px-2 py-1 text-sm font-bold mr-4">DEV</div>
-                                </div>
-
-                                <div className="text-airbus-green text-xl mb-2">JOHN DEVELOPER</div>
-                                <div className="text-airbus-white text-sm mb-4">25°15.2N/055°21.9E</div>
-
-                                {/* Navigation Controls */}
-                                <div className="flex items-center mb-4">
-                                    <span className="text-airbus-white text-sm mr-4">EXP 3Y</span>
-                                    <span className="text-airbus-gray text-sm mr-4">1/4</span>
-                                    <div className="flex gap-2">
-                                        <button className="bg-gray-600 text-airbus-white px-3 py-1 text-xs">◀◀</button>
-                                        <button className="bg-gray-600 text-airbus-white px-3 py-1 text-xs">▶▶</button>
-                                    </div>
-                                </div>
-
-                                <div className="text-airbus-white text-sm mb-2">
-                                    <span className="text-airbus-yellow">LAT/LONG</span> 25°15.9N/055°21.0E
-                                </div>
-                                <div className="text-airbus-white text-sm mb-2">
-                                    <span className="text-airbus-yellow">EDUCATION</span> <span className="text-airbus-green">10 FT</span>
-                                </div>
-                                <div className="text-airbus-white text-sm mb-2">
-                                    <span className="text-airbus-yellow">STACK</span> <span className="text-airbus-green">FULL</span> <span className="text-airbus-white ml-8">ROLE</span> <span className="text-airbus-green">119°</span>
-                                </div>
-                                <div className="text-airbus-white text-sm mb-4">
-                                    <span className="text-airbus-yellow">SPEC</span> <span className="text-airbus-green">REACT</span>
-                                </div>
-                            </div>
-
-                            {/* Bottom Button */}
-                            <button className="bg-gray-600 text-airbus-white px-4 py-2 text-sm">
-                                PROJ LIST
-                            </button>
-                        </div>
+                            <path
+                                d="M 0.3 33 L 11 0"
+                                fill="none"
+                                stroke="white"
+                                strokeWidth={borderWidth}
+                                strokeLinejoin="miter"
+                                vectorEffect="non-scaling-stroke"
+                            />
+                        </svg>
                     </div>
 
-                    {/* Right Panel - Skills/Status */}
-                    <div className="bg-gray-800 border border-gray-600" style={{clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))'}}>
-                        {/* Header Tabs */}
-                        <div className="flex border-b border-gray-600">
-                            <div className="bg-gray-700 px-4 py-2 text-airbus-white text-sm border-r border-gray-600">TECH 2</div>
-                            <div className="flex-1 px-4 py-2 text-airbus-white text-sm text-center">SKILLS</div>
-                            <div className="bg-gray-700 px-4 py-2 text-airbus-white text-sm">DATA</div>
+                    {/* Right Tab */}
+                    <div
+                        className={`relative flex-1 h-8 cursor-pointer -ml-6 ${
+                            activeTab === 1 ? 'z-20' : 'z-10'
+                        }`}
+                        onClick={() => setActiveTab(1)}
+                    >
+                        {/* Main tab body */}
+                        <div
+                            className="relative h-full flex items-center justify-center"
+                            style={{
+                                background: activeTab === 1 ? 'black' : 'var(--color-airbus-gray)',
+                                clipPath: 'polygon(18.5px 0%, calc(100% - 18.5px) 0%, 100% 102%, 0% 102%)',
+                                borderBottom: activeTab === 1 ? 'none' : `${borderWidth}px solid white`,
+                            }}
+                        >
+                            <span className="text-green-400 font-medium text-sm">ABOUT</span>
                         </div>
 
-                        {/* Sub Navigation */}
-                        <div className="bg-gray-750 border-b border-gray-600 px-4 py-2">
-                            <span className="text-airbus-white text-sm">DATA/STATUS</span>
-                        </div>
+                        {/* SVG Border Overlay */}
+                        <svg
+                            className="absolute inset-0 pointer-events-none"
+                            width="100%"
+                            height="32"
+                            viewBox="0 0 200 32"
+                            preserveAspectRatio="none"
+                        >
+                            <path
+                                d="M 11 0 L 189 0 L 200 32"
+                                fill="none"
+                                stroke="white"
+                                strokeWidth={borderWidth}
+                                strokeLinejoin="miter"
+                                vectorEffect="non-scaling-stroke"
+                            />
 
-                        {/* Content Area */}
-                        <div className="p-6">
-                            {/* Status Section */}
-                            <div className="mb-6">
-                                <div className="bg-gray-700 p-4 mb-4" style={{clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))'}}>
-                                    <div className="text-airbus-white text-sm mb-2">TECH STATUS</div>
-                                    <div className="text-airbus-green text-lg">REACT-18.0 / NEXTJS 14</div>
-                                </div>
-
-                                {/* Performance Metrics */}
-                                <div className="flex justify-between mb-4">
-                                    <div className="text-airbus-white text-sm">
-                                        <span className="text-airbus-yellow">LEARN</span> <span className="text-airbus-green">-2.0</span>
-                                    </div>
-                                    <div className="text-airbus-white text-sm">
-                                        <span className="text-airbus-yellow">PERF</span> <span className="text-airbus-green">+1.1</span>
-                                    </div>
-                                    <button className="bg-gray-600 text-airbus-white px-3 py-1 text-xs">MODIFY</button>
-                                </div>
-
-                                <div className="mb-6">
-                                    <span className="text-airbus-white text-sm">CODE QUALITY </span>
-                                    <span className="text-airbus-blue border border-airbus-blue px-2 py-1 text-xs">+95.0 %</span>
-                                </div>
-
-                                {/* Database Section */}
-                                <div className="mb-6">
-                                    <div className="text-airbus-white text-sm mb-2">
-                                        <span className="text-airbus-yellow">TECH DATABASE</span> <span className="text-airbus-green ml-8">STACK</span>
-                                    </div>
-
-                                    <div className="flex gap-4 mb-4">
-                                        <div className="bg-gray-700 px-4 py-2 text-airbus-green text-sm">
-                                            ACTIVE<br/>
-                                            18FEB-15JUN
-                                        </div>
-                                        <button className="bg-gray-600 text-airbus-white px-4 py-2 text-sm">SWAP</button>
-                                        <div className="text-airbus-green text-sm">
-                                            SECOND<br/>
-                                            18FEB-15JUN
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Skills Elements */}
-                                <div className="mb-4">
-                                    <div className="text-airbus-white text-sm mb-3">TECH STACK ELEMENTS</div>
-                                    <div className="grid grid-cols-2 gap-4 text-sm">
-                                        <div>
-                                            <span className="text-airbus-yellow">FRONTEND</span> <span className="text-airbus-green">08</span>
-                                        </div>
-                                        <div>
-                                            <span className="text-airbus-yellow">BACKEND</span> <span className="text-airbus-green">06</span>
-                                        </div>
-                                        <div>
-                                            <span className="text-airbus-yellow">DATABASE</span> <span className="text-airbus-green">04</span>
-                                        </div>
-                                        <div>
-                                            <span className="text-airbus-yellow">DEVOPS</span> <span className="text-airbus-green">05</span>
-                                        </div>
-                                    </div>
-
-                                    <button className="bg-gray-600 text-airbus-white px-4 py-2 text-sm mt-4">
-                                        VIEW ALL
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                            <path
+                                d="M 0.3 33 L 11 0"
+                                fill="none"
+                                stroke="white"
+                                strokeWidth={borderWidth}
+                                strokeLinejoin="miter"
+                                vectorEffect="non-scaling-stroke"
+                            />
+                        </svg>
                     </div>
                 </div>
 
-                {/* Status Indicators */}
-                <div className="flex justify-end mt-4 space-x-4">
-                    <div className="text-airbus-yellow text-sm">●</div>
-                    <div className="text-airbus-green text-sm">●</div>
-                    <div className="text-airbus-yellow text-xs">
-                        HIRE<br/>
-                        F/O OIS<br/>
-                        CENTER<br/>
-                        AVAIL<br/>
-                        <span className="text-airbus-blue">ON</span>
+                {/* Main Display Rectangle */}
+                <div
+                    className="relative bg-black overflow-hidden shadow-2xl"
+                    style={{
+                        border: `${borderWidth}px solid white`,
+                        borderTop: 'none',
+                        height: '600px'
+                    }}
+                >
+                    {/* Screen bezel effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-700 via-transparent to-gray-800 pointer-events-none"></div>
+
+                    {/* Main content area */}
+                    <div className="relative bg-black h-full p-8 overflow-y-auto">
+                        {activeTab === 0 && (
+                            <div className="flex flex-col space-y-6">
+                                <div className="text-blue-400 text-xl font-medium mb-4">MY PROJECTS</div>
+
+                                <div className="space-y-4">
+                                    <div className="border border-gray-600 p-4 rounded">
+                                        <h3 className="text-green-400 font-medium mb-2">Web Application</h3>
+                                        <p className="text-gray-300 text-sm">Full-stack application built with React and Node.js</p>
+                                    </div>
+
+                                    <div className="border border-gray-600 p-4 rounded">
+                                        <h3 className="text-green-400 font-medium mb-2">Mobile App</h3>
+                                        <p className="text-gray-300 text-sm">Cross-platform mobile application using React Native</p>
+                                    </div>
+
+                                    <div className="border border-gray-600 p-4 rounded">
+                                        <h3 className="text-green-400 font-medium mb-2">Data Analysis</h3>
+                                        <p className="text-gray-300 text-sm">Machine learning project for predictive analytics</p>
+                                    </div>
+                                </div>
+
+                                <div className="text-center py-4 mt-8">
+                                    <span className="text-yellow-400 text-lg">VIEW MORE PROJECTS →</span>
+                                </div>
+                            </div>
+                        )}
+
+                        {activeTab === 1 && (
+                            <div className="flex flex-col space-y-6">
+                                <div className="text-blue-400 text-xl font-medium mb-4">ABOUT ME</div>
+
+                                <div className="space-y-4 text-gray-300">
+                                    <p>
+                                        I'm a passionate developer with expertise in modern web technologies.
+                                        I love creating elegant solutions to complex problems and building
+                                        applications that make a difference.
+                                    </p>
+
+                                    <div className="text-blue-400 text-lg font-medium mt-6 mb-3">SKILLS</div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div className="text-green-400">• JavaScript/TypeScript</div>
+                                        <div className="text-green-400">• React/Next.js</div>
+                                        <div className="text-green-400">• Node.js/Express</div>
+                                        <div className="text-green-400">• Python/Django</div>
+                                        <div className="text-green-400">• Database Design</div>
+                                        <div className="text-green-400">• Cloud Platforms</div>
+                                    </div>
+
+                                    <div className="text-blue-400 text-lg font-medium mt-6 mb-3">EXPERIENCE</div>
+                                    <p>
+                                        Over 5 years of experience in software development, working with
+                                        startups and established companies to deliver high-quality solutions.
+                                    </p>
+                                </div>
+
+                                <div className="text-center py-4 mt-8">
+                                    <span className="text-yellow-400 text-lg">DOWNLOAD RESUME →</span>
+                                </div>
+                            </div>
+                        )}
                     </div>
+
+                    {/* Screen reflection effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-transparent opacity-5 pointer-events-none"></div>
                 </div>
             </div>
         </main>

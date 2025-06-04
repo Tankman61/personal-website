@@ -51,7 +51,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
             minWidth: width,
             height: `${height}px`,
             border: '2px solid transparent',
-            padding: '2px 24px 2px 8px',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '4px 24px 4px 8px',
+
             color: 'cyan',
             fontSize: `${fontSize}px`,
             cursor: 'pointer',
@@ -66,10 +69,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
         if (open) {
             return {
                 ...baseStyle,
-                background: `
-                    linear-gradient(to right, black calc(100% - 20px), var(--color-airbus-gray) 20px) padding-box,
-                    linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
-                `,
+                backgroundImage: `linear-gradient(to right, black calc(100% - 20px), var(--color-airbus-gray) 20px), linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%)`,
+                backgroundClip: 'padding-box, border-box',
+                color: 'black',
                 border: '2px solid cyan',
             };
         }
@@ -112,7 +114,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         padding: 0,
         border: '2px solid',
         borderImage: 'linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) 1',
-});
+    });
 
     return (
         <div
@@ -134,7 +136,25 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 onMouseLeave={() => setIsHovered(false)}
                 tabIndex={0}
             >
-                {value || placeholder}
+                <span style={{
+                    position: 'relative',
+                    zIndex: 2,
+                    paddingTop: '2px',
+                }}>
+                    {open && (
+                        <span style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            backgroundColor: 'cyan',
+                            width: 'calc(100%)',
+                            height: '95%',
+                            zIndex: -1,
+                        }} />
+                    )}
+                    {value || placeholder}
+                </span>
                 <span
                     style={{
                         position: 'absolute',

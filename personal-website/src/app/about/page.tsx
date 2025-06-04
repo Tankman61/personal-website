@@ -31,7 +31,7 @@ export default function About() {
                                 borderBottom: activeTab === 0 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >
-                            <span className="text-green-400 font-medium text-sm">MCDU LEFT</span>
+                            <span className="text-green-400 font-medium text-sm">HOME</span>
                         </div>
 
                         {/* SVG Border Overlay */}
@@ -78,7 +78,7 @@ export default function About() {
                                 borderBottom: activeTab === 1 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >
-                            <span className="text-green-400 font-medium text-sm">MCDU RIGHT</span>
+                            <span className="text-green-400 font-medium text-sm">MY PORTFOLIO</span>
                         </div>
 
                         {/* SVG Border Overlay */}

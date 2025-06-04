@@ -8,6 +8,7 @@ interface ButtonProps {
     onClick?: () => void;
     children: React.ReactNode;
     className?: string;
+    isActive?: boolean; // Added this prop
 }
 
 const ButtonComponent: React.FC<ButtonProps> = ({
@@ -16,6 +17,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
                                                     onClick,
                                                     children,
                                                     className = "",
+                                                    isActive = false, // Added with default value
                                                     ...props
                                                 }) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -41,6 +43,18 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             height: `${height}px`,
             border: "2px solid transparent",
         };
+
+        // Active state takes precedence
+        if (isActive) {
+            return {
+                ...baseStyle,
+                backgroundColor: "#868995",
+                background: `
+                    linear-gradient(#868995, #868995) padding-box,
+                    linear-gradient(162deg, #292a34 0%, #48495b 50%, #d0d0d2 100%) border-box
+                `,
+            };
+        }
 
         if (isHovered && !isClicked) {
             return {

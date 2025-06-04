@@ -5,10 +5,6 @@
   --foreground: #ededed;
 }
 
-* {
-  color: #ededed !important;
-}
-
 body {
   background: var(--background) !important;
   color: var(--foreground) !important;

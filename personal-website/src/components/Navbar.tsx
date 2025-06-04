@@ -13,7 +13,7 @@ const Navbar = () => {
     return (
         <nav className="navbar flex flex-col items-end p-4 relative">
             {/* Name above buttons, right-aligned */}
-            <div className="text-lg text-blue-400 mb-2 self-end">WILLIAM YANG</div>
+            <div className="text-lg mb-2 self-end">WILLIAM YANG</div>
 
             {/* Dropdown menu (FMS1/FMS 2 - doesn't actually navigate anything yet), left aligned */}
             {/* TODO: make FMS2 as an easter egg that deletes the FMS so users can view the A350 model background */}
@@ -24,7 +24,6 @@ const Navbar = () => {
                     onChange={setDropdownValue}
                     style={{
                         height: 10, // match Button height (py-2 = 8px*2 + text-sm = 14px, total ~32px)
-                        fontSize: 18, // match Button font size (text-sm)
                         minWidth: 0,
                         width: 120, // match Button min width (px-4 = 16px*2 + text)
                         padding: 0,

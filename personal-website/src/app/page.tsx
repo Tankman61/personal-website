@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import SplashScreen from "../components/SplashScreen";
 
 export default function Home() {
+    // TODO: MOVE TO LAYOUT LOL
     const [loading, setLoading] = useState(
         typeof window === "undefined"
             ? false

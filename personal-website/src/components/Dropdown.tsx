@@ -6,7 +6,6 @@ interface DropdownProps {
     options: string[];
     value?: string;
     onChange?: (value: string) => void;
-    disabled?: boolean;
     placeholder?: string;
     style?: React.CSSProperties;
 }
@@ -15,7 +14,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                                       options,
                                                       value,
                                                       onChange,
-                                                      disabled,
                                                       placeholder = 'Select...',
                                                       style,
                                                   }) => {
@@ -37,12 +35,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
     }, [open]);
 
     const handleSelect = (option: string) => {
-        if (disabled) return;
         onChange?.(option);
         setOpen(false);
     };
 
-    // Button style logic matching Button.tsx
     const getButtonStyle = () => {
         const baseStyle = {
             width: '100%',
@@ -51,15 +47,16 @@ export const Dropdown: React.FC<DropdownProps> = ({
             border: '2px solid transparent',
             borderRadius: 2,
             padding: '2px 24px 2px 8px',
-            color: disabled ? '#ababab' : 'white',
+            color: 'cyan',
             fontSize: 15,
-            cursor: disabled ? 'not-allowed' : 'pointer',
+            cursor: 'pointer',
             position: 'relative' as const,
             userSelect: 'none' as const,
             transition: 'background 0.2s, border 0.2s',
             backgroundClip: 'padding-box',
             outline: 'none',
             boxSizing: 'border-box' as const,
+            background: 'linear-gradient(to right, black 50%, var(--color-airbus-gray) 50%)',
         };
 
         // Open (active) state
@@ -68,20 +65,23 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 ...baseStyle,
                 backgroundColor: 'var(--color-airbus-light-gray)',
                 background: `
-                    linear-gradient(var(--color-airbus-light-gray), var(--color-airbus-light-gray)) padding-box,
-                    linear-gradient(162deg, #292a34 0%, #48495b 50%, #d0d0d2 100%) border-box
-                `,
+                linear-gradient(to right, black 85%, var(--color-airbus-gray) 15%) padding-box,
+                linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
+            `,
                 border: '2px solid cyan',
             };
         }
 
         // Hovered state
-        if (isHovered && !disabled) {
+        if (isHovered) {
             return {
                 ...baseStyle,
                 backgroundColor: 'var(--color-airbus-gray)',
                 border: '2px solid cyan',
-                background: 'var(--color-airbus-gray)',
+                background: `
+                linear-gradient(to right, black 85%, var(--color-airbus-gray) 15%) padding-box,
+                linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
+            `,
             };
         }
 
@@ -90,7 +90,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             ...baseStyle,
             backgroundColor: 'var(--color-airbus-gray)',
             background: `
-                linear-gradient(var(--color-airbus-gray), var(--color-airbus-gray)) padding-box,
+                linear-gradient(to right, black 85%, var(--color-airbus-gray) 15%) padding-box,
                 linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
             `,
             border: '2px solid transparent',
@@ -115,8 +115,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
         padding: 0,
         border: '2px solid',
         borderImage: 'linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) 1',
-        background: 'var(--color-airbus-gray)',
-
     });
 
     return (
@@ -131,7 +129,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             }}
         >
             <div
-                onClick={() => !disabled && setOpen((o) => !o)}
+                onClick={() => setOpen((o) => !o)}
                 style={getButtonStyle()}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -150,10 +148,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     }}
                 >
                     {/* Triangle down */}
-                    <svg width="16" height="16" viewBox="0 0 18 18">
+                    <svg width="16" height="16" viewBox="0 0 18 18" style={{ transform: 'translateX(7px)' }}>
                         <polygon
                             points="4,7 14,7 9,13"
-                            fill={disabled ? '#CCCCCC' : 'white'}
+                            fill={open ? 'cyan' : 'white'}
                         />
                     </svg>
                 </span>
@@ -161,7 +159,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
             {open && (
                 <div style={getDropdownMenuStyle()}>
                     {options.map((option) => {
-                        const isSelected = value === option;
                         const isOptionHovered = hoveredOption === option;
                         return (
                             <div
@@ -173,16 +170,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                     height: 28,
                                     boxSizing: 'border-box',
                                     padding: '2px 24px 2px 8px',
-                                    color: disabled
-                                        ? '#ababab'
-                                        : option === 'FMS1'
-                                            ? '#3b82f6'
-                                            : isOptionHovered
-                                                ? 'var(--color-airbus-gray)'
-                                                : 'white',
                                     fontSize: 15,
                                     background: 'transparent',
-                                    cursor: disabled ? 'not-allowed' : 'pointer',
+                                    cursor: 'pointer',
                                     transition: 'background 0.2s, color 0.2s',
                                     borderRadius: 0,
                                     lineHeight: 1.5,

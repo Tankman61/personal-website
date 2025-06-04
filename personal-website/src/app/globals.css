@@ -30,6 +30,11 @@ body {
   .text-airbus-yellow { color: var(--color-airbus-yellow) !important; }
   .text-airbus-magenta { color: var(--color-airbus-magenta) !important; }
   .text-airbus-gray { color: var(--color-airbus-gray) !important; }
+
+  .group-hover\:outline-airbus-blue:hover { outline-color: var(--color-airbus-blue) !important; }
+
+  .outline-airbus-blue { outline-color: var(--color-airbus-blue) !important; }
+
 }
 
 @font-face {

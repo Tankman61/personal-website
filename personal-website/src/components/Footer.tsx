@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from './Button';
 
+// design a message system for the footer
 
 const Footer: React.FC = () => {
     return (

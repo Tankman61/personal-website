@@ -8,7 +8,7 @@ export default function Home() {
     const borderWidth = 2;
 
     return (
-        <main className="min-h-screen bg-black p-8 flex items-center justify-center">
+        <main className="px-8 flex items-start justify-center">
             <div className="w-full" style={{ maxWidth: '612px' }}>
                 {/* Tab Container */}
                 <div className="relative flex w-full">
@@ -16,7 +16,7 @@ export default function Home() {
                     <div
                         className={`relative flex-1 h-8 cursor-pointer ${
                             activeTab === 0 ? 'z-20' : 'z-10'
-                        }`}
+                        } group`}
                         onClick={() => setActiveTab(0)}
                     >
                         {/* Main tab body */}
@@ -28,7 +28,9 @@ export default function Home() {
                                 borderBottom: activeTab === 0 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >
-                            <span className="text-green-400 font-medium text-sm">PROJECTS</span>
+                            <span className="text-sm px-[80px] rounded-none group-hover:outline group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
+                                STATUS
+                            </span>
                         </div>
 
                         {/* SVG Border Overlay */}
@@ -63,7 +65,7 @@ export default function Home() {
                     <div
                         className={`relative flex-1 h-8 cursor-pointer -ml-6 ${
                             activeTab === 1 ? 'z-20' : 'z-10'
-                        }`}
+                        } group`}
                         onClick={() => setActiveTab(1)}
                     >
                         {/* Main tab body */}
@@ -75,7 +77,9 @@ export default function Home() {
                                 borderBottom: activeTab === 1 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >
-                            <span className="text-green-400 font-medium text-sm">ABOUT</span>
+                            <span className="text-sm px-[80px] rounded-none group-hover:outline group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
+                                TL;DR
+                            </span>
                         </div>
 
                         {/* SVG Border Overlay */}
@@ -116,69 +120,120 @@ export default function Home() {
                         height: '600px'
                     }}
                 >
-                    {/* Screen bezel effect */}
+                    {/* Screen bezel effect (TODO: Figure out if this does really anything) */}
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-700 via-transparent to-gray-800 pointer-events-none"></div>
 
-                    {/* Main content area */}
-                    <div className="relative bg-black h-full p-8 overflow-y-auto">
+                    {/* replace the second panel with a  TLDR SECTION*/}
+                    <div className="relative bg-black h-full p-3 overflow-y-auto">
                         {activeTab === 0 && (
-                            <div className="flex flex-col space-y-6">
-                                <div className="text-blue-400 text-xl font-medium mb-4">MY PROJECTS</div>
-
-                                <div className="space-y-4">
-                                    <div className="border border-gray-600 p-4 rounded">
-                                        <h3 className="text-green-400 font-medium mb-2">Web Application</h3>
-                                        <p className="text-gray-300 text-sm">Full-stack application built with React and Node.js</p>
-                                    </div>
-
-                                    <div className="border border-gray-600 p-4 rounded">
-                                        <h3 className="text-green-400 font-medium mb-2">Mobile App</h3>
-                                        <p className="text-gray-300 text-sm">Cross-platform mobile application using React Native</p>
-                                    </div>
-
-                                    <div className="border border-gray-600 p-4 rounded">
-                                        <h3 className="text-green-400 font-medium mb-2">Data Analysis</h3>
-                                        <p className="text-gray-300 text-sm">Machine learning project for predictive analytics</p>
+                            <div className="flex flex-col h-full space-y-6">
+                                <div className="text-airbus-green text-[17px] font-medium mb-4 mx-auto">WILLIAM YANG / SOFTWARE DEVELOPER</div>
+                                {/* Status Row - Boxed */}
+                                <div className="mb-6">
+                                    <div className="border border-white p-3 inline-block">
+                                        <div className="flex space-x-8 items-center">
+                                            <div className="flex items-center">
+                                                <span className="text-white mr-2 text-[17px]">IDLE</span>
+                                                <span className="text-green-400 font-bold text-[17px]">+0.0</span>
+                                            </div>
+                                            <div className="flex items-center">
+                                                <span className="text-white mr-2 text-[17px]">PERF</span>
+                                                <span className="text-green-400 font-bold text-[17px]">+0.0</span>
+                                            </div>
+                                            <button className="bg-gray-600 hover:bg-gray-500 px-4 py-1 text-white text-[17px] border border-gray-400">
+                                                MODIFY
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="text-center py-4 mt-8">
-                                    <span className="text-yellow-400 text-lg">VIEW MORE PROJECTS →</span>
+                                {/* Fuel Penalty */}
+                                <div className="mb-6">
+                                    <div className="inline-block border border-white">
+                                        <div className="flex items-center px-3 py-2">
+                                            <span className="text-white mr-2 text-[17px]">FUEL PENALTY</span>
+                                            <span className="text-cyan-400 font-bold text-[17px]">+000.0 %</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Separator Line */}
+                                <div className="border-t border-white mb-6"></div>
+
+                                {/* Nav Database */}
+                                <div className="flex items-center mb-8">
+                                    <span className="text-white mr-4 text-[17px]">NAV DATABASE</span>
+                                    <span className="text-green-400 font-bold text-lg text-[17px]">SJ6192002</span>
+                                </div>
+
+                                {/* Active/Second Row */}
+                                <div className="flex justify-between items-start mb-8">
+                                    <div className="text-center">
+                                        <div className="border border-white">
+                                            <div className="bg-black text-white px-6 py-2 text-[17px]">
+                                                ACTIVE
+                                            </div>
+                                            <div className="text-green-400 font-bold text-lg px-6 py-2 text-[17px]">
+                                                23MAR-19APR
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="mx-8">
+                                        <button className="bg-gray-600 hover:bg-gray-500 px-6 py-2 text-white text-[17px] border border-gray-400 flex items-center">
+                                            SWAP <span className="ml-2">*</span>
+                                        </button>
+                                    </div>
+
+                                    <div className="text-center">
+                                        <div className="text-white text-[17px] mb-2">
+                                            SECOND
+                                        </div>
+                                        <div className="text-green-400 font-bold text-lg text-[17px]">
+                                            23MAR-19APR
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Separator Line */}
+                                <div className="border-t border-white mb-4"></div>
+
+                                {/* Pilot Stored Elements */}
+                                <div>
+                                    <div className="text-white text-[17px] mb-4 font-bold">
+                                        PILOT STORED ELEMENTS
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-x-8 gap-y-3 mb-4">
+                                        <div className="flex justify-between">
+                                            <span className="text-white text-[17px]">WAYPOINTS</span>
+                                            <span className="text-green-400 font-bold text-[17px]">00</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-white text-[17px]">ROUTES</span>
+                                            <span className="text-green-400 font-bold text-[17px]">00</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-white text-[17px]">NAVAIDS</span>
+                                            <span className="text-green-400 font-bold text-[17px]">00</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-white text-[17px]">RUNWAYS</span>
+                                            <span className="text-green-400 font-bold text-[17px]">00</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-end">
+                                        <button className="bg-gray-600 hover:bg-gray-500 px-4 py-1 text-white text-[17px] border border-gray-400 flex items-center">
+                                            DELETE ALL <span className="ml-2">*</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         )}
 
                         {activeTab === 1 && (
                             <div className="flex flex-col space-y-6">
-                                <div className="text-blue-400 text-xl font-medium mb-4">ABOUT ME</div>
-
-                                <div className="space-y-4 text-gray-300">
-                                    <p>
-                                        I'm a passionate developer with expertise in modern web technologies.
-                                        I love creating elegant solutions to complex problems and building
-                                        applications that make a difference.
-                                    </p>
-
-                                    <div className="text-blue-400 text-lg font-medium mt-6 mb-3">SKILLS</div>
-                                    <div className="grid grid-cols-2 gap-3">
-                                        <div className="text-green-400">• JavaScript/TypeScript</div>
-                                        <div className="text-green-400">• React/Next.js</div>
-                                        <div className="text-green-400">• Node.js/Express</div>
-                                        <div className="text-green-400">• Python/Django</div>
-                                        <div className="text-green-400">• Database Design</div>
-                                        <div className="text-green-400">• Cloud Platforms</div>
-                                    </div>
-
-                                    <div className="text-blue-400 text-lg font-medium mt-6 mb-3">EXPERIENCE</div>
-                                    <p>
-                                        Over 5 years of experience in software development, working with
-                                        startups and established companies to deliver high-quality solutions.
-                                    </p>
-                                </div>
-
-                                <div className="text-center py-4 mt-8">
-                                    <span className="text-yellow-400 text-lg">DOWNLOAD RESUME →</span>
-                                </div>
                             </div>
                         )}
                     </div>

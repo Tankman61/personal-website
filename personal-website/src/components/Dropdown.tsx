@@ -8,6 +8,9 @@ interface DropdownProps {
     onChange?: (value: string) => void;
     placeholder?: string;
     style?: React.CSSProperties;
+    height?: number;
+    width?: number;
+    fontSize?: number;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -16,6 +19,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                                       onChange,
                                                       placeholder = 'Select...',
                                                       style,
+                                                      height = 28,
+                                                      width = 120,
+                                                      fontSize = 15,
                                                   }) => {
     const [open, setOpen] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
@@ -42,68 +48,59 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const getButtonStyle = () => {
         const baseStyle = {
             width: '100%',
-            minWidth: 60,
-            height: 28,
+            minWidth: width,
+            height: `${height}px`,
             border: '2px solid transparent',
-            borderRadius: 2,
             padding: '2px 24px 2px 8px',
             color: 'cyan',
-            fontSize: 15,
+            fontSize: `${fontSize}px`,
             cursor: 'pointer',
             position: 'relative' as const,
             userSelect: 'none' as const,
-            transition: 'background 0.2s, border 0.2s',
             backgroundClip: 'padding-box',
             outline: 'none',
             boxSizing: 'border-box' as const,
-            background: 'linear-gradient(to right, black 50%, var(--color-airbus-gray) 50%)',
         };
 
-        // Open (active) state
+        // Use only background, not backgroundColor, to avoid conflicts
         if (open) {
             return {
                 ...baseStyle,
-                backgroundColor: 'var(--color-airbus-light-gray)',
                 background: `
-                linear-gradient(to right, black 85%, var(--color-airbus-gray) 15%) padding-box,
-                linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
-            `,
+                    linear-gradient(to right, black calc(100% - 20px), var(--color-airbus-gray) 20px) padding-box,
+                    linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
+                `,
                 border: '2px solid cyan',
             };
         }
 
-        // Hovered state
         if (isHovered) {
             return {
                 ...baseStyle,
-                backgroundColor: 'var(--color-airbus-gray)',
                 border: '2px solid cyan',
                 background: `
-                linear-gradient(to right, black 85%, var(--color-airbus-gray) 15%) padding-box,
-                linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
-            `,
+                    linear-gradient(to right, black calc(100% - 20px), var(--color-airbus-gray) 20px) padding-box,
+                    linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
+                `,
             };
         }
 
-        // Default state
         return {
             ...baseStyle,
-            backgroundColor: 'var(--color-airbus-gray)',
             background: `
-                linear-gradient(to right, black 85%, var(--color-airbus-gray) 15%) padding-box,
+                linear-gradient(to right, black calc(100% - 20px), var(--color-airbus-gray) 20px) padding-box,
                 linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
             `,
             border: '2px solid transparent',
         };
     };
 
-    // Dropdown menu border gradient style (external border only)
     const getDropdownMenuStyle = () => ({
         position: 'absolute' as const,
-        top: 30,
+        top: height + 2,
         left: 0,
         width: '100%',
-        minWidth: 60,
+        minWidth: width,
         background: 'var(--color-airbus-gray)',
         borderRadius: 2,
         marginTop: 0,
@@ -115,15 +112,17 @@ export const Dropdown: React.FC<DropdownProps> = ({
         padding: 0,
         border: '2px solid',
         borderImage: 'linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) 1',
-    });
+});
 
     return (
         <div
             ref={ref}
             style={{
                 position: 'relative',
-                width: 120,
-                minWidth: 60,
+                width: width,
+                minWidth: width,
+                height: `${height}px`,
+                fontSize: `${fontSize}px`,
                 userSelect: 'none',
                 ...style,
             }}
@@ -147,8 +146,20 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         alignItems: 'center',
                     }}
                 >
-                    {/* Triangle down */}
-                    <svg width="16" height="16" viewBox="0 0 18 18" style={{ transform: 'translateX(7px)' }}>
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 18 18"
+                        style={{
+                            position: 'absolute',
+                            left: 'calc(100% - 2px)',
+                            top: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            pointerEvents: 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                    >
                         <polygon
                             points="4,7 14,7 9,13"
                             fill={open ? 'cyan' : 'white'}
@@ -165,15 +176,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                 key={option}
                                 onClick={() => handleSelect(option)}
                                 style={{
-                                    width: '100%',
-                                    minWidth: 60,
-                                    height: 28,
+                                    height: `${height}px`,
                                     boxSizing: 'border-box',
                                     padding: '2px 24px 2px 8px',
-                                    fontSize: 15,
+                                    fontSize: `${fontSize}px`,
                                     background: 'transparent',
                                     cursor: 'pointer',
-                                    transition: 'background 0.2s, color 0.2s',
                                     borderRadius: 0,
                                     lineHeight: 1.5,
                                     outline: 'none',
@@ -184,7 +192,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                     backgroundOrigin: undefined,
                                     backgroundClip: undefined,
                                 }}
-                                onMouseDown={e => e.preventDefault()}
+                                onMouseDown={(e) => e.preventDefault()}
                                 onMouseEnter={() => setHoveredOption(option)}
                                 onMouseLeave={() => setHoveredOption(null)}
                             >
@@ -197,4 +205,5 @@ export const Dropdown: React.FC<DropdownProps> = ({
         </div>
     );
 };
+
 export default Dropdown;

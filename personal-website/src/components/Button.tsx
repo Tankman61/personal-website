@@ -5,6 +5,7 @@ import React, { useState, memo } from "react";
 interface ButtonProps {
     width?: number;
     height?: number;
+    fontSize?: number;
     onClick?: () => void;
     children: React.ReactNode;
     className?: string;
@@ -14,6 +15,7 @@ interface ButtonProps {
 const ButtonComponent: React.FC<ButtonProps> = ({
                                                     width = 120,
                                                     height = 40,
+                                                    fontSize = 16,
                                                     onClick,
                                                     children,
                                                     className = "",
@@ -41,8 +43,8 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         const baseStyle = {
             width: `${width}px`,
             height: `${height}px`,
+            fontSize: `${fontSize}px`,
             border: "2px solid transparent",
-            transition: 'background 0.2s, border 0.2s',
         };
 
         // Active state takes precedence
@@ -92,7 +94,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         <button
             className={`
                 relative rounded-xs font-medium text-center cursor-pointer
-                transition-all duration-100 select-none flex items-center justify-center
+                select-none flex items-center justify-center
                 ${className}
             `}
             style={getButtonStyle()}
@@ -102,11 +104,12 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             onMouseLeave={handleMouseLeave}
             {...props}
         >
-            <span className="text-lg text-white">
+            <span style={{ fontSize: `${fontSize}px`, color: "white" }}>
                 {children}
             </span>
         </button>
     );
 };
 
+// figure out why we memoize this bruh
 export const Button = memo(ButtonComponent);

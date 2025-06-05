@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from 'react';
+import  { Button } from '@/components/Button';
 
 export default function Home() {
     const [activeTab, setActiveTab] = useState(0);
-
+    // TODO: FIX COLORS FOR LIGHT GRAY LINES AND BOLDING + text should be end not start for Waypoints, Routes, Navaids, Runways
     // Easy to change border width here!
     const borderWidth = 2;
 
@@ -127,76 +128,78 @@ export default function Home() {
                     <div className="relative bg-black h-full p-3 overflow-y-auto">
                         {activeTab === 0 && (
                             <div className="flex flex-col h-full space-y-6">
-                                <div className="text-airbus-green text-[17px] font-medium mb-4 mx-auto">WILLIAM YANG / SOFTWARE DEVELOPER</div>
+                                <div className="text-airbus-green text-[17px] font-medium mb-4 mx-auto">
+                                    WILLIAM YANG / SOFTWARE DEVELOPER
+                                </div>
                                 {/* Status Row - Boxed */}
                                 <div className="mb-6">
-                                    <div className="border border-white p-3 inline-block">
+                                    <div className="border p-3 inline-block" style={{ borderColor: 'var(--color-airbus-light-gray)' }}>
                                         <div className="flex space-x-8 items-center">
                                             <div className="flex items-center">
                                                 <span className="text-white mr-2 text-[17px]">IDLE</span>
-                                                <span className="text-green-400 font-bold text-[17px]">+0.0</span>
+                                                <span className="text-airbus-green font-bold text-[17px]">+0.0</span>
                                             </div>
                                             <div className="flex items-center">
                                                 <span className="text-white mr-2 text-[17px]">PERF</span>
-                                                <span className="text-green-400 font-bold text-[17px]">+0.0</span>
+                                                <span className="text-airbus-green font-bold text-[17px]">+0.0</span>
                                             </div>
-                                            <button className="bg-gray-600 hover:bg-gray-500 px-4 py-1 text-white text-[17px] border border-gray-400">
+                                            <Button height={40} width={100} fontSize={17}>
                                                 MODIFY
-                                            </button>
+                                            </Button>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Fuel Penalty */}
                                 <div className="mb-6">
-                                    <div className="inline-block border border-white">
+                                    <div className="inline-block border" style={{ borderColor: 'var(--color-airbus-light-gray)' }}>
                                         <div className="flex items-center px-3 py-2">
                                             <span className="text-white mr-2 text-[17px]">FUEL PENALTY</span>
-                                            <span className="text-cyan-400 font-bold text-[17px]">+000.0 %</span>
+                                            <span className="text-airbus-blue font-bold text-[17px]">+000.0 %</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Separator Line */}
-                                <div className="border-t border-white mb-6"></div>
+                                <div className="mb-6" style={{ borderTop: '1px solid var(--color-airbus-light-gray)' }}></div>
 
                                 {/* Nav Database */}
                                 <div className="flex items-center mb-8">
                                     <span className="text-white mr-4 text-[17px]">NAV DATABASE</span>
-                                    <span className="text-green-400 font-bold text-lg text-[17px]">SJ6192002</span>
+                                    <span className="text-airbus-green font-bold text-lg text-[17px]">SJ6192002</span>
                                 </div>
 
                                 {/* Active/Second Row */}
                                 <div className="flex justify-between items-start mb-8">
                                     <div className="text-center">
-                                        <div className="border border-white">
+                                        <div className="border" style={{ borderColor: 'var(--color-airbus-light-gray)' }}>
                                             <div className="bg-black text-white px-6 py-2 text-[17px]">
                                                 ACTIVE
                                             </div>
-                                            <div className="text-green-400 font-bold text-lg px-6 py-2 text-[17px]">
+                                            <div className="text-airbus-green font-bold text-lg px-6 py-2 text-[17px]">
                                                 23MAR-19APR
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="mx-8">
-                                        <button className="bg-gray-600 hover:bg-gray-500 px-6 py-2 text-white text-[17px] border border-gray-400 flex items-center">
+                                        <Button height={40} width={120} fontSize={17}>
                                             SWAP <span className="ml-2">*</span>
-                                        </button>
+                                        </Button>
                                     </div>
 
                                     <div className="text-center">
                                         <div className="text-white text-[17px] mb-2">
                                             SECOND
                                         </div>
-                                        <div className="text-green-400 font-bold text-lg text-[17px]">
+                                        <div className="text-airbus-green font-bold text-lg text-[17px]">
                                             23MAR-19APR
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Separator Line */}
-                                <div className="border-t border-white mb-4"></div>
+                                <div className="mb-4" style={{ borderTop: '1px solid var(--color-airbus-light-gray)' }}></div>
 
                                 {/* Pilot Stored Elements */}
                                 <div>
@@ -207,26 +210,20 @@ export default function Home() {
                                     <div className="grid grid-cols-2 gap-x-8 gap-y-3 mb-4">
                                         <div className="flex justify-between">
                                             <span className="text-white text-[17px]">WAYPOINTS</span>
-                                            <span className="text-green-400 font-bold text-[17px]">00</span>
+                                            <span className="text-airbus-green font-bold text-[17px]">00</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-white text-[17px]">ROUTES</span>
-                                            <span className="text-green-400 font-bold text-[17px]">00</span>
+                                            <span className="text-airbus-green font-bold text-[17px]">00</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-white text-[17px]">NAVAIDS</span>
-                                            <span className="text-green-400 font-bold text-[17px]">00</span>
+                                            <span className="text-airbus-green font-bold text-[17px]">00</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-white text-[17px]">RUNWAYS</span>
-                                            <span className="text-green-400 font-bold text-[17px]">00</span>
+                                            <span className="text-airbus-green font-bold text-[17px]">00</span>
                                         </div>
-                                    </div>
-
-                                    <div className="flex justify-end">
-                                        <button className="bg-gray-600 hover:bg-gray-500 px-4 py-1 text-white text-[17px] border border-gray-400 flex items-center">
-                                            DELETE ALL <span className="ml-2">*</span>
-                                        </button>
                                     </div>
                                 </div>
                             </div>

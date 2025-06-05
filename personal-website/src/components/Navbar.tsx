@@ -6,9 +6,9 @@ import { Dropdown } from "./Dropdown";
 
 const Navbar = () => {
     const [currentPage, setCurrentPage] = useState("HOME");
-    const [dropdownValue, setDropdownValue] = useState("FMS1");
-    const dropdownOptions = ["FMS1", "FMS2"];
-    const pages = ["HOME", "ABOUT", "PROJECTS", "CONTACT"];
+    const [dropdownValue, setDropdownValue] = useState("PORTFOLIO");
+    const dropdownOptions = ["PORTFOLIO", "BLOG", "ECAM"];
+    const pages = ["HOME", "PROJECTS", "RESUME", "CONTACT"];
 
     return (
         <nav className="navbar flex flex-col items-center p-4 relative">

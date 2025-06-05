@@ -155,8 +155,8 @@ export default function Home() {
                                 <div className="mb-1">
                                     <div className="inline-block border" style={{ borderColor: '#454647' }}>
                                         <div className="flex items-center px-3 py-2">
-                                            <span className="text-white mr-2 text-[17px]">UWATERLOO</span>
-                                            <span className="text-airbus-blue text-[17px]">SOFTWARE ENGINERERING</span>
+                                            <span className="text-white mr-2 text-[17px]">EDUCATION:</span>
+                                            <span className="text-airbus-blue text-[17px]">UWATERLOO SOFTWARE ENGINEERING</span>
                                         </div>
                                     </div>
                                 </div>
@@ -212,12 +212,12 @@ export default function Home() {
                                             <span className="text-airbus-green text-[17px]">00</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-white text-[17px]">NAVAIDS</span>
-                                            <span className="text-airbus-green text-[17px]">00</span>
+                                            <span className="text-white text-[17px]">LANGUAGES</span>
+                                            <span className="text-airbus-green text-[17px]">04</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-white text-[17px]">RUNWAYS</span>
-                                            <span className="text-airbus-green text-[17px]">00</span>
+                                            <span className="text-white text-[17px]">AGE</span>
+                                            <span className="text-airbus-green text-[17px]">17</span>
                                         </div>
                                     </div>
                                 </div>

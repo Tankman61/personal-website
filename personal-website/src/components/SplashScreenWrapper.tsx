@@ -1,27 +1,29 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SplashScreen from "./SplashScreen";
 import ExternalPower from "./ExternalPower";
 
 export function SplashScreenWrapper({ children }: { children: React.ReactNode }) {
-    const [initialized, setInitialized] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showButton, setShowButton] = useState(true);
     const [powerState, setPowerState] = useState<'AVAIL' | 'AUTO'>('AVAIL');
+    const [spamCount, setSpamCount] = useState(0);
+    const [alert, setAlert] = useState<'none' | 'caution' | 'warning'>('none');
 
+    const alertAudioRef = useRef<HTMLAudioElement | null>(null);
+
+    // Load splash state
     useEffect(() => {
         const hasSeen = localStorage.getItem("hasSeenSplash");
         if (hasSeen) {
             setShowButton(false);
         }
-        setInitialized(true);
     }, []);
 
-    // Startup sequence when powerState transitions to 'AUTO'
-    // Startup sequence: powerState must remain 'AUTO' for the full 1s before starting
+    // Startup sequence
     useEffect(() => {
-        if (powerState === 'AUTO') {
+        if (powerState === 'AUTO' && spamCount < 7) {
             let cancelled = false;
             const timer = setTimeout(() => {
                 if (!cancelled && powerState === 'AUTO') {
@@ -41,13 +43,38 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
                 clearTimeout(timer);
             };
         }
-    }, [powerState]);
+    }, [powerState, spamCount]);
 
-    if (!initialized) {
-        return (
-            <main style={{ backgroundColor: 'black', minHeight: '100vh' }}></main>
-        );
-    }
+    // Play looped alert sound if spam gets too high
+    useEffect(() => {
+        if (alert === 'warning') {
+            if (!alertAudioRef.current) {
+                const audio = new Audio('/assets/masterwarning.mp3');
+                audio.play();
+            }
+        } else {
+            if (alertAudioRef.current) {
+                alertAudioRef.current.pause();
+                alertAudioRef.current.currentTime = 0;
+                alertAudioRef.current = null;
+            }
+        }
+    }, [alert]);
+
+    const handlePowerStateChange = (state: 'AVAIL' | 'AUTO') => {
+        if (state === 'AUTO') {
+            setSpamCount(prev => {
+                const newCount = prev + 1;
+                if (newCount === 3) {
+                    setAlert('caution');
+                } else if (newCount >= 7) {
+                    setAlert('warning');
+                }
+                return newCount;
+            });
+        }
+        setPowerState(state);
+    };
 
     if (loading) {
         return (
@@ -60,7 +87,23 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
     if (showButton) {
         return (
             <main className="flex items-center justify-center min-h-screen force-default-cursor" style={{ backgroundColor: 'black' }}>
-                <ExternalPower powerState={powerState} setPowerState={setPowerState} />
+                <div className="absolute top-10 text-white bg-black p-2 rounded shadow-md">
+                    EXTERNAL POWER IS AVAILABLE: POWER ON THE PORTFOLIO
+                </div>
+                {alert === 'caution' && (
+                    <div className="absolute bottom-10 text-orange-500 bg-black p-2 rounded shadow-md">
+                        STOP SPAMMING THE BUTTON
+                    </div>
+                )}
+                {alert === 'warning' && (
+                    <div className="absolute bottom-10 text-red-500 bg-black p-2 rounded shadow-md animate-pulse">
+                        BRUH.
+                    </div>
+                )}
+                <ExternalPower
+                    powerState={powerState}
+                    setPowerState={handlePowerStateChange}
+                />
             </main>
         );
     }

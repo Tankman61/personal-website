@@ -44,6 +44,14 @@ body {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'AFSCP';
+  src: url('/fonts/AFSCP-Font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 .force-default-cursor,
 .force-default-cursor * {
   cursor: auto !important;

@@ -72,7 +72,7 @@ export default function ExternalPower({ powerState, setPowerState }: ExternalPow
                 </div>
 
                 {/* White border frame - separate from button */}
-                <div className="border-2 border-white p-1" style={{ borderRadius: '6px' }}>
+                <div className="border-2 border-white p-0.5" style={{ borderRadius: '8px' }}>
                     {/* Outer button frame */}
                     <div
                         className="w-20 h-20 p-1 relative cursor-pointer transition-all duration-150 active:scale-95"
@@ -163,7 +163,7 @@ export default function ExternalPower({ powerState, setPowerState }: ExternalPow
                                                     ? 'inset 0.5px 0.5px 2px rgba(40,186,253,0.3), 0 0 6px rgba(40,186,253,0.4)'
                                                     : 'inset 0.5px 0.5px 1px rgba(96,96,96,0.4)',
                                                 textShadow: isAuto ? '0 0 6px rgba(40,186,253,0.8)' : 'none',
-                                                borderRadius: '6px'
+                                                borderRadius: '1px'
                                             }}
                                         >
                                             AUTO

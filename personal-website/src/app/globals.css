@@ -44,6 +44,11 @@ body {
   font-style: normal;
 }
 
+.force-default-cursor,
+.force-default-cursor * {
+  cursor: auto !important;
+}
+
 html {
   font-family: 'MFDFont', sans-serif !important;
 }

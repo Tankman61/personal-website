@@ -182,7 +182,7 @@ export default function Home() {
                                             </div>
                                         </div>
                                     </div>
-
+                                    {/* TODO: BOMBOCLAT FIX THE CENTERING ON THIS BEACUSE IT AINT LOOKING GOOD*/}
                                     <div className="text-center">
                                         <div className="text-white text-[16px] mb-2">
                                             SECOND

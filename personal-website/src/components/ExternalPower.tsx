@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 interface ExternalPowerProps {
     powerState: 'AVAIL' | 'AUTO';
@@ -8,14 +8,28 @@ interface ExternalPowerProps {
 export default function ExternalPower({ powerState, setPowerState }: ExternalPowerProps) {
     const isAuto = powerState === 'AUTO';
 
+    // Audio refs
+    const buttonPressRef = useRef<HTMLAudioElement | null>(null);
+    const buttonPress2Ref = useRef<HTMLAudioElement | null>(null);
+
     const handleButtonClick = () => {
         if (!isAuto) {
+            buttonPressRef.current?.currentTime && (buttonPressRef.current.currentTime = 0);
+            buttonPressRef.current?.play();
             setPowerState('AUTO');
+        } else {
+            buttonPress2Ref.current?.currentTime && (buttonPress2Ref.current.currentTime = 0);
+            buttonPress2Ref.current?.play();
+            setPowerState('AVAIL');
         }
     };
 
     return (
         <div className="flex flex-col items-center p-8 relative">
+            {/* Audio elements */}
+            <audio ref={buttonPressRef} src="/assets/buttonpress.mp3" preload="auto" />
+            <audio ref={buttonPress2Ref} src="/assets/buttonpress2.mp3" preload="auto" />
+
             {/* Button Container - blue panel with 3D effect */}
             <div className="px-8 py-6 rounded-xl relative" style={{
                 backgroundColor: '#5a6370',

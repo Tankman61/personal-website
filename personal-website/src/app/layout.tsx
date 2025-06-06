@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import CursorOverlayClient from "@/components/CursorOverlayClient";
 import Navbar from "@/components/Navbar";
-import SplashScreenWrapper from "@/components/SplashScreenWrapper";
+import {SplashScreenWrapper} from "@/components/SplashScreenWrapper";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {

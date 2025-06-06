@@ -5,7 +5,7 @@ import  { Button } from '@/components/Button';
 export default function Home() {
     const [activeTab, setActiveTab] = useState(0);
     // TODO: FIX COLORS FOR LIGHT GRAY LINES AND BOLDING + text should be end not start for Waypoints, Routes, Navaids, Runways
-    // Easy to change border width here!
+    // MAKE THE BORDERS MORE ROUNDED!!!
     const borderWidth = 2;
 
     return (

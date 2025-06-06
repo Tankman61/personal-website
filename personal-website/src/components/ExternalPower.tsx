@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import React from "react";
 
-export default function ExternalPower() {
-    const [isAuto, setIsAuto] = useState(false);
+interface ExternalPowerProps {
+    powerState: 'AVAIL' | 'AUTO';
+    setPowerState: (state: 'AVAIL' | 'AUTO') => void;
+}
+
+export default function ExternalPower({ powerState, setPowerState }: ExternalPowerProps) {
+    const isAuto = powerState === 'AUTO';
 
     const handleButtonClick = () => {
-        setIsAuto(!isAuto);
+        if (!isAuto) {
+            setPowerState('AUTO');
+        }
     };
 
     return (
-        <div className="flex flex-col items-center p-8 bg-white relative">
+        <div className="flex flex-col items-center p-8 relative">
             {/* Button Container - blue panel with 3D effect */}
             <div className="px-8 py-6 rounded-xl relative" style={{
                 backgroundColor: '#5a6370',
@@ -107,8 +114,8 @@ export default function ExternalPower() {
                                                 textShadow: isAuto ? 'none' : '0 0 6px rgba(142,239,23,0.8)'
                                             }}
                                         >
-                      AVAIL
-                    </span>
+                                            AVAIL
+                                        </span>
                                     </div>
 
                                     {/* AUTO section */}

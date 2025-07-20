@@ -1,3 +1,6 @@
+// TODO: MAKE PRINTER GENERATE CUSTOM FRONT PAGE FOR RESUME PDF AS ITS COOL
+
+
 import React, { useState } from "react";
 
 export default function AirbusPrinter() {
@@ -122,7 +125,9 @@ export default function AirbusPrinter() {
                             zIndex: 20
                         }}
                     >
-                        <div
+                        <div onClick={() => {
+                            window.open('/assets/resume.pdf', '_blank');
+                        }}
                             className="w-full h-full transition-transform duration-[2000ms] ease-linear"
                             style={{
                                 backgroundColor: '#fcfcfc',

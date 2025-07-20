@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "./Button";
 import { Dropdown } from "./Dropdown";
 
 const Navbar = () => {
+    const router = useRouter();
     const [currentPage, setCurrentPage] = useState("HOME");
     const [dropdownValue, setDropdownValue] = useState("PORTFOLIO");
     const dropdownOptions = ["PORTFOLIO", "BLOG", "ECAM"];
@@ -33,7 +35,10 @@ const Navbar = () => {
                     {pages.map((page) => (
                         <li key={page}>
                             <Button
-                                onClick={() => setCurrentPage(page)}
+                                onClick={() => {
+                                    setCurrentPage(page);
+                                    router.push(page === "HOME" ? "/" : `/${page.toLowerCase()}`);
+                                }}
                                 height={45}
                                 width={150}
                                 fontSize={17}

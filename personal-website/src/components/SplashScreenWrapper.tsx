@@ -91,13 +91,13 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
                     EXTERNAL POWER IS AVAILABLE: POWER ON THE PORTFOLIO
                 </div>
                 {alert === 'caution' && (
-                    <div className="absolute bottom-10 text-orange-500 bg-black p-2 rounded shadow-md">
-                        STOP SPAMMING THE BUTTON
+                    <div className="absolute bottom-10 text-amber-500 bg-black p-2 rounded shadow-md">
+                        WAIT A SECOND INSTEAD OF SPAMMING THE BUTTON
                     </div>
                 )}
                 {alert === 'warning' && (
-                    <div className="absolute bottom-10 text-red-500 bg-black p-2 rounded shadow-md animate-pulse">
-                        BRUH.
+                    <div className="absolute bottom-10 text-red-600 bg-black p-2 rounded shadow-md">
+                        BRUH :( (REFRESH PAGE TO RESET)
                     </div>
                 )}
                 <ExternalPower

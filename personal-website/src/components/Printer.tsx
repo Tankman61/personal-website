@@ -115,13 +115,10 @@ export default function AirbusPrinter() {
                 {/* Paper container */}
                 {paperVisible && (
                     <div
-                        className="absolute overflow-hidden"
+                        className="absolute top-[-160px] left-1/2 -translate-x-1/2 overflow-hidden transition-transform duration-75 ease-linear hover:scale-101 origin-bottom"
                         style={{
-                            top: '-50px',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
                             width: '600px',
-                            height: '400px',
+                            height: '250px',
                             zIndex: 20
                         }}
                     >
@@ -135,37 +132,29 @@ export default function AirbusPrinter() {
                                 transform: printing ? 'translateY(0%)' : 'translateY(100%)'
                             }}
                         >
-                            // FIXME: MAKE THIS SOUND REAL AND NOT CHATGPTED LOLOL
-                            <div className="px-4 pt-3 pb-3 text-xs font-mono text-gray-900 leading-relaxed">
+                            <div className="px-4 pt-3 text-xs font-mono text-gray-900 leading-relaxed">
                                 <div className="text-right text-xs mb-3 space-y-0">
                                     <div>DATE : {new Date().toLocaleDateString('en-GB').replace(/\//g, ' ')}</div>
-                                    <div>TIME : {new Date().toLocaleTimeString('en-GB', { hour12: false }).slice(0, 5)}</div>
+                                    <div>TIME : {new Date().toLocaleTimeString('en-GB', { hour12: false }).slice(0, 5)}Z</div>
                                 </div>
 
-                                <div className="border-b border-gray-400 mb-3 pb-2">
-                                    <div className="font-bold">AOC RESUME INIT UPLINK</div>
+                                <div className="mb-3 tracking-wide space-y-0.5">
+                                    <div>ATSU C-GXWB WILLIAM YANG</div>
+                                    <div>COCKPIT PRINTER MESSAGE - RESUME UPLINK</div>
                                 </div>
 
-                                <div className="space-y-2">
-                                    <div>AIRAC CYCLE : 2507</div>
+                                <div className="space-y-0.5">
+                                    <div>** REQUEST **</div>
                                     <div>ICAO : CYYZ</div>
-                                    <div>REQUEST : RESUME / IDENT / CREW DATA</div>
-                                </div>
-
-                                <div className="border-b border-gray-300 mt-4 mb-2" />
-
-                                <div className="space-y-2">
-                                    <div>FLT ID : W.YANG</div>
-                                    <div>DEP/ARR : YYZ / SFO</div>
-                                    <div>ROLE : SOFTWARE ENGINEER</div>
-                                    <div>STATUS : U/WATERLOO SE CANDIDATE</div>
-                                    <div>OPS : WEBASM / SYSTEMS / FMS UI</div>
+                                    <div>TO : W.YANG</div>
+                                    <div>REQ : RESUME / IDENT / CREW INFO</div>
                                 </div>
 
                                 <div className="mt-4 pt-2 border-t-2 border-dotted border-gray-400">
-                                    <div className="text-center text-xs">RESUME ATTACHED: CLICK TO VIEW</div>
+                                    <div className="text-center text-xs">RESUME FILE ATTACHED</div>
                                 </div>
                             </div>
+
 
                         </div>
                     </div>

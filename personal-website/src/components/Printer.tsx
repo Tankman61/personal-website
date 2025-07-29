@@ -135,7 +135,7 @@ export default function AirbusPrinter() {
                             <div className="px-4 pt-3 text-xs font-mono text-gray-900 leading-relaxed">
                                 <div className="text-right text-xs mb-3 space-y-0">
                                     <div>DATE : {new Date().toLocaleDateString('en-GB').replace(/\//g, ' ')}</div>
-                                    <div>TIME : {new Date().toLocaleTimeString('en-GB', { hour12: false }).slice(0, 5)}Z</div>
+                                    <div>TIME : {new Date().toLocaleTimeString('en-GB', { hour12: false })}</div>
                                 </div>
 
                                 <div className="mb-3 tracking-wide space-y-0.5">
@@ -151,7 +151,7 @@ export default function AirbusPrinter() {
                                 </div>
 
                                 <div className="mt-4 pt-2 border-t-2 border-dotted border-gray-400">
-                                    <div className="text-center text-xs">RESUME FILE ATTACHED</div>
+                                    <div className="text-center text-xs">RESUME ATTACHED: CLICK TO VIEW</div>
                                 </div>
                             </div>
 

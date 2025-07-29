@@ -21,6 +21,7 @@ export default function Home() {
                         onClick={() => setActiveTab(0)}
                     >
                         {/* Main tab body */}
+                        {/* FIXME: Color of background does not match the one in the tab body */}
                         <div
                             className="relative h-full flex items-center justify-center"
                             style={{
@@ -43,16 +44,7 @@ export default function Home() {
                             preserveAspectRatio="none"
                         >
                             <path
-                                d="M 11 0 L 189 0 L 200 32"
-                                fill="none"
-                                stroke="white"
-                                strokeWidth={borderWidth}
-                                strokeLinejoin="miter"
-                                vectorEffect="non-scaling-stroke"
-                            />
-
-                            <path
-                                d="M 0.3 33 L 11 0"
+                                d="M 0.3 33 L 11 0 L 189 0 L 200 32"
                                 fill="none"
                                 stroke="white"
                                 strokeWidth={borderWidth}
@@ -226,6 +218,20 @@ export default function Home() {
 
                         {activeTab === 1 && (
                             <div className="flex flex-col space-y-6">
+                                {/** FIXME: fix  +format this description lol */}
+                                INCOMING SE AT UWATERLOO
+                                (LOOKING FOR SUMMER 2026 INTERNSHIPS)
+                                DEVELOPER AT DIGITALFLIGHTDYNAMICS
+                                - (more details about Airbus OIS and Rust Fuel Pump)
+                                CREATED CCCSOLUTIONS
+                                - 2700+ users since launch + 270+ solutions
+                                A350 Portfolio
+                                - info about this portfolio
+                                (9 x Hackathons With 2 wins)
+                                In High School: IB DIPLOMA + CS CLUB + HISTORY/MATHSOC PRES
+
+
+
                             </div>
                         )}
                     </div>

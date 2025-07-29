@@ -9,8 +9,6 @@ export default function AirbusPrinter() {
     const [paperVisible, setPaperVisible] = useState(false);
 
     const handleButtonClick = (buttonType) => {
-        console.log(`Button pressed: ${buttonType}`);
-
         if (buttonType === 'TEST') {
             // Show paper and initialize reclaimed state
             setPaperVisible(true);

@@ -97,7 +97,7 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
                 )}
                 {alert === 'warning' && (
                     <div className="absolute bottom-10 text-red-600 bg-black p-2 rounded shadow-md">
-                        BRUH :( (REFRESH PAGE TO RESET)
+                        BRUH :/ (REFRESH PAGE TO RESET)
                     </div>
                 )}
                 <ExternalPower

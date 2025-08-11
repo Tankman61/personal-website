@@ -14,11 +14,15 @@ export default function ExternalPower({ powerState, setPowerState }: ExternalPow
 
     const handleButtonClick = () => {
         if (!isAuto) {
-            buttonPressRef.current?.currentTime && (buttonPressRef.current.currentTime = 0);
+            if (buttonPressRef.current) {
+                buttonPressRef.current.currentTime = 0;
+            }
             buttonPressRef.current?.play();
             setPowerState('AUTO');
         } else {
-            buttonPress2Ref.current?.currentTime && (buttonPress2Ref.current.currentTime = 0);
+            if (buttonPress2Ref.current) {
+                buttonPress2Ref.current.currentTime = 0;
+            }
             buttonPress2Ref.current?.play();
             setPowerState('AVAIL');
         }

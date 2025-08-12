@@ -4,11 +4,12 @@
 import React, { useEffect, useState } from "react";
 
 export default function ScalingWrapper({ children }: { children: React.ReactNode }) {
-    const [scale, setScale] = useState(1);
+    const [zoomedOut, setZoomedOut] = useState(false);
 
     useEffect(() => {
         function handleResize() {
-            setScale(Math.min(window.innerWidth / 1920, window.innerHeight / 1080));
+            // Example threshold: width < 700px or height < 500px triggers zoom out
+            setZoomedOut(window.innerWidth < 700 || window.innerHeight < 500);
         }
         handleResize();
         window.addEventListener("resize", handleResize);
@@ -19,10 +20,7 @@ export default function ScalingWrapper({ children }: { children: React.ReactNode
         <div
             id="scaling-wrapper"
             style={{
-                transform: `scale(${scale})`,
-                transformOrigin: "top left",
-                width: "1920px",
-                height: "1080px",
+                zoom: zoomedOut ? 0.3 : 1,
                 position: "relative",
                 overflow: "hidden",
             }}

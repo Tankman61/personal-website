@@ -21,7 +21,7 @@ export default function Home() {
                         onClick={() => setActiveTab(0)}
                     >
                         {/* Main tab body */}
-                        {/* FIXME: Color of background does not match the one in the tab body */}
+
                         <div
                             className="relative h-full flex items-center justify-center"
                             style={{
@@ -49,7 +49,6 @@ export default function Home() {
                                 stroke="white"
                                 strokeWidth={borderWidth}
                                 strokeLinejoin="miter"
-                                vectorEffect="non-scaling-stroke"
                             />
                         </svg>
                     </div>
@@ -89,7 +88,6 @@ export default function Home() {
                                 stroke="white"
                                 strokeWidth={borderWidth}
                                 strokeLinejoin="miter"
-                                vectorEffect="non-scaling-stroke"
                             />
 
                             <path
@@ -98,7 +96,6 @@ export default function Home() {
                                 stroke="white"
                                 strokeWidth={borderWidth}
                                 strokeLinejoin="miter"
-                                vectorEffect="non-scaling-stroke"
                             />
                         </svg>
                     </div>

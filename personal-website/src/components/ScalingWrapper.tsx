@@ -1,6 +1,5 @@
 "use client";
 
-// with this scaling wrapper i need to fix the weird svg clipping between tabs - just make the tab fills extra long
 import React, { useEffect, useState } from "react";
 
 export default function ScalingWrapper({ children }: { children: React.ReactNode }) {
@@ -8,7 +7,6 @@ export default function ScalingWrapper({ children }: { children: React.ReactNode
 
     useEffect(() => {
         function handleResize() {
-            // Example threshold: width < 700px or height < 500px triggers zoom out
             setZoomedOut(window.innerWidth < 700 || window.innerHeight < 500);
         }
         handleResize();
@@ -18,14 +16,26 @@ export default function ScalingWrapper({ children }: { children: React.ReactNode
 
     return (
         <div
-            id="scaling-wrapper"
             style={{
-                zoom: zoomedOut ? 0.3 : 1,
-                position: "relative",
-                overflow: "hidden",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start", // top align instead of center
+                width: "100vw",
+                height: "100vh",
+                overflow: "hidden", // no accidental scrollbars
             }}
         >
-            {children}
+            <div
+                style={{
+                    width: zoomedOut ? "150vw" : "100vw",
+                    transform: zoomedOut ? "scale(0.5)" : "scale(1)",
+                    transformOrigin: "top center",
+                }}
+            >
+                {children}
+            </div>
         </div>
+
+
     );
 }

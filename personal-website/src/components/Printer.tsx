@@ -1,27 +1,52 @@
-// TODO: MAKE PRINTER GENERATE CUSTOM FRONT PAGE FOR RESUME PDF AS ITS COOL
-
-
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export default function AirbusPrinter() {
     const [statusLED, setStatusLED] = useState(true);
     const [printing, setPrinting] = useState(false);
     const [paperVisible, setPaperVisible] = useState(false);
+    const [printerDuration, setPrinterDuration] = useState(2000); // default 2s fallback
+
+    const printerAudioRef = useRef<HTMLAudioElement | null>(null);
+    const paperAudioRef = useRef<HTMLAudioElement | null>(null);
+
+    // Update animation duration once printer audio metadata is loaded
+    useEffect(() => {
+        const audio = printerAudioRef.current;
+        if (!audio) return;
+
+        const onLoadedMetadata = () => {
+            setPrinterDuration(audio.duration * 1000);
+        };
+
+        audio.addEventListener("loadedmetadata", onLoadedMetadata);
+
+        return () => {
+            audio.removeEventListener("loadedmetadata", onLoadedMetadata);
+        };
+    }, []);
 
     const handleButtonClick = (buttonType: string) => {
         if (buttonType === 'TEST') {
-            // Show paper and initialize reclaimed state
             setPaperVisible(true);
             setPrinting(false);
-            // Trigger slide-up after mount
             setTimeout(() => setPrinting(true), 50);
-            // Reset: slide-down then hide
-            setTimeout(() => {
-            }, 2050); // match transition duration
+
+            if (printerAudioRef.current) {
+                printerAudioRef.current.currentTime = 0;
+                printerAudioRef.current.play();
+            }
 
         } else if (buttonType === 'STATUS') {
             setStatusLED(!statusLED);
         }
+    };
+
+    const handlePaperClick = () => {
+        if (paperAudioRef.current) {
+            paperAudioRef.current.currentTime = 0;
+            paperAudioRef.current.play();
+        }
+        window.open('/assets/resume.pdf', '_blank');
     };
 
     return (
@@ -37,33 +62,7 @@ export default function AirbusPrinter() {
           0 4px 8px rgba(0,0,0,0.3)
         `
             }}>
-                {/* Corner bolts */}
-                <div className="absolute top-4 left-8 w-6 h-6 rounded-full" style={{
-                    background: 'radial-gradient(circle, #a0a0a0 0%, #707070 50%, #404040 100%)',
-                    boxShadow: 'inset 2px 2px 4px rgba(0,0,0,0.7), inset -1px -1px 2px rgba(180,180,180,0.4), 0 1px 2px rgba(0,0,0,0.5)'
-                }}>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1.5 h-3 bg-black opacity-70" />
-                </div>
-                <div className="absolute top-4 right-8 w-6 h-6 rounded-full" style={{
-                    background: 'radial-gradient(circle, #a0a0a0 0%, #707070 50%, #404040 100%)',
-                    boxShadow: 'inset 2px 2px 4px rgba(0,0,0,0.7), inset -1px -1px 2px rgba(180,180,180,0.4), 0 1px 2px rgba(0,0,0,0.5)'
-                }}>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1.5 h-3 bg-black opacity-70" />
-                </div>
-                <div className="absolute bottom-4 left-[52px] w-6 h-6 rounded-full" style={{
-                    background: 'radial-gradient(circle, #a0a0a0 0%, #707070 50%, #404040 100%)',
-                    boxShadow: 'inset 2px 2px 4px rgba(0,0,0,0.7), inset -1px -1px 2px rgba(180,180,180,0.4), 0 1px 2px rgba(0,0,0,0.5)'
-                }}>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1.5 h-3 bg-black opacity-70" />
-                </div>
-                <div className="absolute bottom-4 right-[52px] w-6 h-6 rounded-full" style={{
-                    background: 'radial-gradient(circle, #a0a0a0 0%, #707070 50%, #404040 100%)',
-                    boxShadow: 'inset 2px 2px 4px rgba(0,0,0,0.7), inset -1px -1px 2px rgba(180,180,180,0.4), 0 1px 2px rgba(0,0,0,0.5)'
-                }}>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1.5 h-3 bg-black opacity-70" />
-                </div>
-
-                {/* Buttons */}
+                {/* Corner bolts and buttons */}
                 <div className="absolute left-1/2 top-5 transform -translate-x-1/2 z-10 flex gap-3">
                     {['ABORT', 'SLEW', 'TEST', 'STATUS'].map((btn) => (
                         <div
@@ -98,7 +97,7 @@ export default function AirbusPrinter() {
                     ))}
                 </div>
 
-                {/* Inner rectangular frame - Centered and larger */}
+                {/* Inner frame */}
                 <div className="absolute" style={{
                     top: '90px',
                     bottom: '5px',
@@ -113,22 +112,21 @@ export default function AirbusPrinter() {
                 {/* Paper container */}
                 {paperVisible && (
                     <div
-                        className="absolute top-[-160px] left-1/2 -translate-x-1/2 overflow-hidden transition-transform duration-75 ease-linear hover:scale-101 origin-bottom"
+                        className="absolute top-[-160px] left-1/2 -translate-x-1/2 overflow-hidden transition-transform duration-100 ease-linear hover:scale-102 origin-bottom"
                         style={{
                             width: '600px',
                             height: '250px',
-                            zIndex: 20
+                            zIndex: 20,
                         }}
                     >
-                        <div onClick={() => {
-                            window.open('/assets/resume.pdf', '_blank');
-                        }}
-                            className="w-full h-full transition-transform duration-[2000ms] ease-linear"
-                            style={{
-                                backgroundColor: '#fcfcfc',
-                                boxShadow: '0 4px 12px rgba(0,0,0,0.15), 0 2px 6px rgba(0,0,0,0.1)',
-                                transform: printing ? 'translateY(0%)' : 'translateY(100%)'
-                            }}
+                        <div onClick={handlePaperClick}
+                             className="w-full h-full cursor-pointer"
+                             style={{
+                                 backgroundColor: '#fcfcfc',
+                                 boxShadow: '0 4px 12px rgba(0,0,0,0.15), 0 2px 6px rgba(0,0,0,0.1)',
+                                 transform: printing ? 'translateY(0%)' : 'translateY(100%)',
+                                 transitionDuration: `${printerDuration}ms`
+                             }}
                         >
                             <div className="px-4 pt-3 text-xs font-mono text-gray-900 leading-relaxed">
                                 <div className="text-right text-xs mb-3 space-y-0">
@@ -152,11 +150,13 @@ export default function AirbusPrinter() {
                                     <div className="text-center text-xs">RESUME ATTACHED: CLICK TO VIEW</div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 )}
+
+                {/* Hidden audio elements */}
+                <audio ref={printerAudioRef} src="/assets/printer.mp3" preload="auto" />
+                <audio ref={paperAudioRef} src="/assets/paper.mp3" preload="auto" />
             </div>
         </div>
     );

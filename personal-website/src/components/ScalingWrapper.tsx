@@ -1,5 +1,5 @@
 "use client";
-
+// this needs to be fixed - certain zooms break the layout/clip into stuff
 import React, { useEffect, useState } from "react";
 
 export default function ScalingWrapper({ children }: { children: React.ReactNode }) {

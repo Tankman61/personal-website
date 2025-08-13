@@ -118,7 +118,7 @@ export default function ExternalPower({ powerState, setPowerState }: ExternalPow
                                         {/* LED glow effect */}
                                         {!isAuto && (
                                             <div
-                                                className="absolute inset-0 rounded transition-all duration-200"
+                                                className="absolute inset-0 transition-all duration-200"
                                                 style={{
                                                     background: 'radial-gradient(circle, rgba(142,239,23,0.15) 30%, transparent 70%)',
                                                     boxShadow: '0 0 8px rgba(142,239,23,0.3), inset 0 0 8px rgba(142,239,23,0.1)'

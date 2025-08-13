@@ -4,12 +4,17 @@ export interface CursorProps {
     x: number;
     y: number;
     visible?: boolean;
+    screenWidth?: number;
 }
 
-const Cursor: React.FC<CursorProps> = memo(function Cursor({ x, y, visible = true }) {
+const Cursor: React.FC<CursorProps> = memo(function Cursor({ x, y, visible = true, screenWidth }) {
+    const scaleFactor = screenWidth
+        ? 0.3 + 0.7 * (screenWidth / 1920)
+        : 1;
+
     return (
         <g
-            transform={`translate(${x} ${y})`}
+            transform={`translate(${x} ${y}) scale(${scaleFactor})`}
             visibility={visible ? 'inherit' : 'hidden'}
             fill="none"
             strokeLinejoin="round"

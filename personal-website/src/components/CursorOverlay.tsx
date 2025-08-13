@@ -39,7 +39,7 @@ const CursorOverlay = () => {
 
     return (
         <svg style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', width: '100vw', height: '100vh', zIndex: 9999 }}>
-            <Cursor x={pos.x} y={pos.y} visible={visible} />
+            <Cursor x={pos.x} y={pos.y} visible={visible} screenWidth={window.innerWidth} />
         </svg>
     );
 };

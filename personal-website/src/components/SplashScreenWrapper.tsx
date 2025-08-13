@@ -39,6 +39,9 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
                     setTimeout(() => {
                         setLoading(false);
                         localStorage.setItem("hasSeenSplash", "true");
+
+                        // Notify other components immediately
+                        window.dispatchEvent(new Event('splash-complete'));
                     }, 3000);
                 }
             }, 1000);

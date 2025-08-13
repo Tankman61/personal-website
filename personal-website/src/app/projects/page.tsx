@@ -46,7 +46,7 @@ export default function Projects() {
                                     preserveAspectRatio="none"
                                 >
                                     <path
-                                        d="M 1 33 L 25 0 L 175 0 L 199.5 32 L"
+                                        d="M 1 31.5 L 25 0 L 175 0 L 199.5 31 L"
 
                                         fill="none"
                                         stroke="white"
@@ -178,19 +178,39 @@ export default function Projects() {
                         {activeTab === 1 && (
                             <div className="flex flex-col space-y-6">
                                 {/** FIXME: fix  +format this description lol */}
-                                INCOMING SE AT UWATERLOO
-                                (LOOKING FOR SUMMER 2026 INTERNSHIPS)
-                                DEVELOPER AT DIGITALFLIGHTDYNAMICS
-                                - (more details about Airbus OIS and Rust Fuel Pump)
-                                CREATED CCCSOLUTIONS
-                                - 2700+ users since launch + 270+ solutions
-                                (9 x Hackathons With 2 wins)
-                                In High School: IB DIPLOMA + CS CLUB + HISTORY/MATHSOC PRES
-
-
-
+                                <div className="text-airbus-green text-[18px] font-medium mb-30 mx-auto">
+                                    A350 PORTFOLIO
+                                </div>
                             </div>
                         )}
+
+                        {activeTab === 2 && (
+                            <div className="flex flex-col space-y-6">
+                                {/** FIXME: fix  +format this description lol */}
+                                <div className="text-airbus-green text-[18px] font-medium mb-30 mx-auto">
+                                    PAWDITOR
+                                </div>
+                            </div>
+                        )}
+
+                        {activeTab === 3 && (
+                            <div className="flex flex-col space-y-6">
+                                {/** FIXME: fix  +format this description lol */}
+                                <div className="text-airbus-green text-[18px] font-medium mb-30 mx-auto">
+                                    MATHIFY
+                                </div>
+                            </div>
+                        )}
+
+                        {activeTab === 4 && (
+                            <div className="flex flex-col space-y-6">
+                                {/** FIXME: fix  +format this description lol */}
+                                <div className="text-airbus-green text-[18px] font-medium mb-30 mx-auto">
+                                    SATDUEL
+                                </div>
+                            </div>
+                        )}
+
                     </div>
 
                     {/* Screen reflection effect */}

@@ -6,7 +6,12 @@ import ExternalPower from "./ExternalPower";
 
 export function SplashScreenWrapper({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(false);
-    const [showButton, setShowButton] = useState(true);
+    const [showButton, setShowButton] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return !localStorage.getItem("hasSeenSplash");
+        }
+        return false;
+    });
     const [powerState, setPowerState] = useState<'AVAIL' | 'AUTO'>('AVAIL');
     const [spamCount, setSpamCount] = useState(0);
     const [alert, setAlert] = useState<'none' | 'caution' | 'warning'>('none');

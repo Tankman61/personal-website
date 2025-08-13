@@ -27,6 +27,7 @@ export default function Home() {
                             style={{
                                 background: activeTab === 0 ? 'black' : 'var(--color-airbus-gray)',
                                 clipPath: 'polygon(18.5px 0%, calc(100% - 18.5px) 0%, 100% 102%, 0% 102%)',
+                                boxShadow: activeTab === 0 ? '0 0 2px 2px black' : undefined,
                                 borderBottom: activeTab === 0 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >
@@ -65,7 +66,8 @@ export default function Home() {
                             className="relative h-full flex items-center justify-center"
                             style={{
                                 background: activeTab === 1 ? 'black' : 'var(--color-airbus-gray)',
-                                clipPath: 'polygon(18.5px 0%, calc(100% - 18.5px) 0%, 100% 102%, 0% 102%)',
+                                clipPath: 'polygon(18.5px 0%, calc(100% - 18.5px) 2%, 100% 102%, 0% 102%)',
+                                boxShadow: activeTab === 1 ? '0 0 2px 2px black' : undefined,
                                 borderBottom: activeTab === 1 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >

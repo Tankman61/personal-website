@@ -63,7 +63,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             return {
                 ...baseStyle,
                 backgroundColor: "var(--color-airbus-gray)",
-                border: "2px solid cyan",
+                border: "2px solid var(--color-airbus-blue)",
                 background: "var(--color-airbus-gray)",
             };
         }

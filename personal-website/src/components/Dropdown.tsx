@@ -55,7 +55,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             alignItems: 'center',
             padding: '4px 24px 4px 8px',
 
-            color: 'cyan',
+            color: 'var(--color-airbus-blue)',
             fontSize: `${fontSize}px`,
             cursor: 'pointer',
             position: 'relative' as const,
@@ -72,14 +72,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 backgroundImage: `linear-gradient(to right, black calc(100% - 20px), var(--color-airbus-gray) 20px), linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%)`,
                 backgroundClip: 'padding-box, border-box',
                 color: 'black',
-                border: '2px solid cyan',
+                border: '2px solid var(--color-airbus-blue)',
             };
         }
 
         if (isHovered) {
             return {
                 ...baseStyle,
-                border: '2px solid cyan',
+                border: '2px solid var(--color-airbus-blue)',
                 background: `
                     linear-gradient(to right, black calc(100% - 20px), var(--color-airbus-gray) 20px) padding-box,
                     linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) border-box
@@ -147,7 +147,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                             top: '50%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
-                            backgroundColor: 'cyan',
+                            backgroundColor: 'var(--color-airbus-blue)',
                             width: 'calc(100%)',
                             height: '95%',
                             zIndex: -1,
@@ -182,7 +182,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     >
                         <polygon
                             points="4,7 14,7 9,13"
-                            fill={open ? 'cyan' : 'white'}
+                            fill={open ? 'var(--color-airbus-blue)' : 'white'}
                         />
                     </svg>
                 </span>

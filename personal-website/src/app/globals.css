@@ -14,8 +14,8 @@ body {
 
 @layer theme {
   :root {
-    --color-airbus-green: #00FE2B;
-    --color-airbus-blue: #02FFFA;
+    --color-airbus-green: lime;
+    --color-airbus-blue: cyan;
     --color-airbus-yellow: #FFFE10;
     --color-airbus-magenta: #EE4CED;
     --color-airbus-gray: #48495a;

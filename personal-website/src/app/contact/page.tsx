@@ -1,5 +1,6 @@
 
 // TODO: fix this bad vibe code LOL
+// the blog page should be based off of the DFD svg code for the RTE page
 // This should be in the blog page eventually
 // Contact page can be
 import React from 'react';

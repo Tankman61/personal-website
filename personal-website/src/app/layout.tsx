@@ -7,10 +7,12 @@ import Footer from "@/components/Footer";
 import ScalingWrapper from "@/components/ScalingWrapper";
 
 export const metadata: Metadata = {
-    title: "William Yang",
-    description: "ill do this later :)",
+    title: 'William Yang',
+    description: 'welcome to my portfolio :)',
+    icons: {
+        icon: '/favicon.ico',
+    },
 };
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">

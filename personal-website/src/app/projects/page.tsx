@@ -28,7 +28,7 @@ export default function Projects() {
                                     className="relative h-full flex items-center justify-center"
                                     style={{
                                         background: activeTab === index ? 'black' : 'var(--color-airbus-gray)',
-                                        clipPath: 'polygon( 11.5% 0%, 88.5% 0%, 100% 100%, 0% 100%)',
+                                        clipPath: activeTab === index ? 'polygon( 11.5% 0%, 88.5% 0%, 100% 110%, 0% 100%)' : 'polygon( 11.5% 0%, 88.5% 0%, 100% 99%, 0% 99%)',
                                         borderBottom: activeTab === index ? 'none' : `${borderWidth}px solid white`,
                                     }}
                                 >

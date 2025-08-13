@@ -19,10 +19,9 @@ export default function ScalingWrapper({ children }: { children: React.ReactNode
             style={{
                 display: "flex",
                 justifyContent: "center",
-                alignItems: "flex-start", // top align instead of center
+                alignItems: "flex-start",
                 width: "100vw",
                 height: "100vh",
-                overflow: "hidden", // no accidental scrollbars
             }}
         >
             <div

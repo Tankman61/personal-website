@@ -1,0 +1,1 @@
+// ill add constants like stats blog posts etc. later

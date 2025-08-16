@@ -155,8 +155,8 @@ export default function AirbusPrinter() {
                 )}
 
                 {/* Hidden audio elements */}
-                <audio ref={printerAudioRef} src="/assets/printer.mp3" preload="auto" />
-                <audio ref={paperAudioRef} src="/assets/paper.mp3" preload="auto" />
+                <audio ref={printerAudioRef} src="/assets/sounds/printer.mp3" preload="auto" />
+                <audio ref={paperAudioRef} src="/assets/sounds/paper.mp3" preload="auto" />
             </div>
         </div>
     );

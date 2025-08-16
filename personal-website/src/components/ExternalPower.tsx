@@ -31,8 +31,8 @@ export default function ExternalPower({ powerState, setPowerState }: ExternalPow
     return (
         <div className="flex flex-col items-center p-8 relative">
             {/* Audio elements */}
-            <audio ref={buttonPressRef} src="/assets/buttonpress.mp3" preload="auto" />
-            <audio ref={buttonPress2Ref} src="/assets/buttonpress2.mp3" preload="auto" />
+            <audio ref={buttonPressRef} src="/assets/sounds/buttonpress.mp3" preload="auto" />
+            <audio ref={buttonPress2Ref} src="/assets/sounds/buttonpress2.mp3" preload="auto" />
 
             {/* Button Container - blue panel with 3D effect */}
             <div className="px-8 py-6 rounded-xl relative" style={{

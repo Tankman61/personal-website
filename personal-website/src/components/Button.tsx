@@ -111,5 +111,4 @@ const ButtonComponent: React.FC<ButtonProps> = ({
     );
 };
 
-// figure out why we memoize this bruh
 export const Button = memo(ButtonComponent);

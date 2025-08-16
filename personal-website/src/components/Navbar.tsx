@@ -1,44 +1,47 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { Button } from "./Button";
 import { Dropdown } from "./Dropdown";
 
 const Navbar = () => {
     const router = useRouter();
-    const [currentPage, setCurrentPage] = useState("HOME");
-    const [dropdownValue, setDropdownValue] = useState("PORTFOLIO");
+    const pathname = usePathname();
+
     const dropdownOptions = ["PORTFOLIO", "BLOG", "ECAM"];
     const pages = ["HOME", "PROJECTS", "RESUME", "CONTACT"];
 
+    // derive dropdown value from URL
+    const dropdownValue = (() => {
+        const path = pathname.replace("/", "").toUpperCase();
+        return dropdownOptions.includes(path) ? path : "PORTFOLIO";
+    })();
+
+    const handleDropdownChange = (value: string) => {
+        router.push(value === "PORTFOLIO" ? "/" : `/${value.toLowerCase()}`);
+    };
+
     return (
         <nav className="navbar flex flex-col items-center p-4 relative">
-            {/* Container to hold both buttons and status bar with same width - 612 = 6 * 150 + 3 * 4 change if button sizes change*/}
-            <div className="flex flex-col items-center  w-full max-w-[612px] mx-auto">
-                {/* Dropdown menu (FMS1/FMS 2 - doesn't actually navigate anything yet), left aligned */}
-                {/* TODO: make FMS2 as an easter egg that deletes the FMS so users can view the A350 model background */}
-                <div className="flex justify-between items-end w-full mb-1">
-                    <div>
-                        <Dropdown
-                            options={dropdownOptions}
-                            value={dropdownValue}
-                            onChange={setDropdownValue}
-                            height={30}
-                            width={150}
-                            fontSize={17}
-                        />
-                    </div>
+            <div className="flex flex-col items-center w-full max-w-[612px] mx-auto">
+                <div className="flex justify-between items-end w-full mb-1 z-50">
+                    <Dropdown
+                        options={dropdownOptions}
+                        value={dropdownValue}
+                        onChange={handleDropdownChange}
+                        height={30}
+                        width={150}
+                        fontSize={17}
+                    />
                     <div className="text-xl">WILLIAM YANG</div>
                 </div>
+
                 <ul className="flex space-x-1 mb-1">
                     {pages.map((page) => (
                         <li key={page}>
                             <Button
-                                onClick={() => {
-                                    setCurrentPage(page);
-                                    router.push(page === "HOME" ? "/" : `/${page.toLowerCase()}`);
-                                }}
+                                onClick={() => router.push(page === "HOME" ? "/" : `/${page.toLowerCase()}`)}
                                 height={45}
                                 width={150}
                                 fontSize={17}
@@ -48,15 +51,6 @@ const Navbar = () => {
                         </li>
                     ))}
                 </ul>
-
-                {/* Status bar with gaps, perfectly aligned with buttons */}
-                <div className="flex space-x-1 w-full">
-                    <div className="flex-1 h-7 bg-gray-400 flex text-black items-center pl-4">
-                        <span className="text-xl">{currentPage}</span>
-                    </div>
-                    <div className="w-14 h-7 bg-gray-400"></div>
-                    <div className="w-20 h-7 bg-gray-400"></div>
-                </div>
             </div>
         </nav>
     );

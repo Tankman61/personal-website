@@ -44,11 +44,28 @@ export default function Home() {
                             viewBox="0 0 200 32"
                             preserveAspectRatio="none"
                         >
+                            {/* Top horizontal line */}
                             <path
-                                d="M 0.3 33 L 11 0 L 189 0 L 200 32"
+                                d="M 11 0 L 189 0"
                                 fill="none"
                                 stroke="white"
                                 strokeWidth={borderWidth}
+                                strokeLinejoin="miter"
+                            />
+                            {/* Left diagonal line */}
+                            <path
+                                d="M 0.3 33 L 11 0"
+                                fill="none"
+                                stroke="white"
+                                strokeWidth={borderWidth * 0.7}
+                                strokeLinejoin="miter"
+                            />
+                            {/* Right diagonal line */}
+                            <path
+                                d="M 189 0 L 200 32"
+                                fill="none"
+                                stroke="white"
+                                strokeWidth={borderWidth * 0.7}
                                 strokeLinejoin="miter"
                             />
                         </svg>
@@ -84,19 +101,28 @@ export default function Home() {
                             viewBox="0 0 200 32"
                             preserveAspectRatio="none"
                         >
+                            {/* Top horizontal line */}
                             <path
-                                d="M 11 0 L 189 0 L 200 32"
+                                d="M 11 0 L 189 0"
                                 fill="none"
                                 stroke="white"
                                 strokeWidth={borderWidth}
                                 strokeLinejoin="miter"
                             />
-
+                            {/* Right diagonal line */}
+                            <path
+                                d="M 189 0 L 200 32"
+                                fill="none"
+                                stroke="white"
+                                strokeWidth={borderWidth * 0.7}
+                                strokeLinejoin="miter"
+                            />
+                            {/* Left diagonal line */}
                             <path
                                 d="M 0.3 33 L 11 0"
                                 fill="none"
                                 stroke="white"
-                                strokeWidth={borderWidth}
+                                strokeWidth={borderWidth * 0.7}
                                 strokeLinejoin="miter"
                             />
                         </svg>

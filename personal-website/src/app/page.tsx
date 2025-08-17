@@ -255,7 +255,7 @@ export default function Home() {
                         {activeTab === 1 && (
                             <div className="flex flex-col space-y-6">
                                 <div className="text-airbus-green text-xl mx-auto -mb-5">
-                                    TLDR;
+                                    TL;DR
                                 </div>
                                 <div className="scale-90">
                                     <div className="text-base">

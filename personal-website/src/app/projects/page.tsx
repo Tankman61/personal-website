@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import  { Button } from '@/components/Button';
-
+// TODO: I NEED TO ADD THE ABILITY TO ADD MORE PROJECTS BY ADDING A LEFT/RIGHT BUTTON  OR SOMETHING
 export default function Projects() {
     const [activeTab, setActiveTab] = useState(0);
     // TODO: FIX COLORS FOR LIGHT GRAY LINES AND BOLDING + text should be end not start for Waypoints, Routes, Navaids, Runways

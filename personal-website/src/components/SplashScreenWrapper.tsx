@@ -33,7 +33,7 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
             const timer = setTimeout(() => {
                 if (!cancelled && powerState === 'AUTO') {
                     setShowButton(false);
-                    const audio = new Audio('/assets/startup.mp3');
+                    const audio = new Audio('/assets/sounds/startup.mp3');
                     audio.play();
                     setLoading(true);
                     setTimeout(() => {
@@ -57,7 +57,7 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
     useEffect(() => {
         if (alert === 'warning') {
             if (!alertAudioRef.current) {
-                const audio = new Audio('/assets/masterwarning.mp3');
+                const audio = new Audio('/assets/sounds/masterwarning.mp3');
                 audio.play();
             }
         } else {

@@ -35,45 +35,23 @@ const sampleBlogData: ContentLineDisplayData[] = [
         type: ContentLineType.BlogPost,
         originalIndex: 0,
         isHighlighted: false,
-        title: "THIS IS STILL WIP",
-        date: "2024-01-15",
+        title: "WIP",
+        date: "2025-01-15",
         likes: 142,
         comments: 23,
-        views: 1250,
+        views: 100,
         category: "React",
     } as BlogPostLineDisplayData,
     {
         type: ContentLineType.BlogPost,
         originalIndex: 1,
         isHighlighted: false,
-        title: "TEST DATA",
-        date: "2024-01-10",
+        title: ":)",
+        date: "2025-01-10",
         likes: 89,
         comments: 15,
-        views: 890,
+        views: 1,
         category: "TypeScript",
-    } as BlogPostLineDisplayData,
-    {
-        type: ContentLineType.BlogPost,
-        originalIndex: 2,
-        isHighlighted: false,
-        title: "LOL",
-        date: "2024-01-05",
-        likes: 203,
-        comments: 34,
-        views: 1680,
-        category: "Next.js",
-    } as BlogPostLineDisplayData,
-    {
-        type: ContentLineType.BlogPost,
-        originalIndex: 3,
-        isHighlighted: false,
-        title: "IDK WHAT TO NAME THIS",
-        date: "2023-12-28",
-        likes: 76,
-        comments: 12,
-        views: 654,
-        category: "CSS",
     } as BlogPostLineDisplayData,
 ]
 
@@ -165,7 +143,7 @@ export default function BlogPage() {
                 {/* Bottom Stats and Controls */}
                 <div className="flex justify-between items-center w-full max-w-[512px] px-4 pb-4">
                     <div className="flex items-center gap-2">
-                        <span className="text-airbus-green text-xl">MORE THAN 0</span>
+                        <span className="text-airbus-green text-xl">2</span>
                         <span className="text-blue-500 text-xl">POSTS</span>
                     </div>
 

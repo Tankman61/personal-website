@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import  { Button } from '@/components/Button';
+
 // TODO: I NEED TO ADD THE ABILITY TO ADD MORE PROJECTS BY ADDING A LEFT/RIGHT BUTTON  OR SOMETHING
 export default function Projects() {
     const [activeTab, setActiveTab] = useState(0);

@@ -10,7 +10,6 @@ import { BlogPostRow } from '@/components/BlogPostRow';
 enum ContentLineType {
     BlogPost = "blogpost",
     Category = "category",
-    Special = "special",
 }
 
 interface ContentLineDisplayData {
@@ -27,18 +26,6 @@ interface BlogPostLineDisplayData extends ContentLineDisplayData {
     comments: number
     views: number
     category?: string
-}
-
-interface CategoryLineDisplayData extends ContentLineDisplayData {
-    type: ContentLineType.Category
-    name: string
-    postCount: number
-}
-
-interface SpecialLineDisplayData extends ContentLineDisplayData {
-    type: ContentLineType.Special
-    label: string
-    dashes: number
 }
 
 const NUM_BLOG_ROWS = 9

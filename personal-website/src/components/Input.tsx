@@ -81,7 +81,7 @@ const InputComponent: React.FC<InputProps> = ({
         if (isFocused || isHovered) {
             return {
                 ...baseStyle,
-                border: "2px solid #4a9eff",
+                border: "2px solid var(--color-airbus-blue)",
                 background: "black",
             };
         }
@@ -110,8 +110,8 @@ const InputComponent: React.FC<InputProps> = ({
                 onMouseLeave={() => setIsHovered(false)}
                 placeholder={placeholder}
                 className={`
-                    rounded-sm font-medium outline-none px-3
-                    text-blue-400 placeholder-gray-500
+                    rounded-xs font-medium outline-none px-3 uppercase
+                    text-airbus-blue placeholder-gray-500
                     ${className}
                 `}
                 style={getInputStyle()}

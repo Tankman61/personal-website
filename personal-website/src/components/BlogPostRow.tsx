@@ -35,9 +35,7 @@ interface BlogPostRowProps extends RowBaseProps {
 export const BlogPostRow: React.FC<BlogPostRowProps> = ({
                                                             index,
                                                             post,
-                                                            active,
                                                             color,
-                                                            selected,
                                                             onClick,
                                                             followsLeg,
                                                             precedesLeg,

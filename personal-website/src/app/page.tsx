@@ -1,6 +1,12 @@
 "use client";
 import React, { useState } from 'react';
 import  { Button } from '@/components/Button';
+import PhotoDeck from '@/components/PhotoDeck';
+import Image1 from '../../public/assets/images/gallery1.jpg';
+import Image2 from '../../public/assets/images/gallery2.jpg';
+import Image3 from '../../public/assets/images/gallery3.jpg';
+import Image4 from '../../public/assets/images/gallery4.jpg';
+import Image5 from '../../public/assets/images/gallery5.jpg';
 
 export default function Home() {
     const [activeTab, setActiveTab] = useState(0);
@@ -9,8 +15,8 @@ export default function Home() {
     const borderWidth = 2;
 
     return (
-        <main className="px-8 flex items-start justify-center">
-            <div className="w-full" style={{ maxWidth: '612px' }}>
+        <main className="px-8 flex items-start justify-center overflow-x-hidden">
+            <div className="w-full overflow-hidden" style={{ maxWidth: '612px' }}>
                 {/* Tab Container */}
                 <div className="relative flex w-full">
                     {/* Left Tab */}
@@ -31,9 +37,9 @@ export default function Home() {
                                 borderBottom: activeTab === 0 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >
-                            <span className="text-sm px-[80px] rounded-none group-hover:outline group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
-                                STATUS
-                            </span>
+                                <span className="text-sm px-[80px] rounded-none group-hover:outline group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
+                                    STATUS
+                                </span>
                         </div>
 
                         {/* SVG Border Overlay */}
@@ -88,9 +94,9 @@ export default function Home() {
                                 borderBottom: activeTab === 1 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >
-                            <span className="text-sm px-[80px] rounded-none group-hover:outline group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
-                                TL;DR
-                            </span>
+                                <span className="text-sm px-[80px] rounded-none group-hover:outline group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
+                                    TL;DR
+                                </span>
                         </div>
 
                         {/* SVG Border Overlay */}
@@ -243,26 +249,36 @@ export default function Home() {
 
                         {activeTab === 1 && (
                             <div className="flex flex-col space-y-6">
-                                {/** FIXME: fix  +format this description lol */}
-                                INCOMING SE AT UWATERLOO
-                                (LOOKING FOR SUMMER 2026 INTERNSHIPS)
-                                DEVELOPER AT DIGITALFLIGHTDYNAMICS
-                                - (more details about Airbus OIS and Rust Fuel Pump)
-                                CREATED CCCSOLUTIONS
-                                - 2700+ users since launch + 270+ solutions
-                                A350 Portfolio
-                                - info about this portfolio
-                                (9 x Hackathons With 2 wins)
-                                In High School: IB DIPLOMA + CS CLUB + HISTORY/MATHSOC PRES
+                                <div className="text-airbus-green text-xl mx-auto -mb-1">
+                                    TLDR;
+                                </div>
+                                <div className="scale-90">
+                                <div className="text-base">
+                                    • INCOMING SE AT <span className="text-airbus-green">UWATERLOO</span> - <span className="text-[15px]">SEEKING <span className="text-airbus-green">SUMMER 2026 INTERNSHIPS</span></span></div>
 
+                                <div className="text-base">
+                                    • DEVELOPER AT <span className="text-airbus-green">DIGITAL FLIGHT DYNAMICS</span>
+                                </div>
 
+                                <div>
+                                    <div className="text-[18px] mb-4 text-airbus-blue">• SO FAR:</div>
+                                    <div className="space-y-3 text-sm">
+                                        <div>↳ BUILT <span className="text-airbus-green text-base">CCCSOLUTIONS</span> - LARGEST CCC SOLUTION REPOSITORY</div>
+                                        <div className="ml-4 text-xs">W/ <span className="text-airbus-blue font-bold text-lg">2800+</span> USERS AND <span className="text-airbus-blue font-bold text-lg">270+</span> SOLUTIONS</div>
 
+                                        <div>↳ ATTENDED <span className="text-airbus-blue font-bold text-base">9</span> HACKATHONS AND  WON <span className="text-airbus-blue font-bold text-base">2</span> - (<span className="text-airbus-green text-sm">HACK THE NORTH</span> NEXT)</div>
+                                        <div>↳ CREATED THIS <span className="text-airbus-green text-base">A350 FMS PORTFOLIO</span></div>
+                                    </div>
+                                </div>
+                                    <div className="mt-14 mb-3">
+                                    <PhotoDeck images={[Image5, Image4, Image3, Image1, Image2]} />
+                                    </div>
+                                    <div className="text-[12px] text-airbus-blue"> FUN LITTLE FACT: I’VE LOVED AVIATION SINCE I WAS 3 AND LOVE TAKING COCKPIT PHOTOS. ABOVE ARE SOME OF MY FAVORITES :)</div>
+                                </div>
                             </div>
                         )}
                     </div>
 
-                    {/* Screen reflection effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-transparent opacity-5 pointer-events-none"></div>
                 </div>
             </div>
         </main>

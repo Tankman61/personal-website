@@ -9,7 +9,7 @@ const Navbar = () => {
     const router = useRouter();
     const pathname = usePathname();
 
-    const dropdownOptions = ["PORTFOLIO", "BLOG", "ECAM"];
+    const dropdownOptions = ["PORTFOLIO", "BLOG", "GALLERY"];
     const pages = ["HOME", "PROJECTS", "RESUME", "CONTACT"];
 
     // derive dropdown value from URL

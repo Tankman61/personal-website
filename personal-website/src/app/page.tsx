@@ -1,5 +1,6 @@
+// Add this to your Home component
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import  { Button } from '@/components/Button';
 import PhotoDeck from '@/components/PhotoDeck';
 import Image1 from '../../public/assets/images/gallery1.jpg';
@@ -10,8 +11,17 @@ import Image5 from '../../public/assets/images/gallery5.jpg';
 
 export default function Home() {
     const [activeTab, setActiveTab] = useState(0);
-    // TODO: FIX COLORS FOR LIGHT GRAY LINES AND BOLDING + text should be end not start for Waypoints, Routes, Navaids, Runways
-    // MAKE THE BORDERS MORE ROUNDED!!!
+
+    // Preload PhotoDeck images immediately when component mounts
+    useEffect(() => {
+        const imagesToPreload = [Image1, Image2, Image3, Image4, Image5];
+
+        imagesToPreload.forEach((img) => {
+            const preloadImg = new Image();
+            preloadImg.src = img.src;
+        });
+    }, []); // Empty dependency array - runs once on mount
+
     const borderWidth = 2;
 
     return (
@@ -27,7 +37,6 @@ export default function Home() {
                         onClick={() => setActiveTab(0)}
                     >
                         {/* Main tab body */}
-
                         <div
                             className="relative h-full flex items-center justify-center"
                             style={{
@@ -144,10 +153,9 @@ export default function Home() {
                         height: '600px'
                     }}
                 >
-                    {/* Screen bezel effect (TODO: Figure out if this does really anything) */}
+                    {/* Screen bezel effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-700 via-transparent to-gray-800 pointer-events-none"></div>
 
-                    {/* replace the second panel with a  TLDR SECTION*/}
                     <div className="relative bg-black h-full p-3 overflow-y-auto">
                         {activeTab === 0 && (
                             <div className="flex flex-col h-full space-y-6">
@@ -159,7 +167,6 @@ export default function Home() {
                                     <div className="border p-1.5 inline-block" style={{ borderColor: '#454647' }}>
                                         <div className="flex space-x-8 items-center">
                                             <div className="flex items-center">
-                                                {/* TODO: make this automatically update */}
                                                 <span className="text-white mr-4 text-[17px]">COMMITS</span>
                                                 <span className="text-airbus-green text-[17px]">+0.0</span>
                                             </div>
@@ -174,7 +181,7 @@ export default function Home() {
                                     </div>
                                 </div>
 
-                                {/* Fuel Penalty */}
+                                {/* Education */}
                                 <div className="mb-1">
                                     <div className="inline-block border" style={{ borderColor: '#454647' }}>
                                         <div className="flex items-center px-3 py-2">
@@ -187,13 +194,12 @@ export default function Home() {
                                 {/* Separator Line */}
                                 <div className="mb-1" style={{ borderTop: '1px solid #454647' }}></div>
 
-                                {/* Nav Database */}
+                                {/* Currently Working */}
                                 <div className="flex items-center mb-8">
                                     <span className="text-white mr-4 text-[17px]">CURRENTLY</span>
                                     <span className="text-airbus-green text-[17px]">WORKING ON:</span>
                                 </div>
 
-                                {/* make this jobs later */}
                                 <div className="flex justify-between items-start mb-8">
                                     <div className="text-center">
                                         <div className="border" style={{ borderColor: '#454647', borderWidth: '2px' }}>
@@ -205,7 +211,6 @@ export default function Home() {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* TODO: BOMBOCLAT FIX THE CENTERING ON THIS BEACUSE IT AINT LOOKING GOOD*/}
                                     <div className="flex flex-col items-center justify-center mt-4 mr-8">
                                         <div className="text-white text-[16px] mb-2">
                                             SECOND
@@ -219,7 +224,7 @@ export default function Home() {
                                 {/* Separator Line */}
                                 <div className="mb-4" style={{ borderTop: '1px solid #454647' }}></div>
 
-                                {/* Pilot Stored Elements */}
+                                {/* Stats */}
                                 <div>
                                     <div className="text-white text-[17px] mb-4">
                                         STATS:
@@ -249,31 +254,31 @@ export default function Home() {
 
                         {activeTab === 1 && (
                             <div className="flex flex-col space-y-6">
-                                <div className="text-airbus-green text-xl mx-auto -mb-1">
+                                <div className="text-airbus-green text-xl mx-auto -mb-5">
                                     TLDR;
                                 </div>
                                 <div className="scale-90">
-                                <div className="text-base">
-                                    • INCOMING SE AT <span className="text-airbus-green">UWATERLOO</span> - <span className="text-[15px]">SEEKING <span className="text-airbus-green">SUMMER 2026 INTERNSHIPS</span></span></div>
+                                    <div className="text-base">
+                                        • INCOMING SE AT <span className="text-airbus-green">UWATERLOO</span> - <span className="text-[15px]">SEEKING <span className="text-airbus-green">SUMMER 2026 INTERNSHIPS</span></span></div>
 
-                                <div className="text-base">
-                                    • DEVELOPER AT <span className="text-airbus-green">DIGITAL FLIGHT DYNAMICS</span>
-                                </div>
-
-                                <div>
-                                    <div className="text-[18px] mb-4 text-airbus-blue">• SO FAR:</div>
-                                    <div className="space-y-3 text-sm">
-                                        <div>↳ BUILT <span className="text-airbus-green text-base">CCCSOLUTIONS</span> - LARGEST CCC SOLUTION REPOSITORY</div>
-                                        <div className="ml-4 text-xs">W/ <span className="text-airbus-blue font-bold text-lg">2800+</span> USERS AND <span className="text-airbus-blue font-bold text-lg">270+</span> SOLUTIONS</div>
-
-                                        <div>↳ ATTENDED <span className="text-airbus-blue font-bold text-base">9</span> HACKATHONS AND  WON <span className="text-airbus-blue font-bold text-base">2</span> - (<span className="text-airbus-green text-sm">HACK THE NORTH</span> NEXT)</div>
-                                        <div>↳ CREATED THIS <span className="text-airbus-green text-base">A350 FMS PORTFOLIO</span></div>
+                                    <div className="text-base">
+                                        • DEVELOPER AT <span className="text-airbus-green">DIGITAL FLIGHT DYNAMICS</span>
                                     </div>
-                                </div>
-                                    <div className="mt-14 mb-3">
-                                    <PhotoDeck images={[Image5, Image4, Image3, Image1, Image2]} />
+
+                                    <div>
+                                        <div className="text-[18px] mb-4 text-airbus-blue">• SO FAR:</div>
+                                        <div className="space-y-3 text-sm">
+                                            <div>↳ BUILT <span className="text-airbus-green text-base">CCCSOLUTIONS</span> - LARGEST CCC SOLUTION REPOSITORY</div>
+                                            <div className="ml-4 text-xs">W/ <span className="text-airbus-blue font-bold text-lg">2800+</span> USERS AND <span className="text-airbus-blue font-bold text-lg">270+</span> SOLUTIONS</div>
+
+                                            <div>↳ ATTENDED <span className="text-airbus-blue font-bold text-base">9</span> HACKATHONS AND  WON <span className="text-airbus-blue font-bold text-base">2</span> - (<span className="text-airbus-green text-sm">HACK THE NORTH</span> NEXT)</div>
+                                            <div>↳ CREATED THIS <span className="text-airbus-green text-base">A350 FMS PORTFOLIO</span></div>
+                                        </div>
                                     </div>
-                                    <div className="text-[12px] text-airbus-blue"> FUN LITTLE FACT: I’VE LOVED AVIATION SINCE I WAS 3 AND LOVE TAKING COCKPIT PHOTOS. ABOVE ARE SOME OF MY FAVORITES :)</div>
+                                    <div className="-mt-2 mb-4">
+                                        <PhotoDeck images={[Image5, Image4, Image3, Image1, Image2]} />
+                                    </div>
+                                    <div className="text-[12px] text-airbus-blue"> FUN LITTLE FACT: IVE LOVED AVIATION SINCE I WAS 3 AND LOVE TAKING COCKPIT PHOTOS. ABOVE ARE SOME OF MY FAVORITES :)</div>
                                 </div>
                             </div>
                         )}

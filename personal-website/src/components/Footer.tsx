@@ -97,7 +97,7 @@ const Footer: React.FC = () => {
 
     return (
         <div className="flex flex-col w-full max-w-[612px] mx-auto">
-            <div className="bg-[#535354] h-[1.25px] w-[101%] mt-4 -ml-[0.5%]"></div>
+            <div className="bg-[#535354] h-[1.25px] w-[612px] mt-4 -ml-[0.5%]"></div>
             <div className="flex items-center ">
                 <Button width={80} height={60} onClick={clearMessage}>CLEAR INFO</Button>
                 <div className="relative flex-1 ml-4">

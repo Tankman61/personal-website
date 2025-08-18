@@ -35,7 +35,7 @@ const sampleBlogData: ContentLineDisplayData[] = [
         type: ContentLineType.BlogPost,
         originalIndex: 0,
         isHighlighted: false,
-        title: "WIP",
+        title: "WORK IN PROGRESS",
         date: "2025-01-15",
         likes: 142,
         comments: 23,
@@ -88,13 +88,13 @@ export default function BlogPage() {
         <main className="px-8 flex items-start justify-center">
             <div className="w-full flex flex-col items-center" style={{ maxWidth: '612px' }}>
                 {/* Column Headers */}
-                <div className="flex justify-between w-full max-w-[512px] px-4 mb-2">
+                <div className="flex justify-between w-full max-w-[612px] px-4 mb-2">
                     <span className="text-white text-xl">TITLE</span>
                     <span className="text-white text-xl">DATE</span>
                 </div>
 
                 {/* Separator Line */}
-                <div className="w-full max-w-[512px] h-px bg-white mb-6"></div>
+                <div className="w-full max-w-[612px] h-px bg-white mb-6"></div>
 
                 {/* Blog Posts Container */}
                 <div className="relative w-full max-w-[612px]">

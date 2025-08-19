@@ -128,7 +128,7 @@
                                 disabled={!allImagesLoaded}
                                 className={`w-2 h-2 rounded-full transition-transform duration-200 ${
                                     index === currentIndex
-                                        ? "bg-cyan-300 scale-125"
+                                        ? "bg-cyan-300"
                                         : "bg-gray-500 hover:bg-gray-400"
                                 }`}
                             />

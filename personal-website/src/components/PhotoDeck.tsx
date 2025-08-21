@@ -48,7 +48,7 @@
                                     zIndex: 1000,
                                 }}
                             >
-                                <div className="text-airbus-green text-sm mb-2 animate-pulse">
+                                <div className="text-airbus-green text-sm mb-2">
                                     LOADING PHOTOS
                                 </div>
                                 <div className="text-airbus-green text-xs">

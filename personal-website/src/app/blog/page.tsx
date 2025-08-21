@@ -86,7 +86,7 @@ export default function BlogPage() {
 
     return (
         <main className="px-8 flex items-start justify-center">
-            <div className="w-full flex flex-col items-center" style={{ maxWidth: '612px' }}>
+            <div className="w-full flex flex-col items-center min-h-[632px]">
                 {/* Column Headers */}
                 <div className="flex justify-between w-full max-w-[612px] px-4 mb-2">
                     <span className="text-white text-xl">TITLE</span>
@@ -94,11 +94,11 @@ export default function BlogPage() {
                 </div>
 
                 {/* Separator Line */}
-                <div className="w-full max-w-[612px] h-px bg-white mb-6"></div>
+                <div className="w-full max-w-[612px] h-px bg-gray-300 mb-6"></div>
 
                 {/* Blog Posts Container */}
                 <div className="relative w-full max-w-[612px]">
-                    <svg width="612" height="518" className="block">
+                    <svg width="612" height="500" className="block">
                         {lineData.slice(scrollPos, scrollPos + NUM_BLOG_ROWS).map((line, displayIndex) => {
                             const actualIndex = scrollPos + displayIndex
                             const selected = selectedPost.isHighlighted
@@ -138,18 +138,18 @@ export default function BlogPage() {
                 </div>
 
                 {/* Bottom Separator */}
-                <div className="w-full max-w-[512px] h-px bg-white my-2"></div>
+                <div className="w-full max-w-[612px] h-[0.5px] bg-gray-300 mb-4"></div>
 
                 {/* Bottom Stats and Controls */}
                 <div className="flex justify-between items-center w-full max-w-[512px] px-4 pb-4">
                     <div className="flex items-center gap-2">
                         <span className="text-airbus-green text-xl">2</span>
-                        <span className="text-blue-500 text-xl">POSTS</span>
+                        <span className="text-blue-400 text-xl">POSTS</span>
                     </div>
 
                     <div className="flex items-center gap-2">
                         <span className="text-airbus-green text-xl">{(totalViews / 1000).toFixed(1)}K</span>
-                        <span className="text-blue-500 text-xl">VIEWS</span>
+                        <span className="text-blue-400 text-xl">VIEWS</span>
                     </div>
 
                     <div className="flex gap-0">

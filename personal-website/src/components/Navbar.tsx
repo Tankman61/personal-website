@@ -51,6 +51,32 @@ const Navbar = () => {
                         </li>
                     ))}
                 </ul>
+                <div className="flex items-center w-full space-x-1">
+                    {[
+                        { text: pathname === "/" ? "HOME" : pages.find(page => pathname.toUpperCase().includes(page.toUpperCase())) || "PAGE NAME", width: 490 },
+                        { text: "", width: 52 },
+                        { text: "", width: 70 }
+                    ].map((item, idx) => (
+                        <div
+                            key={idx}
+                            style={{
+                                background: "#8c9ba0",
+                                color: "black",
+                                height: "25px",
+                                width: item.width,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "flex-start",
+                                paddingLeft: "10px",
+                                paddingTop: "3px",
+                                borderRadius: "1px",
+                                fontSize: "22px",
+                            }}
+                        >
+                            {item.text}
+                        </div>
+                    ))}
+                </div>
             </div>
         </nav>
     );

@@ -91,7 +91,7 @@ export default function Projects() {
                             <div className="flex flex-col space-y-6">
                                 {/** FIXME: fix  +format this description lol */}
                                 <div className="text-airbus-green text-[18px] font-medium mb-30 mx-auto">
-                                    A350 PORTFOLIO
+                                    DFD A350
                                 </div>
                                 TO BE FINISHED :)
                             </div>

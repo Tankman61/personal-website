@@ -162,21 +162,33 @@ export default function Home() {
                                 <div className="text-airbus-green text-[18px] font-medium mb-30 mx-auto">
                                     WILLIAM YANG / SOFTWARE DEVELOPER
                                 </div>
-                                {/* Status Row - Boxed */}
+                                {/* FIXME: CHANGE GITHUB STATS TO SE WEB RING */}
                                 <div className="mb-2">
                                     <div className="border p-1.5 inline-block" style={{ borderColor: '#454647' }}>
                                         <div className="flex space-x-8 items-center">
-                                            <div className="flex items-center">
-                                                <span className="text-white mr-4 text-[17px]">COMMITS</span>
-                                                <span className="text-airbus-green text-[17px]">+0.0</span>
+                                            <div
+                                                className="flex items-center px-2 cursor-pointer"
+                                                style={{ border: '2px solid transparent', borderRadius: '1px', boxSizing: 'border-box' }}
+                                                onMouseEnter={e => (e.currentTarget.style.border = '2px solid var(--color-airbus-blue)')}
+                                                onMouseLeave={e => (e.currentTarget.style.border = '2px solid transparent')}
+                                                onClick={() => window.open('https://google.com', '_blank')}
+                                            >
+                                                <span className="text-airbus-green mr-4 mb-1 text-[17px]">←</span>
+                                                <span className="text-white text-[17px]">PREV.</span>
                                             </div>
-                                            <div className="flex items-center">
-                                                <span className="text-white mr-4 text-[17px]">PULL RQUESTS</span>
-                                                <span className="text-airbus-green text-[17px]">+0.0</span>
-                                            </div>
-                                            <Button height={30} width={100} fontSize={17} className="ml-4 mr-6 flex justify-start items-center w-full">
-                                                <span className="ml-2">GITHUB</span>
+                                            <Button height={30} width={130} fontSize={17} className="flex justify-start items-center w-full">
+                                                <span className="ml-2">SE-WEBRING</span>
                                             </Button>
+                                            <div
+                                                    className="flex items-center px-2 cursor-pointer"
+                                                style={{ border: '2px solid transparent', borderRadius: '1px', boxSizing: 'border-box' }}
+                                                onMouseEnter={e => (e.currentTarget.style.border = '2px solid var(--color-airbus-blue)')}
+                                                onMouseLeave={e => (e.currentTarget.style.border = '2px solid transparent')}
+                                                onClick={() => window.open('https://google.com', '_blank')}
+                                            >
+                                                <span className="text-white mr-4 text-[17px]">NEXT.</span>
+                                                <span className="text-airbus-green mb-1 text-[17px]">→</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

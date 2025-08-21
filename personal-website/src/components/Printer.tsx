@@ -91,7 +91,7 @@ const AirbusPrinter = forwardRef<PrinterRef>((props, ref) => {
                             key={btn}
                             className="w-15 h-15 p-1 relative cursor-pointer transition-transform duration-150 active:scale-95"
                             style={{ backgroundColor: '#2a2a2a', borderRadius: '4px' }}
-                            onClick={() => handleButtonClick(btn)}
+                            onClick={() => handleButtonClick()}
                         >
                             <div className="w-full h-full rounded flex flex-col items-center justify-center" style={{
                                 backgroundColor: '#2a2a2a',
@@ -134,7 +134,7 @@ const AirbusPrinter = forwardRef<PrinterRef>((props, ref) => {
                     <div
                         className="absolute top-[-160px] left-1/2 -translate-x-1/2 overflow-hidden transition-transform duration-100 ease-linear hover:scale-102 origin-bottom"
                         style={{
-                            width: '450px',
+                            width: '550px',
                             height: '250px',
                             zIndex: 20,
                         }}

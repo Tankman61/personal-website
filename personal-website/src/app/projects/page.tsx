@@ -28,6 +28,7 @@ export default function Projects() {
         );
     };
 
+    // FIXME: delete this lol/make the easter egg different
     const handleLinkClick = (project) => {
         if (project.title === "A350 PORTFOLIO") {
             alert("YOU'RE ALREADY ON THE PORTFOLIO! 🛩️");
@@ -57,6 +58,7 @@ export default function Projects() {
                 <Button
                     onClick={handlePrevious}
                     className="text-xs px-3 py-2"
+                    width={40}
                 >
                     ←
                 </Button>
@@ -236,6 +238,7 @@ export default function Projects() {
                 <Button
                     onClick={handleNext}
                     className="text-xs px-3 py-2"
+                    width={40}
                 >
                     →
                 </Button>

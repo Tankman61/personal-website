@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 // TODO: I NEED TO ADD THE ABILITY TO ADD MORE PROJECTS BY ADDING A LEFT/RIGHT BUTTON  OR SOMETHING
 export default function Projects() {
     const [activeTab, setActiveTab] = useState(0);
-    // TODO: FIX COLORS FOR LIGHT GRAY LINES AND BOLDING + text should be end not start for Waypoints, Routes, Navaids, Runways
+    // TODO: ADD MORE PROJECTS IN CONSTANTS.JS (eg; THIS WEBSITE, FUKUSHIMA2044, ETC)
     // MAKE THE BORDERS MORE ROUNDED!!!
     const borderWidth = 2;
 
@@ -72,9 +72,6 @@ export default function Projects() {
                         height: '600px'
                     }}
                 >
-                    {/* Screen bezel effect (TODO: Figure out if this does really anything) */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-gray-700 via-transparent to-gray-800 pointer-events-none"></div>
-
 
                     <div className="relative bg-black h-full p-3 overflow-y-auto">
                         {activeTab === 0 && (

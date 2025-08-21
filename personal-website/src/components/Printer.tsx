@@ -1,15 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from "react";
 
-export default function AirbusPrinter() {
-    const [statusLED, setStatusLED] = useState(true);
+export interface PrinterRef {
+    startPrint: () => void;
+}
+
+const AirbusPrinter = forwardRef<PrinterRef>((props, ref) => {
     const [printing, setPrinting] = useState(false);
     const [paperVisible, setPaperVisible] = useState(false);
-    const [printerDuration, setPrinterDuration] = useState(2000); // default 2s fallback
+    const [hasPrinted, setHasPrinted] = useState(false);
+    const [printingComplete, setPrintingComplete] = useState(false);
+    const [printerDuration, setPrinterDuration] = useState(2000);
 
     const printerAudioRef = useRef<HTMLAudioElement | null>(null);
     const paperAudioRef = useRef<HTMLAudioElement | null>(null);
+    const buttonPressRef = useRef<HTMLAudioElement | null>(null);
 
-    // Update animation duration once printer audio metadata is loaded
     useEffect(() => {
         const audio = printerAudioRef.current;
         if (!audio) return;
@@ -25,23 +30,41 @@ export default function AirbusPrinter() {
         };
     }, []);
 
-    const handleButtonClick = (buttonType: string) => {
-        if (buttonType === 'TEST') {
-            setPaperVisible(true);
-            setPrinting(false);
-            setTimeout(() => setPrinting(true), 50);
+    const startPrintSequence = () => {
+        if (hasPrinted) return;
 
-            if (printerAudioRef.current) {
-                printerAudioRef.current.currentTime = 0;
-                printerAudioRef.current.play();
-            }
+        setHasPrinted(true);
+        setPaperVisible(true);
+        setPrinting(false);
+        setPrintingComplete(false);
 
-        } else if (buttonType === 'STATUS') {
-            setStatusLED(!statusLED);
+        setTimeout(() => setPrinting(true), 50);
+
+        setTimeout(() => {
+            setPrintingComplete(true);
+        }, printerDuration);
+
+        if (printerAudioRef.current) {
+            printerAudioRef.current.currentTime = 0;
+            printerAudioRef.current.play();
+        }
+    };
+
+    // Expose the startPrint method to parent components
+    useImperativeHandle(ref, () => ({
+        startPrint: startPrintSequence
+    }));
+
+    const handleButtonClick = () => {
+        if (buttonPressRef.current) {
+            buttonPressRef.current.currentTime = 0;
+            buttonPressRef.current.play();
         }
     };
 
     const handlePaperClick = () => {
+        if (!printingComplete) return;
+
         if (paperAudioRef.current) {
             paperAudioRef.current.currentTime = 0;
             paperAudioRef.current.play();
@@ -52,7 +75,7 @@ export default function AirbusPrinter() {
     return (
         <div className="flex flex-col items-center p-8 relative">
             <div className="relative" style={{
-                width: '800px',
+                width: '612px',
                 height: '350px',
                 background: 'linear-gradient(135deg, #6a7380 0%, #5a6370 50%, #4a5360 100%)',
                 borderRadius: '20px',
@@ -62,7 +85,6 @@ export default function AirbusPrinter() {
           0 4px 8px rgba(0,0,0,0.3)
         `
             }}>
-                {/* Corner bolts and buttons */}
                 <div className="absolute left-1/2 top-5 transform -translate-x-1/2 z-10 flex gap-3">
                     {['ABORT', 'SLEW', 'TEST', 'STATUS'].map((btn) => (
                         <div
@@ -78,13 +100,13 @@ export default function AirbusPrinter() {
                                 {btn === 'STATUS' ? (
                                     <div className="flex flex-col items-center">
                                         <div className="flex gap-2 mb-2">
-                                            <div className="w-2 h-2 rounded-full transition-all duration-200" style={{
-                                                backgroundColor: statusLED ? '#8eef17' : '#3a3a3a',
-                                                boxShadow: statusLED ? '0 0 4px rgba(142,239,23,0.8)' : 'inset 1px 1px 1px rgba(0,0,0,0.5)'
+                                            <div className="w-2 h-2 rounded-full" style={{
+                                                backgroundColor: '#8eef17',
+                                                boxShadow: '0 0 4px rgba(142,239,23,0.8)'
                                             }} />
-                                            <div className="w-2 h-2 rounded-full transition-all duration-200" style={{
-                                                backgroundColor: !statusLED ? '#ff4444' : '#3a3a3a',
-                                                boxShadow: !statusLED ? '0 0 4px rgba(255,68,68,0.8)' : 'inset 1px 1px 1px rgba(0,0,0,0.5)'
+                                            <div className="w-2 h-2 rounded-full" style={{
+                                                backgroundColor: '#3a3a3a',
+                                                boxShadow: 'inset 1px 1px 1px rgba(0,0,0,0.5)'
                                             }} />
                                         </div>
                                         <span className="text-white text-xs font-bold">STATUS</span>
@@ -97,7 +119,6 @@ export default function AirbusPrinter() {
                     ))}
                 </div>
 
-                {/* Inner frame */}
                 <div className="absolute" style={{
                     top: '90px',
                     bottom: '5px',
@@ -109,18 +130,17 @@ export default function AirbusPrinter() {
                 }}>
                 </div>
 
-                {/* Paper container */}
                 {paperVisible && (
                     <div
                         className="absolute top-[-160px] left-1/2 -translate-x-1/2 overflow-hidden transition-transform duration-100 ease-linear hover:scale-102 origin-bottom"
                         style={{
-                            width: '600px',
+                            width: '450px',
                             height: '250px',
                             zIndex: 20,
                         }}
                     >
                         <div onClick={handlePaperClick}
-                             className="w-full h-full cursor-pointer"
+                             className={`w-full h-full ${printingComplete ? 'cursor-pointer' : 'cursor-not-allowed'}`}
                              style={{
                                  backgroundColor: '#fcfcfc',
                                  boxShadow: '0 4px 12px rgba(0,0,0,0.15), 0 2px 6px rgba(0,0,0,0.1)',
@@ -154,10 +174,14 @@ export default function AirbusPrinter() {
                     </div>
                 )}
 
-                {/* Hidden audio elements */}
                 <audio ref={printerAudioRef} src="/assets/sounds/printer.mp3" preload="auto" />
                 <audio ref={paperAudioRef} src="/assets/sounds/paper.mp3" preload="auto" />
+                <audio ref={buttonPressRef} src="/assets/sounds/buttonpress.mp3" preload="auto" />
             </div>
         </div>
     );
-}
+});
+
+AirbusPrinter.displayName = 'AirbusPrinter';
+
+export default AirbusPrinter;

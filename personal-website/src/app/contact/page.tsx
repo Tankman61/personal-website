@@ -43,7 +43,7 @@ const handleClick = (url: string | URL | undefined) => {
 
 export default function ContactPage() {
     return (
-        <main className="flex flex-col items-center min-h-[612px] px-8 pt-0">
+        <main className="flex flex-col items-center min-h-[632px] px-8 pt-0">
             <div className="flex flex-row items-start justify-center gap-12 w-full max-w-xl">
                 <div className="flex flex-col items-center gap-6 flex-1">
                     <h2 className="text-xl text-white text-center">CONTACT</h2>

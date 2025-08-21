@@ -8,6 +8,7 @@ import Image2 from '../../public/assets/images/gallery2.jpg';
 import Image3 from '../../public/assets/images/gallery3.jpg';
 import Image4 from '../../public/assets/images/gallery4.jpg';
 import Image5 from '../../public/assets/images/gallery5.jpg';
+import SEWebRingLogo from "../../public/assets/icons/logo_w.svg";
 
 export default function Home() {
     const [activeTab, setActiveTab] = useState(0);
@@ -165,7 +166,7 @@ export default function Home() {
                                 {/* FIXME: CHANGE GITHUB STATS TO SE WEB RING */}
                                 <div className="mb-2">
                                     <div className="border p-1.5 inline-block" style={{ borderColor: '#454647' }}>
-                                        <div className="flex space-x-8 items-center">
+                                        <div className="flex gap-x-2 items-center">
                                             <div
                                                 className="flex items-center px-2 cursor-pointer"
                                                 style={{ border: '2px solid transparent', borderRadius: '1px', boxSizing: 'border-box' }}
@@ -176,8 +177,11 @@ export default function Home() {
                                                 <span className="text-airbus-green mr-4 mb-1 text-[17px]">←</span>
                                                 <span className="text-white text-[17px]">PREV.</span>
                                             </div>
-                                            <Button height={30} width={130} fontSize={17} className="flex justify-start items-center w-full">
-                                                <span className="ml-2">SE-WEBRING</span>
+                                            <Button height={30} width={110} className="!justify-start w-full px-2 onCci">
+                                                <div className="flex justify-start items-center w-full">
+                                                    <img src={SEWebRingLogo.src} alt={"SE Webring"} className="h-5 w-5 mr-2" />
+                                                    <span className="text-[13px]">WEBRING</span>
+                                                </div>
                                             </Button>
                                             <div
                                                     className="flex items-center px-2 cursor-pointer"
@@ -189,6 +193,7 @@ export default function Home() {
                                                 <span className="text-white mr-4 text-[17px]">NEXT.</span>
                                                 <span className="text-airbus-green mb-1 text-[17px]">→</span>
                                             </div>
+                                            <span className="text-amber-500">(INOP)</span>
                                         </div>
                                     </div>
                                 </div>

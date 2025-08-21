@@ -45,7 +45,6 @@ export default function ContactPage() {
     return (
         <main className="flex flex-col items-center min-h-[612px] px-8 pt-0">
             <div className="flex flex-row items-start justify-center gap-12 w-full max-w-xl">
-                {/* CONTACT Column */}
                 <div className="flex flex-col items-center gap-6 flex-1">
                     <h2 className="text-xl text-white text-center">CONTACT</h2>
                     {CONTACT_ITEMS.map((item) => (
@@ -53,16 +52,13 @@ export default function ContactPage() {
                             key={item.name}
                             className="flex items-center justify-between w-56"
                         >
-                            {/* Logo and Text */}
                             <div className="flex items-center flex-shrink-0">
                                 <div className="flex-shrink-0">
                                     {item.icon}
                                 </div>
-                                {/* Text - smaller and not bold */}
                                 <span className="ml-3 text-white text-sm font-normal">{item.name}</span>
                             </div>
 
-                            {/* Custom Button - fixed dimensions */}
                             <Button
                                 width={64}
                                 height={32}
@@ -76,7 +72,6 @@ export default function ContactPage() {
                     ))}
                 </div>
 
-                {/* Vertical Divider */}
                 <div
                     style={{
                         width: "0px",
@@ -86,7 +81,6 @@ export default function ContactPage() {
                     }}
                 />
 
-                {/* CHECK OUT Column */}
                 <div className="flex flex-col items-center gap-6 flex-1">
                     <h2 className="text-xl text-white text-center">CHECK OUT</h2>
                     {CHECKOUT_ITEMS.map((item) => (
@@ -94,16 +88,13 @@ export default function ContactPage() {
                             key={item.name}
                             className="flex items-center justify-between w-56"
                         >
-                            {/* Logo and Text */}
                             <div className="flex items-center flex-shrink-0">
                                 <div className="flex-shrink-0">
                                     {item.icon}
                                 </div>
-                                {/* Text - smaller and not bold */}
                                 <span className="ml-3 text-white text-sm font-normal">{item.name}</span>
                             </div>
 
-                            {/* Custom Button - fixed dimensions */}
                             <Button
                                 width={64}
                                 height={32}
@@ -118,7 +109,6 @@ export default function ContactPage() {
                 </div>
             </div>
 
-            {/* Horizontal Divider */}
             <div
                 style={{
                     backgroundColor: "#535354",

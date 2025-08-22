@@ -96,7 +96,7 @@ export const PROJECTS = [
         ),
         images: [pawditor1, pawditor2, pawditor3, pawditor4],
         date: "2025",
-        technologies: ["SVELTEKIT", "PLAYWRIGHT", "GEMINI", "DOCKER"],
+        technologies: ["SVELTEKIT", "PLAYWRIGHT", "GEMINI", "DOCKER", "JAVASCRIPT"],
         link: "https://devpost.com/software/pawditor",
         github: "http://github.com/stockermc/spurhacks2025/"
     },
@@ -138,7 +138,7 @@ export const PROJECTS = [
         ),
         images: [focusflow1],
         date: "2025",
-        technologies: ["REACT.JS", "TYPESCRIPT", "OLLAMA", "FASTAPI"],
+        technologies: ["REACT.JS", "TYPESCRIPT", "OLLAMA", "FASTAPI", "PYTHON"],
         link: null,
         github: "https://github.com/tankman61/yrhacks2025"
     },
@@ -152,7 +152,7 @@ export const PROJECTS = [
         ),
         images: [satduel1, satduel2, satduel3, satduel4],
         date: "2024",
-        technologies: ["DJANGO", "REACT.JS", "PYTHON", "SQLITE"],
+        technologies: ["DJANGO", "REACT.JS", "PYTHON", "SQLITE", "JAVASCRIPT"],
         link: "https://satduel.com",
         github: null
     },

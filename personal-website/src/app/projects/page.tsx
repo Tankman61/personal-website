@@ -161,7 +161,7 @@ export default function Projects() {
                                 <PhotoDeck
                                     images={currentProject.images.map(img => ({ src: typeof img === 'string' ? img : img.src }))}
                                     singlePhotoView={true}
-                                    cardWidth={550}
+                                    cardWidth={500}
                                     cardHeight={225}
                                 />
 

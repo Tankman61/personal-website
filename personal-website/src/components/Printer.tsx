@@ -132,7 +132,7 @@ const AirbusPrinter = forwardRef<PrinterRef>((props, ref) => {
 
                 {paperVisible && (
                     <div
-                        className="absolute top-[-160px] left-1/2 -translate-x-1/2 overflow-hidden transition-transform duration-100 ease-linear hover:scale-102 origin-bottom"
+                        className="absolute top-[-160px] left-1/2 -translate-x-1/2 overflow-hidden transition-transform duration-100 ease-linear hover:scale-100.5 origin-bottom"
                         style={{
                             width: '550px',
                             height: '250px',

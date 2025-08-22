@@ -22,7 +22,7 @@ export default function Projects() {
     const currentProject = currentProjects[activeTab];
 
 
-    const handleLinkClick = (project) => {
+    const handleLinkClick = (project: { link?: string }) => {
         if (project.link) {
             window.open(project.link, '_blank');
         }

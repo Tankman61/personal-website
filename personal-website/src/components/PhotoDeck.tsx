@@ -17,17 +17,17 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                              }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
-    const [imageDimensions, setImageDimensions] = useState<Map<number, { width: number, height: number }>>(new Map());
+    const [imageDimensions, setImageDimensions] = useState<Map<number, { width: number; height: number }>>(new Map());
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [prevLoadedImages, setPrevLoadedImages] = useState<Set<number>>(new Set());
     const [prevImagesMap, setPrevImagesMap] = useState<string[]>([]);
-    const [activeImageDimensions, setActiveImageDimensions] = useState<{width: number, height: number} | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [activeImageDimensions, setActiveImageDimensions] = useState<{ width: number; height: number } | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const nextPhoto = () => {
         if (images.length <= 1 || isTransitioning) return;
 
-        // Store current dimensions before transition starts
         const currentDims = imageDimensions.get(currentIndex);
         if (currentDims) {
             setActiveImageDimensions(currentDims);
@@ -35,21 +35,17 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
         setIsTransitioning(true);
 
-        // Wait for opacity transition to finish before changing image
         setTimeout(() => {
             setCurrentIndex((p) => (p + 1) % images.length);
-
-            // Keep transitioning flag for a bit longer to ensure smooth handoff
             setTimeout(() => {
                 setIsTransitioning(false);
             }, 50);
-        }, 0); // Half the opacity transition time
+        }, 0);
     };
 
     const prevPhoto = () => {
         if (images.length <= 1 || isTransitioning) return;
 
-        // Store current dimensions before transition starts
         const currentDims = imageDimensions.get(currentIndex);
         if (currentDims) {
             setActiveImageDimensions(currentDims);
@@ -57,23 +53,19 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
         setIsTransitioning(true);
 
-        // Wait for opacity transition to finish before changing image
         setTimeout(() => {
             setCurrentIndex((p) => (p - 1 + images.length) % images.length);
-
-            // Keep transitioning flag for a bit longer to ensure smooth handoff
             setTimeout(() => {
                 setIsTransitioning(false);
             }, 50);
-        }, 150); // Half the opacity transition time
+        }, 150);
     };
 
     const handleImageLoad = useCallback(
         (index: number, e: React.SyntheticEvent<HTMLImageElement>) => {
             const img = e.target as HTMLImageElement;
-            setLoadedImages(prev => new Set(prev).add(index));
+            setLoadedImages((prev) => new Set(prev).add(index));
 
-            // Store *scaled dimensions* that respect CARD_W / CARD_H limits
             const aspect = img.naturalWidth / img.naturalHeight;
             let scaledW = cardWidth!;
             let scaledH = cardHeight!;
@@ -88,7 +80,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                 }
             }
 
-            setImageDimensions(prev => {
+            setImageDimensions((prev) => {
                 const newMap = new Map(prev);
                 newMap.set(index, { width: scaledW, height: scaledH });
                 return newMap;
@@ -99,17 +91,14 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
     // Reset state when images change
     useEffect(() => {
-        // Save previous loaded state before resetting
         setPrevLoadedImages(loadedImages);
-        setPrevImagesMap(images.map(img => img.src));
+        setPrevImagesMap(images.map((img) => img.src));
 
         setLoadedImages(new Set());
-
-        // Don't reset image dimensions to prevent flickering between projects
         setIsTransitioning(false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [images]);
 
-    // Update active dimensions when current image changes or when dimensions are updated
     useEffect(() => {
         const dims = imageDimensions.get(currentIndex);
         if (dims && !isTransitioning) {
@@ -122,23 +111,17 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
     const CARD_W = cardWidth;
     const CARD_H = cardHeight;
 
-    // Use previous dimensions during loading to prevent size flashing
     const containerStyle = {
         width: CARD_W,
         height: CARD_H + 50,
         margin: "0 auto",
-        transition: "width 300ms ease-out, height 300ms ease-out"
+        transition: "width 300ms ease-out, height 300ms ease-out",
     };
 
     return (
         <div className="w-full overflow-hidden">
             <div className="flex flex-col items-center">
-                <div
-                    ref={containerRef}
-                    className="relative flex items-center justify-center"
-                    style={containerStyle}
-                >
-                    {/* loading overlay - only show if no previous images are available */}
+                <div ref={containerRef} className="relative flex items-center justify-center" style={containerStyle}>
                     {!allImagesLoaded && prevLoadedImages.size === 0 && (
                         <div
                             className="absolute border-2 border-white bg-black flex flex-col items-center justify-center"
@@ -151,16 +134,13 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                 zIndex: 1000,
                             }}
                         >
-                            <div className="text-airbus-green text-sm mb-2">
-                                LOADING PHOTOS
-                            </div>
+                            <div className="text-airbus-green text-sm mb-2">LOADING PHOTOS</div>
                             <div className="text-airbus-green text-xs">
                                 {loadedImages.size}/{images.length}
                             </div>
                         </div>
                     )}
 
-                    {/* Show a black placeholder with proper dimensions when transitioning between tabs */}
                     {!allImagesLoaded && prevLoadedImages.size === 0 && images.length > 0 && (
                         <div
                             className="absolute bg-black border-2 border-white shadow-lg overflow-hidden"
@@ -171,7 +151,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                 top: "50%",
                                 transform: "translate(-50%, -50%)",
                                 opacity: 0.5,
-                                zIndex: 50
+                                zIndex: 50,
                             }}
                         />
                     )}
@@ -185,22 +165,20 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
                         const imgDimensions = imageDimensions.get(index);
 
-                        // We'll use the natural dimensions for better fitting if we have them
                         let calculatedWidth = CARD_W;
+                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                         let calculatedHeight = CARD_H;
+                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                         let frameWidth = CARD_W;
 
                         if (singlePhotoView && imgDimensions) {
                             const imageAspect = imgDimensions.width / imgDimensions.height;
 
-                            // Calculate dimensions that maintain aspect ratio within container height
                             calculatedHeight = CARD_H;
                             calculatedWidth = CARD_H * imageAspect;
 
-                            // For slideshow mode, set frame width to match calculated image width
                             frameWidth = calculatedWidth;
 
-                            // Don't exceed container max width
                             if (calculatedWidth > CARD_W) {
                                 calculatedWidth = CARD_W;
                                 calculatedHeight = CARD_W / imageAspect;
@@ -210,7 +188,6 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
                         const style: React.CSSProperties = singlePhotoView
                             ? {
-
                                 width: isCurrent ? imgDimensions?.width || CARD_W : imgDimensions?.width || CARD_W,
                                 height: isCurrent ? imgDimensions?.height || CARD_H : imgDimensions?.height || CARD_H,
                                 left: "50%",
@@ -229,13 +206,15 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                 position: "absolute",
                                 left: "50%",
                                 top: "50%",
-                                transform: `translate(-50%, -50%) translateX(${offset * 48}px) translateY(${Math.abs(offset) * 6}px) rotate(${offset * 2.5}deg)`,
+                                transform: `translate(-50%, -50%) translateX(${offset * 48}px) translateY(${
+                                    Math.abs(offset) * 6
+                                }px) rotate(${offset * 2.5}deg)`,
                                 zIndex: 100 - Math.abs(offset),
                                 opacity: allImagesLoaded && Math.abs(offset) > 2 ? 0 : 1,
                                 pointerEvents: Math.abs(offset) > 2 ? "none" : "auto",
                                 transformOrigin: "center center",
-                                transition: allImagesLoaded ? 'transform 300ms ease-out, opacity 300ms ease-out' : 'none',
-                                display: isVisible ? "block" : "none"
+                                transition: allImagesLoaded ? "transform 300ms ease-out, opacity 300ms ease-out" : "none",
+                                display: isVisible ? "block" : "none",
                             };
 
                         return (
@@ -244,14 +223,15 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                 className="absolute bg-black border-2 border-white shadow-lg overflow-hidden"
                                 style={style}
                             >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
                                     src={img.src}
                                     alt={`Cockpit photo ${index + 1}`}
-                                    className={`w-full h-full ${singlePhotoView ? 'object-contain' : 'object-cover'}`}
+                                    className={`w-full h-full ${singlePhotoView ? "object-contain" : "object-cover"}`}
                                     onLoad={(e) => handleImageLoad(index, e)}
                                     style={{
                                         opacity: isLoaded || isPrevLoaded ? 1 : 0,
-                                        transition: 'opacity 300ms ease-in',
+                                        transition: "opacity 300ms ease-in",
                                     }}
                                 />
                             </div>
@@ -259,34 +239,21 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                     })}
                 </div>
 
-                {/* Controls - show for all cases but they do nothing for single image */}
                 <div className="flex items-center justify-center gap-4 -mt-3">
-                    <Button
-                        width={32}
-                        height={32}
-                        fontSize={14}
-                        onClick={prevPhoto}
-                    >
+                    <Button width={32} height={32} fontSize={14} onClick={prevPhoto}>
                         ←
                     </Button>
-                    <Button
-                        width={32}
-                        height={32}
-                        fontSize={14}
-                        onClick={nextPhoto}
-                    >
+                    <Button width={32} height={32} fontSize={14} onClick={nextPhoto}>
                         →
                     </Button>
                 </div>
 
-                {/* Indicators - only show if multiple images */}
                 <div className="flex items-center justify-center gap-1 mt-3">
                     {images.map((_, index) => (
                         <button
                             key={index}
                             onClick={() => {
                                 if (!isTransitioning && index !== currentIndex && images.length > 1) {
-                                    // Store current dimensions before transition
                                     const currentDims = imageDimensions.get(currentIndex);
                                     if (currentDims) {
                                         setActiveImageDimensions(currentDims);
@@ -296,7 +263,6 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
                                     setTimeout(() => {
                                         setCurrentIndex(index);
-
                                         setTimeout(() => {
                                             setIsTransitioning(false);
                                         }, 50);
@@ -305,9 +271,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                             }}
                             disabled={!allImagesLoaded || isTransitioning}
                             className={`w-2 h-2 rounded-full transition-transform duration-200 ${
-                                index === currentIndex
-                                    ? "bg-cyan-300"
-                                    : "bg-gray-500 hover:bg-gray-400"
+                                index === currentIndex ? "bg-cyan-300" : "bg-gray-500 hover:bg-gray-400"
                             }`}
                         />
                     ))}

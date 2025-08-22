@@ -110,6 +110,25 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
         }
     }, [currentIndex, imageDimensions]);
 
+    useEffect(() => {
+        images.forEach((img, index) => {
+            const image = new Image();
+            image.src = img.src;
+
+            if (image.complete) {
+                // If cached, mark immediately
+                handleImageLoad(index, { target: image } as any);
+            } else {
+                image.onload = (e) => handleImageLoad(index, e as any);
+                image.onerror = () => {
+                    // even if it fails, count it as "loaded" to unblock
+                    setLoadedImages((prev) => new Set(prev).add(index));
+                };
+            }
+        });
+    }, [images, handleImageLoad]);
+
+
     const allImagesLoaded = loadedImages.size === images.length;
     const CARD_W = cardWidth;
     const CARD_H = cardHeight;

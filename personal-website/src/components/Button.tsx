@@ -10,6 +10,7 @@ interface ButtonProps {
     children: React.ReactNode;
     className?: string;
     isActive?: boolean; // Added this prop
+    disabled?: boolean;
 }
 
 const ButtonComponent: React.FC<ButtonProps> = ({
@@ -19,11 +20,21 @@ const ButtonComponent: React.FC<ButtonProps> = ({
                                                     onClick,
                                                     children,
                                                     className = "",
-                                                    isActive = false, // Added with default value
+                                                    isActive = false,
+                                                    disabled = false,
                                                     ...props
                                                 }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
+
+    // Reset hover and click states when button becomes disabled
+    React.useEffect(() => {
+        if (disabled) {
+            setIsHovered(false);
+            setIsClicked(false);
+        }
+    }, [disabled]);
+
 
     const handleMouseDown = () => {
         setIsClicked(true);
@@ -46,6 +57,18 @@ const ButtonComponent: React.FC<ButtonProps> = ({
             fontSize: `${fontSize}px`,
             border: "2px solid transparent",
         };
+
+        // Disabled state takes precedence over all
+        if (disabled) {
+            return {
+                ...baseStyle,
+                backgroundColor: "var(--color-airbus-light-gray)",
+                background: `
+                    linear-gradient(var(--color-airbus-light-gray), var(--color-airbus-light-gray)) padding-box,
+                    linear-gradient(145deg, #d0d0d2 0%, #48495b 50%, #292a34 100%) border-box
+                `,
+            };
+        }
 
         // Active state takes precedence
         if (isActive) {
@@ -93,15 +116,17 @@ const ButtonComponent: React.FC<ButtonProps> = ({
     return (
         <button
             className={`
-                relative rounded-xs font-medium text-center cursor-pointer
+                relative rounded-xs font-medium text-center
                 select-none flex items-center justify-center
+                ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}
                 ${className}
             `}
             style={getButtonStyle()}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={handleMouseLeave}
+            onMouseDown={disabled ? undefined : handleMouseDown}
+            onMouseUp={disabled ? undefined : handleMouseUp}
+            onMouseEnter={disabled ? undefined : () => setIsHovered(true)}
+            onMouseLeave={disabled ? undefined : handleMouseLeave}
+            disabled={disabled}
             {...props}
         >
             <span style={{ fontSize: `${fontSize}px`, color: "white" }}>

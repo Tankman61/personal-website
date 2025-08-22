@@ -177,7 +177,12 @@ export default function Home() {
                                                 <span className="text-airbus-green mr-4 mb-1 text-[17px]">←</span>
                                                 <span className="text-white text-[17px]">PREV.</span>
                                             </div>
-                                            <Button height={30} width={110} className="!justify-start w-full px-2 onCci">
+                                            <Button
+                                                height={30}
+                                                width={110}
+                                                className="!justify-start w-full px-2 onCci"
+                                                onClick={() => window.open('https://se-webring.xyz/', '_blank')}
+                                            >
                                                 <div className="flex justify-start items-center w-full">
                                                     <img src={SEWebRingLogo.src} alt={"SE Webring"} className="h-5 w-5 mr-2" />
                                                     <span className="text-[13px]">WEBRING</span>
@@ -193,7 +198,7 @@ export default function Home() {
                                                 <span className="text-white mr-4 text-[17px]">NEXT.</span>
                                                 <span className="text-airbus-green mb-1 text-[17px]">→</span>
                                             </div>
-                                            <span className="text-amber-500"></span>
+                                            <span className="text-amber-500">(INOP)</span>
                                         </div>
                                     </div>
                                 </div>
@@ -283,7 +288,7 @@ export default function Home() {
                                     </div>
 
                                     <div>
-                                        <div className="text-[18px] mb-1 mt-2 text-airbus-blue">• SO FAR:</div>
+                                        <div className="text-[18px] mb-1 mt-1 text-airbus-blue">• SO FAR:</div>
                                         <div className="space-y-3 text-sm">
                                             <div>↳ BUILT <span className="text-airbus-green text-base">CCCSOLUTIONS</span> - LARGEST CCC SOLUTION REPOSITORY</div>
                                             <div className="ml-4 text-xs">W/ <span className="text-airbus-blue font-bold text-lg">2800+</span> USERS AND <span className="text-airbus-blue font-bold text-lg">270+</span> SOLUTIONS</div>

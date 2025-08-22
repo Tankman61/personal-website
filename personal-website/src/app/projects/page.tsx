@@ -153,17 +153,21 @@ export default function Projects() {
                 >
                     <div className="relative bg-black h-full p-4 overflow-y-auto">
                         {currentProject ? (
-                            <div className="flex flex-col h-full space-y-4">
+                            <div className="flex flex-col h-full">
                                 {/* Project Title */}
-                                <div className="text-airbus-green text-[18px] font-medium text-center mb-4">
+                                <div className="text-airbus-green text-[18px] font-medium text-center -mb-3">
                                     {currentProject.title}
                                 </div>
-
-                                <PhotoDeck images={currentProject.images.map(img => ({ src: typeof img === 'string' ? img : img.src }))} />
+                                <PhotoDeck
+                                    images={currentProject.images.map(img => ({ src: typeof img === 'string' ? img : img.src }))}
+                                    singlePhotoView={true}
+                                    cardWidth={550}
+                                    cardHeight={225}
+                                />
 
 
                                 {/* Project Details */}
-                                <div className="space-y-4 text-white">
+                                <div className="space-y-4 text-white mt-2">
                                     {/* Description */}
                                     <div className="text-sm leading-relaxed">
                                         {currentProject.description}
@@ -178,18 +182,33 @@ export default function Projects() {
                                     {/* Technologies */}
                                     <div className="space-y-2">
                                         <div className="text-airbus-blue text-sm">TECHNOLOGIES:</div>
-                                        <div className="space-y-1">
-                                            {currentProject.technologies.map((tech, index) => (
-                                                <div key={index} className="text-xs text-white flex items-center">
-                                                    <span className="mr-2">↳</span>
-                                                    {tech}
+                                        <div className="flex gap-x-4">
+                                            {/* First column - always takes first 3 items */}
+                                            <div className="flex-1 space-y-1">
+                                                {currentProject.technologies.slice(0, 3).map((tech, index) => (
+                                                    <div key={index} className="text-xs text-white flex items-center">
+                                                        <span className="mr-2">↳</span>
+                                                        {tech}
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            {/* Second column - takes any remaining items */}
+                                            {currentProject.technologies.length > 3 && (
+                                                <div className="flex-1 space-y-1">
+                                                    {currentProject.technologies.slice(3).map((tech, index) => (
+                                                        <div key={index} className="text-xs text-white flex items-center">
+                                                            <span className="mr-2">↳</span>
+                                                            {tech}
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ))}
+                                            )}
                                         </div>
                                     </div>
 
                                     {/* Action Buttons */}
-                                    <div className="flex space-x-3">
+                                    <div className="flex space-x-3 -mt-2">
                                         {currentProject.github && (
                                             <div
                                                 onClick={() => window.open(currentProject.github, '_blank')}

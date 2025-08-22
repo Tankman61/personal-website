@@ -105,7 +105,7 @@ export const PROJECTS = [
         shortTitle: "MATHIFY",
         description: (
             <>
-                MATHIFY SOLVES YOUR MATH PROBLEMS AND TURNS THEM INTO ENGAGING STEP-BY-STEP VIDEOS IN THE STYLE 3BLUE1BROWN. WINNER AT IGNITIONHACKS 4.0
+                GENERATE SOLUTION VIDEOS TO MATH PROBLEMS IN THE STYLE 3BLUE1BROWN. WINNER AT IGNITIONHACKS V4
             </>
         ),
         images: [mathify1, mathify2, mathify3],
@@ -158,7 +158,7 @@ export const PROJECTS = [
     },
     {
         title: "NOTECONVERT",
-        shortTitle: "NOTECONVERT",
+        shortTitle: "NOTECONV.",
         description: (
             <>
                 TRANSFORM AUDIO RECORDINGS INTO STRUCTURED STUDY NOTES. 2ND PLACE AT RECESSHACKS 4.0
@@ -175,7 +175,7 @@ export const PROJECTS = [
         shortTitle: "FUKUSHIMA",
         description: (
             <>
-                SINGLE-PLAYER SURVIVAL SHOOTER BUILT USING PYGAME
+                SINGLE-PLAYER TOP-DOWN SURVIVAL SHOOTER BUILT USING PYGAME AND PYTMX
             </>
         ),
         images: [fukushima1],

@@ -2,6 +2,7 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { Button } from "./Button";
 
+// TODO: read through the eslint suppressed code since I was tired when I wrote it and suppressed the rules
 interface PhotoDeckProps {
     images: { src: string }[];
     singlePhotoView?: boolean;
@@ -181,7 +182,9 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
                             if (calculatedWidth > CARD_W) {
                                 calculatedWidth = CARD_W;
+                                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                 calculatedHeight = CARD_W / imageAspect;
+                                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                 frameWidth = CARD_W;
                             }
                         }

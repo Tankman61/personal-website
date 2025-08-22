@@ -193,7 +193,7 @@ export default function Home() {
                                                 <span className="text-white mr-4 text-[17px]">NEXT.</span>
                                                 <span className="text-airbus-green mb-1 text-[17px]">→</span>
                                             </div>
-                                            <span className="text-amber-500">(INOP)</span>
+                                            <span className="text-amber-500"></span>
                                         </div>
                                     </div>
                                 </div>

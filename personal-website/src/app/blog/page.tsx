@@ -2,6 +2,7 @@
 
 // FIXME: THERE IS CLIPPING/INCONSISTENCY BETWEEN OUTLINED BLUE BOX AND TITLE TEXT WHEN HOVERING OVER TITLE
 // also im pretty sure the ishighlighted stuff isnt even needed LOL
+// FIXME: UP/DOWN BUTTON DISABLED STATE NEEDS TO USE NEW PROP
 
 import { useState } from "react"
 import { Button } from '@/components/Button';

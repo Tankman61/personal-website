@@ -2,53 +2,44 @@
 import React, { useState } from 'react';
 import { PROJECTS } from '../../../public/assets/constants/constants';
 import { Button } from '@/components/Button';
+import { FaGithub, FaGlobe, FaDiscord } from 'react-icons/fa';
+import PhotoDeck from '@/components/PhotoDeck';
 
 // FIXME: clicking the back button should not be possible on the first page, forward button should not be possible on second page also i needa fix the size of the buttons
 // FIXME: fix airbus-blue highlighting system to not be based off of number but rather important keywords defined in constants.js
+// FIXME: FOR IMAGES USE THE GALLERY
 export default function Projects() {
     const [activeTab, setActiveTab] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
 
     const borderWidth = 2;
     const projectsPerPage = 5;
+    const totalPages = Math.ceil(PROJECTS.length / projectsPerPage);
 
     // Calculate which projects to show on current page
     const startIndex = currentPage * projectsPerPage;
     const currentProjects = PROJECTS.slice(startIndex, startIndex + projectsPerPage);
     const currentProject = currentProjects[activeTab];
 
-    // Helper function to highlight numbers in descriptions
-    const highlightNumbers = (text) => {
-        return text.split(/(\b\d+\+?\b)/).map((part, index) =>
-            /^\d+\+?$/.test(part) ? (
-                <span key={index} className="text-airbus-blue">{part}</span>
-            ) : (
-                part
-            )
-        );
-    };
 
-    // FIXME: delete this lol/make the easter egg different
     const handleLinkClick = (project) => {
-        if (project.title === "A350 PORTFOLIO") {
-            alert("YOU'RE ALREADY ON THE PORTFOLIO! 🛩️");
-            return;
-        }
         if (project.link) {
             window.open(project.link, '_blank');
         }
     };
 
     const handlePrevious = () => {
-        const totalPages = Math.ceil(PROJECTS.length / projectsPerPage);
-        setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
-        setActiveTab(0); // Reset to first tab when changing pages
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1);
+            setActiveTab(0); // Reset to first tab when changing pages
+        }
     };
 
     const handleNext = () => {
-        const totalPages = Math.ceil(PROJECTS.length / projectsPerPage);
-        setCurrentPage((prev) => (prev + 1) % totalPages);
-        setActiveTab(0); // Reset to first tab when changing pages
+        if (currentPage < totalPages - 1) {
+            setCurrentPage(currentPage + 1);
+            setActiveTab(0); // Reset to first tab when changing pages
+        }
     };
 
     return (
@@ -57,6 +48,7 @@ export default function Projects() {
             <div className="mr-4">
                 <Button
                     onClick={handlePrevious}
+                    disabled={currentPage === 0}
                     className="text-xs px-3 py-2"
                     width={40}
                 >
@@ -99,7 +91,7 @@ export default function Projects() {
                                     preserveAspectRatio="none"
                                 >
                                     <path
-                                        d="M 1 31.5 L 25 0 L 175 0 L 199.5 31 L"
+                                        d="M 2 31.5 L 25 0 L 175 0 L 199.5 31.5 L"
                                         fill="none"
                                         stroke="white"
                                         strokeWidth={borderWidth}
@@ -167,25 +159,28 @@ export default function Projects() {
                                     {currentProject.title}
                                 </div>
 
+                                <PhotoDeck images={currentProject.images.map(img => ({ src: typeof img === 'string' ? img : img.src }))} />
+
+
                                 {/* Project Details */}
                                 <div className="space-y-4 text-white">
                                     {/* Description */}
                                     <div className="text-sm leading-relaxed">
-                                        {highlightNumbers(currentProject.description)}
+                                        {currentProject.description}
                                     </div>
 
                                     {/* Date */}
-                                    <div className="flex items-center space-x-2 text-xs">
+                                    <div className="flex items-center space-x-2 text-sm">
                                         <span className="text-airbus-blue">YEAR:</span>
                                         <span className="text-airbus-green">{currentProject.date}</span>
                                     </div>
 
                                     {/* Technologies */}
                                     <div className="space-y-2">
-                                        <div className="text-airbus-blue text-xs">TECHNOLOGIES:</div>
+                                        <div className="text-airbus-blue text-sm">TECHNOLOGIES:</div>
                                         <div className="space-y-1">
                                             {currentProject.technologies.map((tech, index) => (
-                                                <div key={index} className="text-xs text-airbus-green flex items-center">
+                                                <div key={index} className="text-xs text-white flex items-center">
                                                     <span className="mr-2">↳</span>
                                                     {tech}
                                                 </div>
@@ -194,26 +189,32 @@ export default function Projects() {
                                     </div>
 
                                     {/* Action Buttons */}
-                                    <div className="flex space-x-3 pt-4">
-                                        {currentProject.link && (
-                                            <Button
-                                                onClick={() => handleLinkClick(currentProject)}
-                                                className="text-xs px-4 py-2"
-                                            >
-                                                VIEW LIVE
-                                            </Button>
-                                        )}
-
+                                    <div className="flex space-x-3">
                                         {currentProject.github && (
-                                            <Button
+                                            <div
                                                 onClick={() => window.open(currentProject.github, '_blank')}
-                                                className="text-xs px-4 py-2"
+                                                className="p-2 border border-transparent hover:outline hover:outline-airbus-blue hover:outline-[2px] rounded-[0.5px] transition-none cursor-pointer"
                                             >
-                                                VIEW CODE
-                                            </Button>
+                                                <FaGithub className="text-xl" />
+                                            </div>
                                         )}
-
-                                        {!currentProject.link && !currentProject.github && (
+                                        {currentProject.link && (
+                                            <div
+                                                onClick={() => handleLinkClick(currentProject)}
+                                                className="p-2 border border-transparent hover:outline hover:outline-airbus-blue hover:outline-[2px] rounded-[0.5px] transition-none cursor-pointer"
+                                            >
+                                                <FaGlobe className="text-xl" />
+                                            </div>
+                                        )}
+                                        {currentProject.discord && (
+                                            <div
+                                                onClick={() => window.open(currentProject.discord, '_blank')}
+                                                className="p-2 border border-transparent hover:outline hover:outline-airbus-blue hover:outline-[2px] rounded-[0.5px] transition-none cursor-pointer"
+                                            >
+                                                <FaDiscord className="text-xl" />
+                                            </div>
+                                        )}
+                                        {!currentProject.link && !currentProject.github && !currentProject.discord && (
                                             <div className="text-xs text-gray-500 italic">
                                                 ↳ LINKS COMING SOON
                                             </div>
@@ -237,6 +238,7 @@ export default function Projects() {
             <div className="ml-4">
                 <Button
                     onClick={handleNext}
+                    disabled={currentPage === totalPages - 1}
                     className="text-xs px-3 py-2"
                     width={40}
                 >

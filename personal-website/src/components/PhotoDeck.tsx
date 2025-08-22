@@ -82,27 +82,41 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
         [cardWidth, cardHeight, singlePhotoView]
     );
 
-    // Initialize/reset when images change
     useEffect(() => {
         setInitialized(true);
         setLoadedImages(new Set());
         setIsTransitioning(false);
         setCurrentIndex(0);
+
+        // Preserve dimensions during image changes
+        if (activeImageDimensionsRef.current) {
+            setImageDimensions(new Map([[0, activeImageDimensionsRef.current]]));
+        }
     }, [images]);
 
     // Update ref when current image changes
     useEffect(() => {
         const dims = imageDimensions.get(currentIndex);
-        if (dims) activeImageDimensionsRef.current = dims;
+        if (dims) {
+            activeImageDimensionsRef.current = dims;
+        } else if (activeImageDimensionsRef.current) {
+            // Keep previous dimensions while loading new images
+            setImageDimensions((prev) => {
+                const newMap = new Map(prev);
+                newMap.set(currentIndex, activeImageDimensionsRef.current!);
+                return newMap;
+            });
+        }
     }, [currentIndex, imageDimensions]);
 
     const allImagesLoaded = loadedImages.size === images.length;
     const CARD_W = cardWidth;
     const CARD_H = cardHeight;
+    const imgDimensions = imageDimensions.get(currentIndex);
 
-    const containerStyle = {
-        width: CARD_W,
-        height: CARD_H + 50,
+    const containerStyle: React.CSSProperties = {
+        width: imgDimensions?.width || CARD_W,
+        height: (imgDimensions?.height || CARD_H) + 50,
         margin: "0 auto",
         transition: "width 300ms ease-out, height 300ms ease-out",
     };
@@ -116,7 +130,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                         <div
                             className="absolute border-2 border-white bg-black flex flex-col items-center justify-center"
                             style={{
-                                width: CARD_W,
+                                width: 285,
                                 height: CARD_H,
                                 left: "50%",
                                 top: "50%",

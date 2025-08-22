@@ -116,12 +116,17 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
             image.src = img.src;
 
             if (image.complete) {
-                // If cached, mark immediately
-                handleImageLoad(index, { target: image } as any);
+                handleImageLoad(
+                    index,
+                    { target: image } as unknown as React.SyntheticEvent<HTMLImageElement>
+                );
             } else {
-                image.onload = (e) => handleImageLoad(index, e as any);
+                image.onload = (e: Event) =>
+                    handleImageLoad(
+                        index,
+                        e as unknown as React.SyntheticEvent<HTMLImageElement>
+                    );
                 image.onerror = () => {
-                    // even if it fails, count it as "loaded" to unblock
                     setLoadedImages((prev) => new Set(prev).add(index));
                 };
             }
@@ -141,23 +146,6 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
         transition: "width 300ms ease-out, height 300ms ease-out",
     };
 
-    useEffect(() => {
-        images.forEach((img, index) => {
-            const image = new Image();
-            image.src = img.src;
-
-            if (image.complete) {
-                // If cached, mark immediately
-                handleImageLoad(index, { target: image } as any);
-            } else {
-                image.onload = (e) => handleImageLoad(index, e as any);
-                image.onerror = () => {
-                    // even if it fails, count it as "loaded" to unblock
-                    setLoadedImages((prev) => new Set(prev).add(index));
-                };
-            }
-        });
-    }, [images, handleImageLoad]);
 
     // Conditional rendering based on singlePhotoView
     if (!singlePhotoView) {

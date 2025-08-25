@@ -172,7 +172,7 @@ export default function Home() {
                                                 style={{ border: '2px solid transparent', borderRadius: '1px', boxSizing: 'border-box' }}
                                                 onMouseEnter={e => (e.currentTarget.style.border = '2px solid var(--color-airbus-blue)')}
                                                 onMouseLeave={e => (e.currentTarget.style.border = '2px solid transparent')}
-                                                onClick={() => window.open('https://google.com', '_blank')}
+                                                onClick={() => window.open('https://justin-abuyuan.xyz/', '_blank')}
                                             >
                                                 <span className="text-airbus-green mr-4 mb-1 text-[17px]">←</span>
                                                 <span className="text-white text-[17px]">PREV.</span>
@@ -193,12 +193,11 @@ export default function Home() {
                                                 style={{ border: '2px solid transparent', borderRadius: '1px', boxSizing: 'border-box' }}
                                                 onMouseEnter={e => (e.currentTarget.style.border = '2px solid var(--color-airbus-blue)')}
                                                 onMouseLeave={e => (e.currentTarget.style.border = '2px solid transparent')}
-                                                onClick={() => window.open('https://google.com', '_blank')}
+                                                onClick={() => window.open('https://www.harleyzhang.me/', '_blank')}
                                             >
                                                 <span className="text-white mr-4 text-[17px]">NEXT.</span>
                                                 <span className="text-airbus-green mb-1 text-[17px]">→</span>
                                             </div>
-                                            <span className="text-amber-500">(INOP)</span>
                                         </div>
                                     </div>
                                 </div>

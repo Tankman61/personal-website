@@ -172,7 +172,7 @@ export default function Home() {
                                                 style={{ border: '2px solid transparent', borderRadius: '1px', boxSizing: 'border-box' }}
                                                 onMouseEnter={e => (e.currentTarget.style.border = '2px solid var(--color-airbus-blue)')}
                                                 onMouseLeave={e => (e.currentTarget.style.border = '2px solid transparent')}
-                                                onClick={() => window.open('https://justin-abuyuan.xyz/', '_blank')}
+                                                onClick={() => window.location.href = 'https://justin-abuyuan.xyz/'}
                                             >
                                                 <span className="text-airbus-green mr-4 mb-1 text-[17px]">←</span>
                                                 <span className="text-white text-[17px]">PREV.</span>
@@ -181,7 +181,7 @@ export default function Home() {
                                                 height={30}
                                                 width={110}
                                                 className="!justify-start w-full px-2 onCci"
-                                                onClick={() => window.open('https://se-webring.xyz/', '_blank')}
+                                                onClick={() => window.location.href = 'https://se-webring.xyz/'}
                                             >
                                                 <div className="flex justify-start items-center w-full">
                                                     <img src={SEWebRingLogo.src} alt={"SE Webring"} className="h-5 w-5 mr-2" />
@@ -193,7 +193,7 @@ export default function Home() {
                                                 style={{ border: '2px solid transparent', borderRadius: '1px', boxSizing: 'border-box' }}
                                                 onMouseEnter={e => (e.currentTarget.style.border = '2px solid var(--color-airbus-blue)')}
                                                 onMouseLeave={e => (e.currentTarget.style.border = '2px solid transparent')}
-                                                onClick={() => window.open('https://www.harleyzhang.me/', '_blank')}
+                                                onClick={() => window.location.href = 'https://www.harleyzhang.me/'}
                                             >
                                                 <span className="text-white mr-4 text-[17px]">NEXT.</span>
                                                 <span className="text-airbus-green mb-1 text-[17px]">→</span>

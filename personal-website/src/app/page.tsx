@@ -9,6 +9,7 @@ import Image3 from '../../public/assets/images/gallery3.jpg';
 import Image4 from '../../public/assets/images/gallery4.jpg';
 import Image5 from '../../public/assets/images/gallery5.jpg';
 import SEWebRingLogo from "../../public/assets/icons/logo_w.svg";
+import { PROJECTS } from "../../public/assets/constants/constants";
 
 export default function Home() {
     const [activeTab, setActiveTab] = useState(0);
@@ -251,23 +252,33 @@ export default function Home() {
                                         STATS:
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-x-8 gap-y-3 mb-4">
-                                        <div className="flex justify-between">
-                                            <span className="text-white text-[17px]">PROJECTS</span>
-                                            <span className="text-airbus-green text-[17px]">00</span>
+                                    <div className="flex justify-between items-center">
+                                        <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+                                            <div className="flex justify-between">
+                                                <span className="text-white text-[17px]">PROJECTS</span>
+                                                <span className="text-airbus-green text-[17px] ml-6">{PROJECTS.length.toString().padStart(2, '0')}</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-white text-[17px]">BLOGS</span>
+                                                <span className="text-airbus-green text-[17px]">00</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-white text-[17px]">LANGUAGES</span>
+                                                <span className="text-airbus-green text-[17px] ml-6">04</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-white text-[17px]">AGE</span>
+                                                <span className="text-airbus-green text-[17px]">17</span>
+                                            </div>
                                         </div>
-                                        <div className="flex justify-between">
-                                            <span className="text-white text-[17px]">BLOGS</span>
-                                            <span className="text-airbus-green text-[17px]">00</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span className="text-white text-[17px]">LANGUAGES</span>
-                                            <span className="text-airbus-green text-[17px]">04</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span className="text-white text-[17px]">AGE</span>
-                                            <span className="text-airbus-green text-[17px]">17</span>
-                                        </div>
+                                        <Button
+                                            height={36}
+                                            width={100}
+                                            onClick={() => window.location.href = '/blog'}
+                                            className="mr-11"
+                                        >
+                                            BLOGS*
+                                        </Button>
                                     </div>
                                 </div>
                             </div>

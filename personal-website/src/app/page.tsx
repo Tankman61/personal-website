@@ -298,12 +298,12 @@ export default function Home() {
                                     </div>
 
                                     <div>
-                                        <div className="text-[18px] mb-1 mt-1 text-airbus-blue">• SO FAR:</div>
+                                        <div className="text-[18px] mb-1 mt-1 text-airbus-blue font-semibold">• SO FAR:</div>
                                         <div className="space-y-3 text-sm">
                                             <div>↳ BUILT <span className="text-airbus-green text-base">CCCSOLUTIONS</span> - LARGEST CCC SOLUTION REPOSITORY</div>
-                                            <div className="ml-4 text-xs">W/ <span className="text-airbus-blue font-bold text-lg">2800+</span> USERS AND <span className="text-airbus-blue font-bold text-lg">270+</span> SOLUTIONS</div>
+                                            <div className="ml-4 text-xs">W/ <span className="text-airbus-dark-blue font-bold text-lg">2800+</span> USERS AND <span className="text-airbus-dark-blue font-bold text-lg">270+</span> SOLUTIONS</div>
 
-                                            <div>↳ ATTENDED <span className="text-airbus-blue font-bold text-base">9</span> HACKATHONS AND  WON <span className="text-airbus-blue font-bold text-base">2</span> - (<span className="text-airbus-green text-sm">HACK THE NORTH</span> NEXT)</div>
+                                            <div>↳ ATTENDED <span className="text-airbus-dark-blue font-bold text-base">9</span> HACKATHONS AND  WON <span className="text-airbus-dark-blue font-bold text-base">2</span> - (<span className="text-airbus-green text-sm">HACK THE NORTH</span> NEXT)</div>
                                             <div>↳ CREATED THIS <span className="text-airbus-green text-base">A350 FMS PORTFOLIO</span></div>
                                         </div>
                                     </div>

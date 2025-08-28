@@ -175,13 +175,13 @@ export default function Projects() {
 
                                     {/* Date */}
                                     <div className="flex items-center space-x-2 text-sm">
-                                        <span className="text-airbus-blue">YEAR:</span>
+                                        <span className="text-airbus-dark-blue">YEAR:</span>
                                         <span className="text-airbus-green">{currentProject.date}</span>
                                     </div>
 
                                     {/* Technologies */}
                                     <div className="space-y-2">
-                                        <div className="text-airbus-blue text-sm">TECHNOLOGIES:</div>
+                                        <div className="text-airbus-dark-blue text-sm">TECHNOLOGIES:</div>
                                         <div className="flex gap-x-4">
                                             {/* First column - always takes first 3 items */}
                                             <div className="flex-1 space-y-1">

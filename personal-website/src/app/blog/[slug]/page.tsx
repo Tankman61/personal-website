@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
 import { serialize } from "next-mdx-remote/serialize";
+import matter from "gray-matter";               // <-- add
 import PostContent from "./PostContent";
 
 interface Props {
@@ -17,11 +18,17 @@ export default async function PostPage({ params }: Props) {
     }
 
     const source = fs.readFileSync(postFile, "utf-8");
-    const mdxSource = await serialize(source);
+
+    // Parse frontmatter and separate content
+    const { content, data } = matter(source);
+
+    // Serialize only the content (not the frontmatter).
+    // Pass frontmatter into `scope` so MDXRemote can access it if needed.
+    const mdxSource = await serialize(content, { scope: data });
 
     return (
-        <div className="prose mx-auto py-8 px-4">
-            <PostContent source={mdxSource} /> {/* Client component renders MDX */}
+        <div>
+            <PostContent source={mdxSource} frontmatter={data} />
         </div>
     );
 }

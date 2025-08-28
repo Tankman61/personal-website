@@ -33,8 +33,8 @@ export function getAllPosts(): BlogPostMeta[] {
 
         return {
             slug,
-            title: data.TITLE ?? "Untitled",
-            date: data.DATE ?? "No Date",
+            title: data.TITLE ?? "UNTITLED",
+            date: data.DATE ?? "NO DATE",
             tags: data.TAGS ?? undefined,
         };
     }).filter(Boolean) as BlogPostMeta[];

@@ -14,13 +14,33 @@ const Navbar = () => {
 
     // derive dropdown value from URL
     const dropdownValue = (() => {
-        const path = pathname.replace("/", "").toUpperCase();
-        return dropdownOptions.includes(path) ? path : "PORTFOLIO";
+        // Extract the first segment of the path
+        const pathSegment = pathname.split('/')[1]?.toUpperCase() || "";
+        return dropdownOptions.includes(pathSegment) ? pathSegment : "PORTFOLIO";
     })();
 
     const handleDropdownChange = (value: string) => {
         router.push(value === "PORTFOLIO" ? "/" : `/${value.toLowerCase()}`);
     };
+
+    const getPageName = (path: string) => {
+        // Handle home route
+        if (path === "/") return "HOME";
+
+        // Remove leading slash and get the base segment
+        const baseSegment = path.split('/')[1]?.toUpperCase();
+
+        // Check if it's one of the main pages
+        const mainPage = pages.find(page => page.toUpperCase() === baseSegment);
+        if (mainPage) return mainPage;
+
+        // Check if it's one of the dropdown options
+        const dropdownPage = dropdownOptions.find(option => option.toUpperCase() === baseSegment);
+        if (dropdownPage) return dropdownPage;
+
+        // Fallback
+        return "PAGE NAME";
+    }
 
     return (
         <nav className="navbar flex flex-col items-center p-4 relative">
@@ -53,7 +73,7 @@ const Navbar = () => {
                 </ul>
                 <div className="flex items-center w-full space-x-1">
                     {[
-                        { text: pathname === "/" ? "HOME" : pages.find(page => pathname.toUpperCase().includes(page.toUpperCase())) || "PAGE NAME", width: 490 },
+                        { text: getPageName(pathname), width: 490 },
                         { text: "", width: 52 },
                         { text: "", width: 70 }
                     ].map((item, idx) => (

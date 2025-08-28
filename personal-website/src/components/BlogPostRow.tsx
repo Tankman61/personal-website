@@ -13,9 +13,6 @@ interface RowBaseProps {
 interface BlogPostDisplayData {
     title: string
     date: string
-    likes: number
-    comments: number
-    views: number
     category?: string
 }
 
@@ -71,7 +68,7 @@ export const BlogPostRow: React.FC<BlogPostRowProps> = ({
                     width={bbox.width + paddingX * 2}
                     height={bbox.height + paddingY * 2}
                     fill="none"
-                    stroke="cyan"
+                    stroke="#00EAFF"
                     strokeWidth={2}
                 />
             )}

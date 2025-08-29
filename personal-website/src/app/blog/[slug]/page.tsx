@@ -5,13 +5,13 @@ import matter from "gray-matter";
 import path from "path";
 import PostContent from "./PostContent";
 
-// 1. You can remove this interface entirely.
-// interface Props {
-//     params: { slug: string };
-// }
+// Define a more complete and explicit type for the page props.
+type PageProps = {
+    params: { slug: string };
+    searchParams?: { [key: string]: string | string[] | undefined };
+};
 
-// 2. Update the function signature to define the props type inline.
-export default async function PostPage({ params }: { params: { slug: string } }) {
+export default async function PostPage({ params }: PageProps) {
     const postsDir = path.resolve(process.cwd(), "src/app/blog/posts");
     const postDir = path.join(postsDir, params.slug);
     const postFile = path.join(postDir, "page.mdx");

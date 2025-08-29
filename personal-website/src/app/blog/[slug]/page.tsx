@@ -5,16 +5,19 @@ import matter from "gray-matter";
 import path from "path";
 import PostContent from "./PostContent";
 
-// Define a more complete and explicit type for the page props.
-// In Next.js 15, params can be a promise.
+// In Next.js 15, both params and searchParams can be promises.
 type PageProps = {
     params: Promise<{ slug: string }>;
-    searchParams?: { [key: string]: string | string[] | undefined };
+    searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export default async function PostPage({ params }: PageProps) {
+export default async function PostPage({ params, searchParams }: PageProps) {
     // Await the params to get the slug
     const { slug } = await params;
+
+    // Although searchParams is not used in this component,
+    // you would await it here if you needed to access it.
+    // const sParams = searchParams ? await searchParams : {};
 
     const postsDir = path.resolve(process.cwd(), "src/app/blog/posts");
     const postDir = path.join(postsDir, slug);

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import Scrollbar from "@/components/Scrollbar";
+import NextImage from "next/image";
 
 interface Props {
     source: MDXRemoteSerializeResult;
@@ -39,17 +39,51 @@ export default function PostContent({ source, frontmatter }: Props) {
                 {/* SEPARATOR */}
                 <div className="w-full h-px bg-gray-300"></div>
 
-                {/* Content with scrollbar */}
-                <Scrollbar className="w-full max-w-[612px] scrollbar flex-grow " style={{ maxHeight: "calc(612px)" }}>
-                    <div className="w-full max-w-[612px]">
-                        <div className="text-sm text-airbus-dark-blue uppercase mt-4">
-                            <span className="font-semibold">TAGS:</span> <span className="text-airbus-green">{tagsDisplay}</span>
+                    <div className="w-full max-w-full">
+                        <div className="prose prose-invert max-w-full max-h-[610px] overflow-y-auto
+                            [&::-webkit-scrollbar]:w-2.5
+                            [&::-webkit-scrollbar-track]:bg-[var(--color-airbus-gray)]
+                            [&::-webkit-scrollbar-thumb]:bg-[var(--color-airbus-light-gray)] [&::-webkit-scrollbar-thumb]:rounded-sm"
+                             >
+                            <div className="text-sm text-airbus-dark-blue uppercase mt-4">
+                                <span className="font-semibold">TAGS:</span> <span className="text-airbus-green">{tagsDisplay}</span>
+                            </div>
+                            <MDXRemote
+                                {...source}
+                                components={{
+                                    Image: (props: React.ComponentProps<typeof NextImage>) => {
+                                        // Ensure the image has proper dimensions
+                                        return (
+                                            <div className="my-6">
+                                                <NextImage
+                                                    {...props}
+                                                    width={800}
+                                                    height={500}
+                                                    style={{
+                                                        maxWidth: '100%',
+                                                        height: 'auto',
+                                                        objectFit: 'contain'
+                                                    }}
+                                                />
+                                            </div>
+                                        );
+                                    },
+                                    p: (props: React.HTMLAttributes<HTMLParagraphElement>) => {
+                                        // Check if the children contain paragraph elements
+                                        const hasNestedP = React.Children.toArray(props.children).some(
+                                            child => React.isValidElement(child) && child.type === 'p'
+                                        );
+
+                                        // If nested paragraphs detected, use a div instead
+                                        return hasNestedP ?
+                                            <div {...props} /> :
+                                            <p {...props} />;
+                                    },
+                                    // Add other components here if needed
+                                }}
+                            />
                         </div>
                     </div>
-                    <div className="prose prose-invert max-w-full">
-                        <MDXRemote {...source} />
-                    </div>
-                </Scrollbar>
             </div>
         </main>
     );

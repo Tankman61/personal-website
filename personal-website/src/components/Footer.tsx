@@ -37,26 +37,36 @@ const Footer: React.FC = () => {
 
         const savedStartTime = localStorage.getItem('footerStartTime');
         const startTime = savedStartTime ? parseInt(savedStartTime) : Date.now();
-        const elapsed = Date.now() - startTime;
 
         let timer2: NodeJS.Timeout | null = null;
 
-        if (elapsed < 1000*60*5 && !clearedMessages.includes("NAV PRIMARY")) {
-            timer2 = setTimeout(() => {
+        // Only start the NAV PRIMARY timer if ALIGN IRS has been displayed and either cleared or is still showing
+        const alignIrsDisplayed = messages.includes("ALIGN IRS") || clearedMessages.includes("ALIGN IRS");
+
+        if (alignIrsDisplayed && !messages.includes("NAV PRIMARY") && !clearedMessages.includes("NAV PRIMARY")) {
+            // Check if we need to set a timer or show immediately
+            const alignIrsTime = localStorage.getItem('alignIrsTime');
+            const elapsed = alignIrsTime ? (Date.now() - parseInt(alignIrsTime)) : 0;
+
+            if (elapsed < 1000*60*5) {
+                // Set timer for remaining time until 5 minutes after ALIGN IRS appeared
+                timer2 = setTimeout(() => {
+                    setMessages(prev => {
+                        if (!prev.includes("NAV PRIMARY") && !clearedMessages.includes("NAV PRIMARY")) {
+                            return [...prev, "NAV PRIMARY"];
+                        }
+                        return prev;
+                    });
+                }, (1000*60*5) - elapsed);
+            } else {
+                // It's been more than 5 minutes since ALIGN IRS appeared, show NAV PRIMARY now
                 setMessages(prev => {
-                    if (!prev.includes("NAV PRIMARY") && !clearedMessages.includes("NAV PRIMARY")) {
+                    if (!prev.includes("NAV PRIMARY")) {
                         return [...prev, "NAV PRIMARY"];
                     }
                     return prev;
                 });
-            }, (1000*60*5) - elapsed);
-        } else if (elapsed >= 1000*60*5 && !messages.includes("NAV PRIMARY") && !clearedMessages.includes("NAV PRIMARY")) {
-            setMessages(prev => {
-                if (!prev.includes("NAV PRIMARY")) {
-                    return [...prev, "NAV PRIMARY"];
-                }
-                return prev;
-            });
+            }
         }
 
         return () => {
@@ -74,6 +84,8 @@ const Footer: React.FC = () => {
                 setTimeout(() => {
                     setMessages(current => {
                         if (!current.includes("ALIGN IRS")) {
+                            // Store the time when ALIGN IRS appears
+                            localStorage.setItem('alignIrsTime', Date.now().toString());
                             return [...current, "ALIGN IRS"];
                         }
                         return current;

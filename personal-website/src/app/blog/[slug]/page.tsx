@@ -1,8 +1,8 @@
 import fs from "fs";
-import path from "path";
 import { notFound } from "next/navigation";
 import { serialize } from "next-mdx-remote/serialize";
-import matter from "gray-matter";               // <-- add
+import matter from "gray-matter";
+import path from "path";
 import PostContent from "./PostContent";
 
 interface Props {
@@ -23,9 +23,16 @@ export default async function PostPage({ params }: Props) {
     const { content, data } = matter(source);
 
     // Serialize only the content (not the frontmatter).
-    // Pass frontmatter into `scope` so MDXRemote can access it if needed.
-    const mdxSource = await serialize(content, { scope: data });
+    // Get image path from the post directory
+    const imagePath = `/blog/posts/${params.slug}/image.png`;
 
+    // Pass frontmatter and image path into `scope` so MDXRemote can access it
+    const mdxSource = await serialize(content, {
+        scope: {
+            ...data,
+            imageRef: imagePath
+        }
+    });
     return (
         <div>
             <PostContent source={mdxSource} frontmatter={data} />

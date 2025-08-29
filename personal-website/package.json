@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "prebuild": "node lib/generate-manifests.js",
+    "prebuild": "node lib/generate-manifests.mjs",
     "start": "next start",
     "lint": "next lint"
   },

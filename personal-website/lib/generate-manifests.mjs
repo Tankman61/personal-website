@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
 
 const assetsDir = path.join(process.cwd(), 'public/assets/images/gallery');
 const manifestPath = path.join(process.cwd(), 'src/lib/gallery-manifest.json');

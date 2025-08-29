@@ -9,8 +9,12 @@ export default function GalleryPage() {
     // If you want only the filenames, adjust your manifest script accordingly.
     const images = galleryImageUrls as string[];
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [imageLoaded, setImageLoaded] = useState(false);
 
-    const openImage = (image: string) => setSelectedImage(image);
+    const openImage = (image: string) => {
+        setSelectedImage(image);
+        setImageLoaded(false);
+    };
     const closeImage = () => setSelectedImage(null);
 
     return (
@@ -54,23 +58,40 @@ export default function GalleryPage() {
                         className="relative z-10"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <button
-                            className="absolute top-2 right-2 bg-black bg-opacity-70 text-white w-8 h-8 rounded-full flex items-center justify-center z-10 hover:bg-opacity-90"
-                            onClick={closeImage}
-                            aria-label="Close image"
-                        >
-                            ✕
-                        </button>
-                        <Image
-                            src={selectedImage}
-                            alt="Selected image"
-                            width={1200}
-                            height={800}
-                            className="max-h-[80vh] w-auto object-contain shadow-xl"
-                        />
+                        <div className="relative flex items-center justify-center">
+                            {/* Loading overlay */}
+                            {!imageLoaded && (
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-20">
+                                    <span className="text-white text-lg">LOADING...</span>
+                                </div>
+                            )}
+
+                            {/* Image itself */}
+                            <Image
+                                src={selectedImage}
+                                alt="Selected image"
+                                width={1200}
+                                height={800}
+                                className="max-h-[80vh] max-w-[90vw] object-contain shadow-xl transition-opacity"
+                                style={{ width: 'auto', height: 'auto' }}
+                                onLoadingComplete={() => setImageLoaded(true)}
+                            />
+
+                            {/* Close button (only when loaded) */}
+                            {imageLoaded && (
+                                <button
+                                    className="absolute top-2 right-2 bg-black bg-opacity-70 text-white w-8 h-8 rounded-full flex items-center justify-center z-30 hover:bg-opacity-90"
+                                    onClick={closeImage}
+                                    aria-label="Close image"
+                                >
+                                    ✕
+                                </button>
+                            )}
+                        </div>
                     </div>
                 </div>
             )}
+
         </main>
     );
 }

@@ -34,6 +34,7 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
                 if (!cancelled && powerState === 'AUTO') {
                     setShowButton(false);
                     const audio = new Audio('/assets/sounds/startup.mp3');
+                    audio.volume = 0.5;
                     audio.play();
                     setLoading(true);
                     setTimeout(() => {

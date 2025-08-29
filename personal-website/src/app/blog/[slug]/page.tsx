@@ -11,13 +11,12 @@ type PageProps = {
     searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export default async function PostPage({ params, searchParams }: PageProps) {
+export default async function PostPage(props: PageProps) {
     // Await the params to get the slug
-    const { slug } = await params;
+    const { slug } = await props.params;
 
-    // Although searchParams is not used in this component,
-    // you would await it here if you needed to access it.
-    // const sParams = searchParams ? await searchParams : {};
+    // If you need searchParams later, uncomment:
+    // const sParams = props.searchParams ? await props.searchParams : undefined;
 
     const postsDir = path.resolve(process.cwd(), "src/app/blog/posts");
     const postDir = path.join(postsDir, slug);
@@ -34,7 +33,6 @@ export default async function PostPage({ params, searchParams }: PageProps) {
     const imageFiles = fs.readdirSync(postDir)
         .filter(f => /\.(png|jpg|jpeg|webp|gif)$/.test(f))
         .reduce((acc, filename, index) => {
-            // imageRef, imageRef2, imageRef3...
             const key = index === 0 ? "imageRef" : `imageRef${index + 1}`;
             acc[key] = `/blog/posts/${slug}/${filename}`;
             return acc;

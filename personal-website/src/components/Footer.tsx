@@ -35,9 +35,6 @@ const Footer: React.FC = () => {
     React.useEffect(() => {
         if (typeof window === "undefined") return;
 
-        const savedStartTime = localStorage.getItem('footerStartTime');
-        const startTime = savedStartTime ? parseInt(savedStartTime) : Date.now();
-
         let timer2: NodeJS.Timeout | null = null;
 
         // Only start the NAV PRIMARY timer if ALIGN IRS has been displayed and either cleared or is still showing

@@ -4,25 +4,28 @@ DATE: "2025-08-27"
 TAGS: ["REACT", "PORTFOLIO", "AIRBUS A350"]
 ---
 
-import Image from 'next/image';
-import imageRef from './image.png';
-
-<div className="prose prose-lg mx-auto my-8 text-white">
-    # HI EVERYONE AND WELCOME TO MY NEW PORTFOLIO :)
-
+<div className="prose prose-lg mx-auto text-white px-1">
     <Image
         src={imageRef}
         alt="INIBUILDS A350 in MSFS2024"
-        className="my-6"
+        width={612}
+        height={280}
+        className="mx-auto"
+        style={{ width: '612px', height: '280px', objectFit: 'cover' }}
     />
-    <p className="text-sm text-center text-gray-300 mt-2 mb-6">
-        FLYING THE INIBUILDS A350 IN MSFS2024 - A REFERENCE FOR MY PORTFOLIO
-    </p>
+    <div className="text-xs text-center text-gray-400 mt-3 mb-3">
+        THE COCKPIT OF THE INIBUILDS A350 IN MSFS2024<span style={{ fontFamily: 'Arial, sans-serif' }}>,</span> A MAJOR INSPIRATION FOR MY PORTFOLIO
+    </div>
+    <div className="text-[15px]">
+        AFTER A LOT OF HARD WORK<span style={{ fontFamily: 'Arial, sans-serif' }}>,</span> IVE FINALLY FINISHED MY PERSONAL PORTFOLIO<span style={{ fontFamily: 'Arial, sans-serif' }}>!</span>
+    </div>
 
-    BUILT WITH NEXTJS TAILWINDCSS AND SVG - THIS SITE IS DESIGNED IN THE STYLE OF THE AIRBUS A350 FMS BECAUSE ITS MY FAVORITE AIRCRAFT.
+    <div className="text-[15px]">
+        MODELLED AFTER THE AIRBUS A350 USING NEXT.JS + SVG<span style={{ fontFamily: 'Arial, sans-serif' }}>,</span> IT SHOWS MY TWO BIGGEST PASSIONS FOR TECH AND AVIATION.
+    </div>
 
-    I WANTED MY PORTFOLIO TO REFLECT MY BIGGEST PASSIONS OF SOFTWARE AND FLIGHT SIMULATION AND SO I MODELED IT AFTER THE FEEL OF THE A350.
-
-    I HOPE YOU ENJOY EXPLORING IT AS MUCH AS I ENJOYED BUILDING IT.
+    <div className="text-[15px]">
+        I HOPE YOU ENJOY THE SITE AS MUCH AS I ENJOYED BUILDING IT :)
+    </div>
 </div>
 

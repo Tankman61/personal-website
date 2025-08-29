@@ -11,28 +11,34 @@ interface Props {
 
 export default async function PostPage({ params }: Props) {
     const postsDir = path.resolve(process.cwd(), "src/app/blog/posts");
-    const postFile = path.join(postsDir, params.slug, "page.mdx");
+    const postDir = path.join(postsDir, params.slug);
+    const postFile = path.join(postDir, "page.mdx");
 
     if (!fs.existsSync(postFile)) {
         notFound();
     }
 
     const source = fs.readFileSync(postFile, "utf-8");
-
-    // Parse frontmatter and separate content
     const { content, data } = matter(source);
 
-    // Serialize only the content (not the frontmatter).
-    // Get image path from the post directory
-    const imagePath = `/blog/posts/${params.slug}/image.png`;
+    // Dynamically collect all images in the post folder
+    const imageFiles = fs.readdirSync(postDir)
+        .filter(f => /\.(png|jpg|jpeg|webp|gif)$/.test(f))
+        .reduce((acc, filename, index) => {
+            // imageRef, imageRef2, imageRef3...
+            const key = index === 0 ? "imageRef" : `imageRef${index + 1}`;
+            acc[key] = `/blog/posts/${params.slug}/${filename}`;
+            return acc;
+        }, {} as Record<string, string>);
 
-    // Pass frontmatter and image path into `scope` so MDXRemote can access it
+    // Serialize MDX with all images in scope
     const mdxSource = await serialize(content, {
         scope: {
             ...data,
-            imageRef: imagePath
+            ...imageFiles
         }
     });
+
     return (
         <div>
             <PostContent source={mdxSource} frontmatter={data} />

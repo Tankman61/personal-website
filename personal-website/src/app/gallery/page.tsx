@@ -1,24 +1,14 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+// Import the manifest (adjust path if you placed manifest elsewhere)
+import galleryImageUrls from '@/lib/gallery-manifest.json';
 
 export default function GalleryPage() {
-    const [images, setImages] = useState<string[]>([]);
+    // The manifest contains full URLs (e.g. "/assets/images/gallery/foo.jpg")
+    // If you want only the filenames, adjust your manifest script accordingly.
+    const images = galleryImageUrls as string[];
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-    useEffect(() => {
-        async function loadImages() {
-            try {
-                const response = await fetch('/api/gallery-images');
-                const data = await response.json();
-                setImages(data.images);
-            } catch (error) {
-                console.error('Error loading gallery images:', error);
-            }
-        }
-
-        loadImages();
-    }, []);
 
     const openImage = (image: string) => setSelectedImage(image);
     const closeImage = () => setSelectedImage(null);
@@ -32,7 +22,7 @@ export default function GalleryPage() {
                 [&::-webkit-scrollbar-thumb]:bg-[var(--color-airbus-light-gray)] [&::-webkit-scrollbar-thumb]:rounded-sm">
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 w-full">
-                    {images.length > 0 ? (
+                    {images && images.length > 0 ? (
                         images.map((image, index) => (
                             <div
                                 key={index}
@@ -40,7 +30,7 @@ export default function GalleryPage() {
                                 onClick={() => openImage(image)}
                             >
                                 <Image
-                                    src={`/assets/images/gallery/${image}`}
+                                    src={image}
                                     alt={`Gallery image ${index + 1}`}
                                     fill
                                     className="object-cover"
@@ -72,7 +62,7 @@ export default function GalleryPage() {
                             ✕
                         </button>
                         <Image
-                            src={`/assets/images/gallery/${selectedImage}`}
+                            src={selectedImage}
                             alt="Selected image"
                             width={1200}
                             height={800}

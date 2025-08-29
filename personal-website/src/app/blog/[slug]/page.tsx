@@ -6,14 +6,18 @@ import path from "path";
 import PostContent from "./PostContent";
 
 // Define a more complete and explicit type for the page props.
+// In Next.js 15, params can be a promise.
 type PageProps = {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
     searchParams?: { [key: string]: string | string[] | undefined };
 };
 
 export default async function PostPage({ params }: PageProps) {
+    // Await the params to get the slug
+    const { slug } = await params;
+
     const postsDir = path.resolve(process.cwd(), "src/app/blog/posts");
-    const postDir = path.join(postsDir, params.slug);
+    const postDir = path.join(postsDir, slug);
     const postFile = path.join(postDir, "page.mdx");
 
     if (!fs.existsSync(postFile)) {
@@ -29,7 +33,7 @@ export default async function PostPage({ params }: PageProps) {
         .reduce((acc, filename, index) => {
             // imageRef, imageRef2, imageRef3...
             const key = index === 0 ? "imageRef" : `imageRef${index + 1}`;
-            acc[key] = `/blog/posts/${params.slug}/${filename}`;
+            acc[key] = `/blog/posts/${slug}/${filename}`;
             return acc;
         }, {} as Record<string, string>);
 

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 export default function GalleryPage() {
-    const [images, setImages] = useState([]);
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [images, setImages] = useState<string[]>([]);
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     useEffect(() => {
         async function loadImages() {
@@ -20,7 +20,7 @@ export default function GalleryPage() {
         loadImages();
     }, []);
 
-    const openImage = (image) => setSelectedImage(image);
+    const openImage = (image: string) => setSelectedImage(image);
     const closeImage = () => setSelectedImage(null);
 
     return (

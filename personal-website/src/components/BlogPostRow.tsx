@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
 
 const rowSpacing = 61.6
 
@@ -42,53 +42,55 @@ export const BlogPostRow: React.FC<BlogPostRowProps> = ({
                                                             isLastRow,
                                                         }) => {
     const [hovered, setHovered] = useState(false)
-    const [bbox, setBBox] = useState({ x: 0, y: 0, width: 0, height: 0 })
-    const textRef = useRef<SVGTextElement>(null)
-
-    useEffect(() => {
-        if (textRef.current) {
-            const box = textRef.current.getBBox()
-            setBBox(box)
-        }
-    }, [post.title])
+    const boxWidth = 360; // Fixed width that should work for most titles
+    const boxHeight = 28;
 
     if (!visible) return null
 
-    // Extra padding to avoid clipping and ensure horizontal coverage
-    const paddingX = 10  // wider horizontal padding
-    const paddingY = 3   // taller vertical padding
-
     return (
         <g transform={`translate(0, ${index * rowSpacing})`}>
-            {/* Hover outline */}
-            {hovered && (
-                <rect
-                    x={bbox.x - paddingX}
-                    y={bbox.y - paddingY}
-                    width={bbox.width + paddingX * 2}
-                    height={bbox.height + paddingY * 2}
-                    fill="none"
-                    stroke="#00EAFF"
-                    strokeWidth={2}
-                />
-            )}
-
-            {/* Title */}
-            <text
-                ref={textRef}
-                x={20}
-                y={15}
-                fontSize={20}
-                fill={color}
-                textAnchor="start"
-                alignmentBaseline="middle"
-                cursor="pointer"
+            {/* Title with hover highlight box */}
+            <g
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
                 onClick={onClick}
+                style={{ cursor: 'pointer' }}
             >
-                {post.title}
-            </text>
+                {/* Invisible full-size clickable area */}
+                <rect
+                    x={10}
+                    y={1}
+                    width={boxWidth}
+                    height={boxHeight}
+                    fill="transparent"
+                    stroke="none"
+                />
+
+                {/* Visible highlight box when hovered */}
+                {hovered && (
+                    <rect
+                        x={10}
+                        y={1}
+                        width={boxWidth}
+                        height={boxHeight}
+                        fill="none"
+                        stroke="#00EAFF"
+                        strokeWidth={2}
+                    />
+                )}
+
+                {/* Title text */}
+                <text
+                    x={20}
+                    y={15}
+                    fontSize={20}
+                    fill={color}
+                    textAnchor="start"
+                    alignmentBaseline="middle"
+                >
+                    {post.title}
+                </text>
+            </g>
 
             {/* Date */}
             <text

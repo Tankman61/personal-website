@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter} from "next/navigation";
 import { Button } from "@/components/Button";
 import { BlogPostRow } from "@/components/BlogPostRow";
 import type { BlogPostMeta } from "../../../lib/posts";
@@ -24,6 +24,13 @@ export default function BlogPageClient({ posts }: Props) {
     const openPost = (slug: string) => {
         router.push(`/blog/${slug}`);
     };
+
+    useEffect(() => {
+        posts.forEach(post => {
+            router.prefetch(`/blog/${post.slug}`);
+        });
+    }, [posts, router]);
+
 
     return (
         <main className="px-8 flex items-start justify-center">

@@ -80,29 +80,25 @@ export const BlogPostRow: React.FC<BlogPostRowProps> = ({
                 )}
 
                 {/* Title text */}
-                <text
-                    x={20}
-                    y={15}
-                    fontSize={20}
-                    fill={color}
-                    textAnchor="start"
-                    alignmentBaseline="middle"
-                >
-                    {post.title}
-                </text>
+                <foreignObject x={20} y={2} width={boxWidth - 20} height={boxHeight}>
+                    <div
+                        className="h-[28px] flex items-center text-[20px] text-left overflow-hidden whitespace-nowrap text-ellipsis"
+                        style={{ color: color }}
+                    >
+                        {post.title}
+                    </div>
+                </foreignObject>
             </g>
 
             {/* Date */}
-            <text
-                x={520}
-                y={15}
-                fontSize={18}
-                fill={color}
-                textAnchor="middle"
-                alignmentBaseline="middle"
-            >
-                {post.date}
-            </text>
+            <foreignObject x={520 - 45} y={2} width={120} height={boxHeight}>
+                <div
+                    className="h-[28px] flex items-center justify-center text-[18px] text-center overflow-hidden whitespace-nowrap text-ellipsis"
+                    style={{ color: color }}
+                >
+                    {post.date}
+                </div>
+            </foreignObject>
 
             <g stroke={color} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round">
                 {/* Diamond */}

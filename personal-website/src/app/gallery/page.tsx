@@ -51,7 +51,7 @@ export default function GalleryPage() {
             {/* Selected image modal with overlay only */}
             {selectedImage && (
                 <div
-                    className="fixed inset-0 flex items-center justify-center z-50 bg-black/40"
+                    className="fixed -inset-20 flex items-center justify-center z-50 bg-black/50"
                     onClick={closeImage}
                 >
                     <div
@@ -61,7 +61,7 @@ export default function GalleryPage() {
                         <div className="relative flex items-center justify-center">
                             {/* Loading overlay */}
                             {!imageLoaded && (
-                                <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-20">
+                                <div className="absolute inset-0 flex items-center justify-center">
                                     <span className="text-white text-lg">LOADING...</span>
                                 </div>
                             )}

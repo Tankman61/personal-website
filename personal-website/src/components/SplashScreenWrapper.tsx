@@ -34,6 +34,7 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
                 if (!cancelled && powerState === 'AUTO') {
                     setShowButton(false);
                     const audio = new Audio('/assets/sounds/startup.mp3');
+                    // ts volume change does not work on mobile because of javascript limitation so yall will get blasted unfortunately :( i'm sorry if you see this
                     audio.volume = 0.5;
                     audio.play();
                     setLoading(true);

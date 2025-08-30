@@ -1,15 +1,3 @@
-// ill add constants like stats blog posts etc. later
-// TODO: use nextjs postgres backend for the blog instead lol
-
-// fix this (also all the images aint even finished LOL)
-
-// ill add constants like stats blog posts etc. later
-// TODO: use nextjs postgres backend for the blog instead lol
-
-// fix this (also all the images aint even finished LOL)
-
-// CANCER
-
 // CCCSOLUTIONS
 import ccc1 from "../images/projects/cccsolutions/1.png";
 import ccc2 from "../images/projects/cccsolutions/2.png";
@@ -49,12 +37,9 @@ import satduel4 from "../images/projects/satduel/4.png";
 // NOTECONVERT
 import noteconvert1 from "../images/projects/noteconvert/1.png";
 import noteconvert2 from "../images/projects/noteconvert/2.png";
-import noteconvert3 from "../images/projects/noteconvert/3.png";
 
 // FUKUSHIMA 2044
 import fukushima1 from "../images/projects/fukushima2044/1.png";
-
-
 
 
 export const PROJECTS = [
@@ -164,7 +149,7 @@ export const PROJECTS = [
                 TRANSFORM AUDIO RECORDINGS INTO STRUCTURED STUDY NOTES. 2ND PLACE AT RECESSHACKS 4.0
             </>
         ),
-        images: [noteconvert1, noteconvert2, noteconvert3],
+        images: [noteconvert1, noteconvert2],
         date: "2024",
         technologies: ["PYTHON", "OPENAI API", "REACT .JS"],
         link: null,

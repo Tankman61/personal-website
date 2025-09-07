@@ -17,8 +17,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="en">
         <body>
-        <ScalingWrapper>
         <SplashScreenWrapper>
+        <ScalingWrapper>
             <main className="flex flex-col items-center min-h-screen relative z-10 selection:bg-yellow-200 dark:selection:bg-yellow-800">
                 <div className="container mx-auto">
                     <Navbar />
@@ -26,8 +26,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <Footer />
                 </div>
             </main>
-        </SplashScreenWrapper>
         </ScalingWrapper>
+        </SplashScreenWrapper>
         <CursorOverlayClient />
         </body>
         </html>

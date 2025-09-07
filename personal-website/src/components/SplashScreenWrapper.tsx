@@ -6,37 +6,33 @@ import ExternalPower from "./ExternalPower";
 
 export function SplashScreenWrapper({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(false);
-    const [showButton, setShowButton] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return !localStorage.getItem("hasSeenSplash");
-        }
-        return false;
-    });
+    const [mounted, setMounted] = useState(false);
+    const [showButton, setShowButton] = useState(false);
     const [powerState, setPowerState] = useState<'AVAIL' | 'AUTO'>('AVAIL');
     const [spamCount, setSpamCount] = useState(0);
     const [alert, setAlert] = useState<'none' | 'caution' | 'warning'>('none');
 
     const alertAudioRef = useRef<HTMLAudioElement | null>(null);
 
-    // Load splash state
+    // Ensure client-only logic runs after mount to avoid SSR/client mismatch
     useEffect(() => {
+        setMounted(true);
         const hasSeen = localStorage.getItem("hasSeenSplash");
-        if (hasSeen) {
-            setShowButton(false);
-        }
+        setShowButton(!hasSeen);
     }, []);
 
     // Startup sequence
     useEffect(() => {
+        if (!mounted) return;
         if (powerState === 'AUTO' && spamCount < 7) {
             let cancelled = false;
             const timer = setTimeout(() => {
                 if (!cancelled && powerState === 'AUTO') {
                     setShowButton(false);
                     const audio = new Audio('/assets/sounds/startup.mp3');
-                    // ts volume change does not work on mobile because of javascript limitation so yall will get blasted unfortunately :( i'm sorry if you see this
                     audio.volume = 0.5;
-                    audio.play();
+                    // play may fail without user gesture; ignore errors
+                    audio.play().catch(() => {});
                     setLoading(true);
                     setTimeout(() => {
                         setLoading(false);
@@ -53,14 +49,18 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
                 clearTimeout(timer);
             };
         }
-    }, [powerState, spamCount]);
+    }, [powerState, spamCount, mounted]);
 
     // Play looped alert sound if spam gets too high
     useEffect(() => {
+        if (!mounted) return;
         if (alert === 'warning') {
             if (!alertAudioRef.current) {
                 const audio = new Audio('/assets/sounds/masterwarning.mp3');
-                audio.play();
+                audio.loop = true;
+                audio.volume = 0.5;
+                alertAudioRef.current = audio;
+                audio.play().catch(() => {});
             }
         } else {
             if (alertAudioRef.current) {
@@ -69,7 +69,7 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
                 alertAudioRef.current = null;
             }
         }
-    }, [alert]);
+    }, [alert, mounted]);
 
     const handlePowerStateChange = (state: 'AVAIL' | 'AUTO') => {
         if (state === 'AUTO') {
@@ -85,6 +85,11 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
         }
         setPowerState(state);
     };
+
+    // Render nothing special until mounted to keep server/client HTML identical
+    if (!mounted) {
+        return <>{children}</>;
+    }
 
     if (loading) {
         return (

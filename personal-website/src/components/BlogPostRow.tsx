@@ -42,7 +42,7 @@ export const BlogPostRow: React.FC<BlogPostRowProps> = ({
   isLastRow,
 }) => {
   const [hovered, setHovered] = useState(false);
-  const boxWidth = 360; // Fixed width that should work for most titles
+  const boxWidth = 360;
   const boxHeight = 28;
 
   if (!visible) return null;

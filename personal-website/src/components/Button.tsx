@@ -9,7 +9,7 @@ interface ButtonProps {
   onClick?: () => void;
   children: React.ReactNode;
   className?: string;
-  isActive?: boolean; // Added this prop
+  isActive?: boolean;
   disabled?: boolean;
 }
 

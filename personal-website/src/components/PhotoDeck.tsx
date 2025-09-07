@@ -121,7 +121,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
     });
   }, [images, handleImageLoad]);
 
-  // Loading → deck transition
+  // Loading to deck transition
   useEffect(() => {
     if (singlePhotoView && allImagesLoaded) {
       const timeout = setTimeout(() => {
@@ -254,7 +254,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
         <div className="relative flex items-center justify-center" style={containerStyle}>
           <div
             //  transition-opacity duration-300 could be added to make it more smooth but im not sure which one im feeling right now
-            className="absolute border-2 border-white bg-black flex flex-col items-center justify-center"
+            className="absolute border-2 border-white bg-black flex flex-col items-center justify-center transition-opacity duration-150"
             style={{
               width: CARD_W - 50,
               height: CARD_H,

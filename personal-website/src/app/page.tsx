@@ -1,4 +1,3 @@
-// Add this to your Home component
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/Button';
@@ -14,7 +13,7 @@ import { PROJECTS } from '../../public/assets/constants/constants';
 export default function Home() {
   const [activeTab, setActiveTab] = useState(0);
 
-  // Preload PhotoDeck images immediately when component mounts
+  // preload
   useEffect(() => {
     const imagesToPreload = [Image1, Image2, Image3, Image4, Image5];
 
@@ -48,7 +47,7 @@ export default function Home() {
                 borderBottom: activeTab === 0 ? 'none' : `${borderWidth}px solid white`,
               }}
             >
-              <span className="text-sm px-[80px] rounded-none group-hover:outline group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
+              <span className="text-sm px-[80px] rounded-none group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
                 STATUS
               </span>
             </div>
@@ -105,7 +104,7 @@ export default function Home() {
                 borderBottom: activeTab === 1 ? 'none' : `${borderWidth}px solid white`,
               }}
             >
-              <span className="text-sm px-[80px] rounded-none group-hover:outline group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
+              <span className="text-sm px-[80px] rounded-none group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
                 TL;DR
               </span>
             </div>
@@ -164,7 +163,6 @@ export default function Home() {
                 <div className="text-airbus-green text-[18px] font-medium mb-30 mx-auto">
                   WILLIAM YANG / SOFTWARE DEVELOPER
                 </div>
-                {/* FIXME: CHANGE GITHUB STATS TO SE WEB RING */}
                 <div className="mb-2">
                   <div className="border p-1.5 inline-block" style={{ borderColor: '#454647' }}>
                     <div className="flex gap-x-2 items-center">
@@ -193,6 +191,7 @@ export default function Home() {
                         onClick={() => (window.location.href = 'https://se-webring.xyz/')}
                       >
                         <div className="flex justify-start items-center w-full">
+                            {/* ill use next/image later */}
                           <img
                             src={SEWebRingLogo.src}
                             alt={'SE Webring'}

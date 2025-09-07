@@ -5,9 +5,7 @@ import { Button } from '@/components/Button';
 import { FaGithub, FaGlobe, FaDiscord } from 'react-icons/fa';
 import PhotoDeck from '@/components/PhotoDeck';
 
-// FIXME: clicking the back button should not be possible on the first page, forward button should not be possible on second page also i needa fix the size of the buttons
-// FIXME: fix airbus-blue highlighting system to not be based off of number but rather important keywords defined in constants.js
-// FIXME: FOR IMAGES USE THE GALLERY
+// todo: remove eslint warning with hover:outline-[2px_solid_airbus-blue]
 export default function Projects() {
   const [activeTab, setActiveTab] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -16,7 +14,6 @@ export default function Projects() {
   const projectsPerPage = 5;
   const totalPages = Math.ceil(PROJECTS.length / projectsPerPage);
 
-  // Calculate which projects to show on current page
   const startIndex = currentPage * projectsPerPage;
   const currentProjects = PROJECTS.slice(startIndex, startIndex + projectsPerPage);
   const currentProject = currentProjects[activeTab];
@@ -79,7 +76,7 @@ export default function Projects() {
                     borderBottom: activeTab === index ? 'none' : `${borderWidth}px solid white`,
                   }}
                 >
-                  <span className="text-sm px-[10px] rounded-none group-hover:outline group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
+                  <span className="text-sm px-[10px] rounded-none group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
                     {project.shortTitle}
                   </span>
                 </div>
@@ -186,7 +183,7 @@ export default function Projects() {
                   <div className="space-y-2">
                     <div className="text-airbus-dark-blue text-sm">TECHNOLOGIES:</div>
                     <div className="flex gap-x-4">
-                      {/* First column - always takes first 3 items */}
+                      {/* First column */}
                       <div className="flex-1 space-y-1">
                         {currentProject.technologies.slice(0, 3).map((tech, index) => (
                           <div key={index} className="text-xs text-white flex items-center">
@@ -196,7 +193,7 @@ export default function Projects() {
                         ))}
                       </div>
 
-                      {/* Second column - takes any remaining items */}
+                      {/* Second column */}
                       {currentProject.technologies.length > 3 && (
                         <div className="flex-1 space-y-1">
                           {currentProject.technologies.slice(3).map((tech, index) => (
@@ -215,7 +212,7 @@ export default function Projects() {
                     {currentProject.github && (
                       <div
                         onClick={() => window.open(currentProject.github, '_blank')}
-                        className="p-2 border border-transparent hover:outline hover:outline-airbus-blue hover:outline-[2px] rounded-[0.5px] transition-none cursor-pointer"
+                        className="p-2 border border-transparent hover:outline-airbus-blue hover:outline-[2px] rounded-[0.5px] transition-none cursor-pointer"
                       >
                         <FaGithub className="text-xl" />
                       </div>
@@ -223,7 +220,7 @@ export default function Projects() {
                     {currentProject.link && (
                       <div
                         onClick={() => handleLinkClick(currentProject)}
-                        className="p-2 border border-transparent hover:outline hover:outline-airbus-blue hover:outline-[2px] rounded-[0.5px] transition-none cursor-pointer"
+                        className="p-2 border border-transparent hover:outline-airbus-blue hover:outline-[2px] rounded-[0.5px] transition-none cursor-pointer"
                       >
                         <FaGlobe className="text-xl" />
                       </div>
@@ -231,7 +228,7 @@ export default function Projects() {
                     {currentProject.discord && (
                       <div
                         onClick={() => window.open(currentProject.discord, '_blank')}
-                        className="p-2 border border-transparent hover:outline hover:outline-airbus-blue hover:outline-[2px] rounded-[0.5px] transition-none cursor-pointer"
+                        className="p-2 border border-transparent hover:outline-airbus-blue hover:outline-[2px] rounded-[0.5px] transition-none cursor-pointer"
                       >
                         <FaDiscord className="text-xl" />
                       </div>

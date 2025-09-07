@@ -51,7 +51,7 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
     }
   }, [powerState, spamCount, mounted]);
 
-  // Play looped alert sound if spam gets too high
+  // Play looped alert if too much spam
   useEffect(() => {
     if (!mounted) return;
     if (alert === 'warning') {
@@ -86,7 +86,6 @@ export function SplashScreenWrapper({ children }: { children: React.ReactNode })
     setPowerState(state);
   };
 
-  // Render nothing special until mounted to keep server/client HTML identical
   if (!mounted) {
     return <>{children}</>;
   }

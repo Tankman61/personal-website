@@ -14,7 +14,6 @@ const Navbar = () => {
 
   // derive dropdown value from URL
   const dropdownValue = (() => {
-    // Extract the first segment of the path
     const pathSegment = pathname.split('/')[1]?.toUpperCase() || '';
     return dropdownOptions.includes(pathSegment) ? pathSegment : 'PORTFOLIO';
   })();
@@ -38,7 +37,6 @@ const Navbar = () => {
     const dropdownPage = dropdownOptions.find((option) => option.toUpperCase() === baseSegment);
     if (dropdownPage) return dropdownPage;
 
-    // Fallback
     return 'PAGE NAME';
   };
 

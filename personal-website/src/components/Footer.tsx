@@ -25,7 +25,6 @@ const Footer: React.FC = () => {
   });
 
   React.useEffect(() => {
-    // Save messages and cleared messages to localStorage whenever they change
     if (typeof window !== 'undefined') {
       localStorage.setItem('footerMessages', JSON.stringify(messages));
       localStorage.setItem('footerClearedMessages', JSON.stringify(clearedMessages));
@@ -37,7 +36,6 @@ const Footer: React.FC = () => {
 
     let timer2: NodeJS.Timeout | null = null;
 
-    // Only start the NAV PRIMARY timer if ALIGN IRS has been displayed and either cleared or is still showing
     const alignIrsDisplayed =
       messages.includes('ALIGN IRS') || clearedMessages.includes('ALIGN IRS');
 
@@ -46,12 +44,10 @@ const Footer: React.FC = () => {
       !messages.includes('NAV PRIMARY') &&
       !clearedMessages.includes('NAV PRIMARY')
     ) {
-      // Check if we need to set a timer or show immediately
       const alignIrsTime = localStorage.getItem('alignIrsTime');
       const elapsed = alignIrsTime ? Date.now() - parseInt(alignIrsTime) : 0;
 
       if (elapsed < 1000 * 60 * 5) {
-        // Set timer for remaining time until 5 minutes after ALIGN IRS appeared
         timer2 = setTimeout(
           () => {
             setMessages((prev) => {
@@ -64,7 +60,6 @@ const Footer: React.FC = () => {
           1000 * 60 * 5 - elapsed,
         );
       } else {
-        // It's been more than 5 minutes since ALIGN IRS appeared, show NAV PRIMARY now
         setMessages((prev) => {
           if (!prev.includes('NAV PRIMARY')) {
             return [...prev, 'NAV PRIMARY'];
@@ -89,7 +84,6 @@ const Footer: React.FC = () => {
         setTimeout(() => {
           setMessages((current) => {
             if (!current.includes('ALIGN IRS')) {
-              // Store the time when ALIGN IRS appears
               localStorage.setItem('alignIrsTime', Date.now().toString());
               return [...current, 'ALIGN IRS'];
             }

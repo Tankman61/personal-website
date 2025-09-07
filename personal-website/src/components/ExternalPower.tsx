@@ -8,7 +8,6 @@ interface ExternalPowerProps {
 export default function ExternalPower({ powerState, setPowerState }: ExternalPowerProps) {
   const isAuto = powerState === 'AUTO';
 
-  // Audio refs
   const buttonPressRef = useRef<HTMLAudioElement | null>(null);
   const buttonPress2Ref = useRef<HTMLAudioElement | null>(null);
 
@@ -50,7 +49,6 @@ export default function ExternalPower({ powerState, setPowerState }: ExternalPow
         {/* EXT 2 Label */}
         <div className="text-white text-2xl font-bold mb-2 tracking-wide text-center">EXT 2</div>
 
-        {/* Corner screws positioned on the blue panel */}
         <div
           className="absolute top-3 left-3 w-4 h-4 rounded-full"
           style={{
@@ -108,7 +106,6 @@ export default function ExternalPower({ powerState, setPowerState }: ExternalPow
               className="w-full h-full rounded flex flex-col relative z-10"
               style={{ backgroundColor: '#2a2a2a' }}
             >
-              {/* Single gray frame containing both sections with enhanced 3D shadows */}
               <div
                 className="w-full h-full rounded p-0.5 relative"
                 style={{

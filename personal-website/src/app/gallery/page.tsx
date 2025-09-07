@@ -1,12 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-// Import the manifest (adjust path if you placed manifest elsewhere)
 import galleryImageUrls from '@/lib/gallery-manifest.json';
 
 export default function GalleryPage() {
   // The manifest contains full URLs (e.g. "/assets/images/gallery/foo.jpg")
-  // If you want only the filenames, adjust your manifest script accordingly.
   const images = galleryImageUrls as string[];
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -49,7 +47,7 @@ export default function GalleryPage() {
         </div>
       </div>
 
-      {/* Selected image modal with overlay only */}
+      {/* Selected image modal */}
       {selectedImage && (
         <div
           className="fixed -inset-20 flex items-center justify-center z-50 bg-black/50"
@@ -75,7 +73,7 @@ export default function GalleryPage() {
                 onLoadingComplete={() => setImageLoaded(true)}
               />
 
-              {/* Close button (only when loaded) */}
+              {/* Close button */}
               {imageLoaded && (
                 <button
                   className="absolute top-2 right-2 bg-black bg-opacity-70 text-white w-8 h-8 rounded-full flex items-center justify-center z-30 hover:bg-opacity-90"

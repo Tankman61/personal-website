@@ -1,4 +1,3 @@
-// FIXME: FIX THE INPUT COLOR SCHEMA AND REMOVE ANY VIBECODE HALLUCINATIONS
 'use client';
 
 import React, { useState, memo, useRef } from 'react';

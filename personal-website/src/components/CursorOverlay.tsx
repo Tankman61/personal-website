@@ -26,7 +26,6 @@ const CursorOverlay = () => {
     window.addEventListener('mouseenter', handleEnter);
     window.addEventListener('mouseleave', handleLeave);
 
-    // Hide the default cursor globally
     document.body.style.cursor = 'none';
 
     return () => {

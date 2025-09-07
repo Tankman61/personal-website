@@ -65,7 +65,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
       boxSizing: 'border-box' as const,
     };
 
-    // Use only background, not backgroundColor, to avoid conflicts
     if (open) {
       return {
         ...baseStyle,

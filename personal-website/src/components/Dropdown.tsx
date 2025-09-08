@@ -57,7 +57,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
       color: 'var(--color-airbus-blue)',
       fontSize: `${fontSize}px`,
-      cursor: 'pointer',
+      cursor: 'none',
       position: 'relative' as const,
       userSelect: 'none' as const,
       backgroundClip: 'padding-box',
@@ -113,19 +113,20 @@ export const Dropdown: React.FC<DropdownProps> = ({
     padding: 0,
     border: '2px solid',
     borderImage: 'linear-gradient(163deg, #d0d0d2 0%, #5a5b6b 50%, #292a34 100%) 1',
+    cursor: 'none',
   });
 
   return (
     <div
       ref={ref}
       style={{
-        position: 'relative',
-        width: width,
-        minWidth: width,
-        height: `${height}px`,
-        fontSize: `${fontSize}px`,
-        userSelect: 'none',
-        ...style,
+          position: 'relative',
+          width: width,
+          minWidth: width,
+          height: `${height}px`,
+          fontSize: `${fontSize}px`,
+          userSelect: 'none',
+          ...style,
       }}
     >
       <div
@@ -201,7 +202,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                   padding: '2px 24px 2px 8px',
                   fontSize: `${fontSize}px`,
                   background: 'transparent',
-                  cursor: 'pointer',
+                  cursor: 'none',
                   borderRadius: 0,
                   lineHeight: 1.5,
                   outline: 'none',

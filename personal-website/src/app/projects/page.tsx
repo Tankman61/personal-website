@@ -159,15 +159,15 @@ export default function Projects() {
                 <div className="text-airbus-green text-[18px] font-medium text-center -mb-3">
                   {currentProject.title}
                 </div>
-                  <PhotoDeck
-                      key={`photo-deck-${currentProject.title}`}
-                      images={currentProject.images.map((img) => ({
-                          src: typeof img === 'string' ? img : img.src,
-                      }))}
-                      singlePhotoView={true}
-                      cardWidth={500}
-                      cardHeight={225}
-                  />
+                <PhotoDeck
+                  key={`photo-deck-${currentProject.title}`}
+                  images={currentProject.images.map((img) => ({
+                    src: typeof img === 'string' ? img : img.src,
+                  }))}
+                  singlePhotoView={true}
+                  cardWidth={500}
+                  cardHeight={225}
+                />
 
                 {/* Project Details */}
                 <div className="space-y-4 text-white mt-2">

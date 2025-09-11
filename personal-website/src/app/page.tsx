@@ -9,6 +9,7 @@ import Image4 from '../../public/assets/images/gallery4.jpg';
 import Image5 from '../../public/assets/images/gallery5.jpg';
 import SEWebRingLogo from '../../public/assets/icons/logo_w.svg';
 import { PROJECTS } from '../../public/assets/constants/constants';
+import Image from 'next/image';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState(0);
@@ -18,7 +19,7 @@ export default function Home() {
     const imagesToPreload = [Image1, Image2, Image3, Image4, Image5];
 
     imagesToPreload.forEach((img) => {
-      const preloadImg = new Image();
+      const preloadImg = new window.Image();
       preloadImg.src = img.src;
     });
   }, []); // Empty dependency array - runs once on mount
@@ -191,11 +192,13 @@ export default function Home() {
                         onClick={() => (window.location.href = 'https://se-webring.xyz/')}
                       >
                         <div className="flex justify-start items-center w-full">
-                            {/* ill use next/image later */}
-                          <img
+                          {/* ill use next/image later */}
+                          <Image
                             src={SEWebRingLogo.src}
-                            alt={'SE Webring'}
+                            alt="SE Webring"
                             className="h-5 w-5 mr-2"
+                            width={20}
+                            height={20}
                           />
                           <span className="text-[13px]">WEBRING</span>
                         </div>

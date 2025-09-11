@@ -120,13 +120,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
     <div
       ref={ref}
       style={{
-          position: 'relative',
-          width: width,
-          minWidth: width,
-          height: `${height}px`,
-          fontSize: `${fontSize}px`,
-          userSelect: 'none',
-          ...style,
+        position: 'relative',
+        width: width,
+        minWidth: width,
+        height: `${height}px`,
+        fontSize: `${fontSize}px`,
+        userSelect: 'none',
+        ...style,
       }}
     >
       <div

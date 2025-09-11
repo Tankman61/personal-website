@@ -1,9 +1,10 @@
 'use client';
 import React, { useState, useCallback, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { Button } from './Button';
 
 interface PhotoDeckProps {
-  images: { src: string }[];
+  images: { src: string; width?: number; height?: number }[];
   singlePhotoView?: boolean;
   cardWidth?: number;
   cardHeight?: number;
@@ -105,7 +106,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
   // Preload all images
   useEffect(() => {
     images.forEach((img, index) => {
-      const image = new Image();
+      const image = new window.Image();
       image.src = img.src;
 
       if (image.complete) {
@@ -228,12 +229,15 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                   className="absolute bg-black border-2 border-white shadow-lg overflow-hidden"
                   style={style}
                 >
-                  <img
+                  <Image
                     src={img.src}
                     alt={`Photo ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 285px"
+                    className="object-cover"
                     style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 300ms ease-in' }}
                     onLoad={(e) => handleImageLoad(index, e)}
+                    priority={index === currentIndex}
                   />
                 </div>
               );
@@ -302,12 +306,15 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                       transition: 'opacity 300ms ease-in',
                     }}
                   >
-                    <img
+                    <Image
                       src={img.src}
                       alt={`Photo ${index + 1}`}
-                      className="w-full h-full object-contain"
+                      fill
+                      sizes={`${dims?.width || CARD_W}px`}
+                      className="object-contain"
                       style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 300ms ease-in' }}
                       onLoad={(e) => handleImageLoad(index, e)}
+                      priority={true}
                     />
                   </div>
                 );
@@ -321,12 +328,19 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
       <div className="hidden">
         {images.map((img, index) => (
-          <img
+          <div
             key={`preload-${index}`}
-            src={img.src}
-            alt=""
-            onLoad={(e) => handleImageLoad(index, e)}
-          />
+            className="hidden"
+            style={{ position: 'relative', width: '1px', height: '1px' }}
+          >
+            <Image
+              src={img.src}
+              alt=""
+              fill
+              onLoad={(e) => handleImageLoad(index, e)}
+              priority={false}
+            />
+          </div>
         ))}
       </div>
     </div>

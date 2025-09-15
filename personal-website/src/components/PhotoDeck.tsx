@@ -53,8 +53,10 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
       if (currentDims) activeImageRef.current = currentDims;
 
       setIsTransitioning(true);
-      setCurrentIndex((p) => (p + delta + images.length) % images.length);
-      setTimeout(() => setIsTransitioning(false), 50);
+      setTimeout(() => {
+          setCurrentIndex((p) => (p + delta + images.length) % images.length);
+          setTimeout(() => setIsTransitioning(false), 100);
+      }, 100);
     },
     [currentIndex, imageDimensions, images.length, isTransitioning],
   );
@@ -151,9 +153,11 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
             const currentDims = imageDimensions.get(currentIndex);
             if (currentDims) activeImageRef.current = currentDims;
 
-            setIsTransitioning(true);
-            setCurrentIndex(index);
-            setTimeout(() => setIsTransitioning(false), 300);
+              setIsTransitioning(true);
+              setTimeout(() => {
+                  setCurrentIndex(index);
+                  setTimeout(() => setIsTransitioning(false), 300);
+              }, 300);
           }
         }}
         disabled={!allImagesLoaded || isTransitioning}
@@ -303,7 +307,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                       top: '50%',
                       transform: 'translate(-50%, -50%)',
                       opacity: isTransitioning ? 0 : 1,
-                      transition: 'opacity 300ms ease-in',
+                      transition: 'opacity 100ms ease-in',
                     }}
                   >
                     <Image
@@ -312,7 +316,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                       fill
                       sizes={`${dims?.width || CARD_W}px`}
                       className="object-contain"
-                      style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 300ms ease-in' }}
+                      style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 100ms ease-in' }}
                       onLoad={(e) => handleImageLoad(index, e)}
                       priority={true}
                     />

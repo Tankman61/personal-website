@@ -1,3 +1,7 @@
+// MAATCHAA
+import maatchaa1 from '../images/projects/maatchaa/1.png';
+import maatchaa2 from '../images/projects/maatchaa/2.png';
+
 // CCCSOLUTIONS
 import ccc1 from '../images/projects/cccsolutions/1.png';
 import ccc2 from '../images/projects/cccsolutions/2.png';
@@ -43,6 +47,21 @@ import fukushima1 from '../images/projects/fukushima2044/1.png';
 
 export const PROJECTS = [
   {
+    title: 'MAATCHAA',
+    shortTitle: 'MAATCHAA',
+    description: (
+      <>
+          MAATCHAA CONNECTS SMALL-MEDIUM SIZED BUSINESSES TO TRENDING YOUTUBE SHORTS. FINALIST AT HACK THE NORTH 2025
+
+      </>
+    ),
+    images: [maatchaa1, maatchaa2],
+    date: '2025',
+    technologies: ['NEXT.JS', ' COHERE', 'PINECONE', 'GEMINI', 'NANO BANANA', 'BLACKSHEEP'],
+    link: 'https://cccsolutions.ca/',
+    github: 'http://github.com/cccsolutions/CCCSolutions/',
+  },
+  {
     title: 'CCCSOLUTIONS',
     shortTitle: 'CCC',
     description: (
@@ -80,7 +99,7 @@ export const PROJECTS = [
     ),
     images: [pawditor1, pawditor2, pawditor3, pawditor4],
     date: '2025',
-    technologies: ['SVELTEKIT', 'PLAYWRIGHT', 'GEMINI', 'DOCKER', 'JAVASCRIPT'],
+    technologies: ['SVELTEKIT', 'PLAYWRIGHT', 'GEMINI', 'DOCKER', 'ELYSIAJS'],
     link: 'https://devpost.com/software/pawditor',
     github: 'http://github.com/stockermc/spurhacks2025/',
   },

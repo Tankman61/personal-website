@@ -8,7 +8,7 @@ import Image3 from '../../public/assets/images/gallery3.jpg';
 import Image4 from '../../public/assets/images/gallery4.jpg';
 import Image5 from '../../public/assets/images/gallery5.jpg';
 import SEWebRingLogo from '../../public/assets/icons/logo_w.svg';
-import { PROJECTS } from '../../public/assets/constants/constants';
+import { PROJECTS, } from '../../public/assets/constants/constants';
 import Image from 'next/image';
 
 export default function Home() {
@@ -276,11 +276,7 @@ export default function Home() {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-white text-[17px]">BLOGS</span>
-                        <span className="text-airbus-green text-[17px]">00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-white text-[17px]">LANGUAGES</span>
-                        <span className="text-airbus-green text-[17px] ml-6">04</span>
+                        <span className="text-airbus-green text-[17px]">1</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-white text-[17px]">AGE</span>
@@ -305,7 +301,7 @@ export default function Home() {
                 <div className="text-airbus-green text-xl mx-auto -mb-5">TL;DR</div>
                 <div className="scale-90">
                   <div className="text-base">
-                    • INCOMING SE AT <span className="text-airbus-green">UWATERLOO</span> -{' '}
+                    • SE AT <span className="text-airbus-green">UWATERLOO</span> -{' '}
                     <span className="text-[15px]">
                       SEEKING <span className="text-airbus-green">SUMMER 2026 INTERNSHIPS</span>
                     </span>
@@ -333,11 +329,10 @@ export default function Home() {
                       </div>
 
                       <div>
-                        ↳ ATTENDED{' '}
-                        <span className="text-airbus-dark-blue font-bold text-base">9</span>{' '}
-                        HACKATHONS AND WON{' '}
-                        <span className="text-airbus-dark-blue font-bold text-base">2</span> - (
-                        <span className="text-airbus-green text-sm">HACK THE NORTH</span> NEXT)
+                        ↳ WON {' '}
+                        <span className="text-airbus-dark-blue font-bold text-base">3 </span>
+                          HACKATHONS -
+                        <span className="text-airbus-green text-base"> INCL. HACK THE NORTH</span>
                       </div>
                       <div>
                         ↳ CREATED THIS{' '}

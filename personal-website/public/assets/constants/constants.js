@@ -58,8 +58,8 @@ export const PROJECTS = [
     images: [maatchaa1, maatchaa2],
     date: '2025',
     technologies: ['NEXT.JS', ' COHERE', 'PINECONE', 'GEMINI', 'NANO BANANA', 'BLACKSHEEP'],
-    link: 'https://cccsolutions.ca/',
-    github: 'http://github.com/cccsolutions/CCCSolutions/',
+    link: 'https://devpost.com/software/maatchaa',
+    github: 'https://github.com/StockerMC/crackthenorth2025',
   },
   {
     title: 'CCCSOLUTIONS',

@@ -4,9 +4,8 @@ import * as path from 'path';
 // for gallery images
 // for gallery images
 // for gallery images
-const projectRoot = path.resolve(process.cwd(), '..');
-const assetsDir = path.join(projectRoot, 'public/assets/images/gallery');
-const manifestPath = path.join(projectRoot, 'src/lib/gallery-manifest.json');
+const assetsDir = path.join(process.cwd(), 'public/assets/images/gallery');
+const manifestPath = path.join(process.cwd(), 'src/lib/gallery-manifest.json');
 console.log(`Looking for gallery images in: ${assetsDir}`);
 
 // Ensure directory exists for the manifest file

@@ -16,6 +16,7 @@ interface PhotoCardProps {
     transitionDelay: number;
     handleImageLoad: (index: number, e: React.SyntheticEvent<HTMLImageElement>) => void;
     isSingleView: boolean;
+    onClick?: () => void;
 }
 
 // Photo card component (memoized)
@@ -30,7 +31,8 @@ const PhotoCard = React.memo<PhotoCardProps>(({
                                                   isTransitioning,
                                                   transitionDelay,
                                                   handleImageLoad,
-                                                  isSingleView
+                                                  isSingleView,
+                                                  onClick
                                               }) => {
     const offset = index - currentIndex;
     const isCurrent = index === currentIndex;
@@ -70,6 +72,7 @@ const PhotoCard = React.memo<PhotoCardProps>(({
         <div
             className="absolute bg-black border-2 border-white shadow-lg overflow-hidden"
             style={style}
+            onClick={onClick}
         >
             <Image
                 src={img.src}
@@ -111,9 +114,16 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
     const [showLoading, setShowLoading] = useState(true);
     const [showDeck, setShowDeck] = useState(false);
     const [connectionSpeed, setConnectionSpeed] = useState('fast');
+    const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
+    const [enlargedImageLoaded, setEnlargedImageLoaded] = useState(false);
 
     const activeImageRef = useRef<{ width: number; height: number } | null>(null);
-    const allImagesLoaded = loadedImages.size === images.length;
+    // Track if currently visible images are loaded
+    const visibleImagesLoaded = useMemo(() => {
+        if (images.length === 0) return true;
+        // In non-single view, we care most about the current image being loaded
+        return loadedImages.has(currentIndex);
+    }, [currentIndex, images.length, loadedImages]);
     const preloadedIndexesRef = useRef<Set<number>>(new Set());
     const imageCache = useRef(new Map());
     const intersectionObserverRef = useRef<IntersectionObserver | null>(null);
@@ -121,6 +131,17 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
     const CARD_W = cardWidth;
     const CARD_H = cardHeight;
+
+    // Handle image click to enlarge
+    const handleImageClick = useCallback((src: string) => {
+        setEnlargedImage(src);
+        setEnlargedImageLoaded(false);
+    }, []);
+
+    // Close modal handler
+    const closeModal = useCallback(() => {
+        setEnlargedImage(null);
+    }, []);
 
     // Adaptive transition delay based on connection speed
     const TRANSITION_DELAY = useMemo(() => {
@@ -439,14 +460,13 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                         className="relative flex items-center justify-center"
                         style={containerStyle}
                     >
-                        {!allImagesLoaded && (
+                        {!visibleImagesLoaded && (
                             <div
                                 className="absolute border-2 border-white bg-black flex flex-col items-center justify-center"
                                 style={{
                                     width: 285,
                                     height: CARD_H,
                                     left: '50%',
-                                    top: '50%',
                                     transform: 'translate(-50%, -50%)',
                                     zIndex: 1000,
                                 }}
@@ -498,73 +518,116 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
     // Single photo view
     return (
-        <div className="w-full overflow-hidden">
-            <div className="flex flex-col items-center">
-                <div
-                    ref={containerRef}
-                    className="relative flex items-center justify-center"
-                    style={containerStyle}
-                >
+        <>
+            <div className="w-full overflow-hidden">
+                <div className="flex flex-col items-center">
                     <div
-                        className="absolute border-2 border-white bg-black flex flex-col items-center justify-center transition-opacity duration-300"
-                        style={{
-                            width: CARD_W - 50,
-                            height: CARD_H,
-                            left: '50%',
-                            top: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            zIndex: 1000,
-                            opacity: showLoading ? 1 : 0,
-                            pointerEvents: showLoading ? 'auto' : 'none',
-                        }}
+                        ref={containerRef}
+                        className="relative flex items-center justify-center"
+                        style={containerStyle}
                     >
-                        <div className="text-airbus-green text-sm mb-2">LOADING PHOTOS</div>
-                        <div className="text-airbus-green text-xs">
-                            {loadedImages.size}/{images.length}
+                        <div
+                            className="absolute border-2 border-white bg-black flex flex-col items-center justify-center transition-opacity duration-300"
+                            style={{
+                                width: CARD_W - 50,
+                                height: CARD_H,
+                                left: '50%',
+                                top: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                zIndex: 1000,
+                                opacity: showLoading ? 1 : 0,
+                                pointerEvents: showLoading ? 'auto' : 'none',
+                            }}
+                        >
+                            <div className="text-airbus-green text-sm mb-2">LOADING PHOTOS</div>
+                            <div className="text-airbus-green text-xs">
+                                {loadedImages.size}/{images.length}
+                            </div>
+                        </div>
+
+                        <div
+                            className="transition-opacity duration-300"
+                            style={{
+                                opacity: showDeck ? 1 : 0,
+                                pointerEvents: showDeck ? 'auto' : 'none',
+                                width: '100%',
+                                height: '100%',
+                                position: 'relative',
+                                visibility: showDeck ? 'visible' : 'hidden',
+                            }}
+                        >
+                            {images
+                                .filter((_, index) => index === currentIndex)
+                                .map((img, index) => {
+                                    const isLoaded = loadedImages.has(currentIndex);
+                                    const dims = imageDimensions.get(currentIndex);
+
+                                    return (
+                                        <PhotoCard
+                                            key={index}
+                                            img={img}
+                                            index={currentIndex}
+                                            currentIndex={currentIndex}
+                                            isLoaded={isLoaded}
+                                            dimensions={dims ?? null}
+                                            cardWidth={CARD_W}
+                                            cardHeight={CARD_H}
+                                            isTransitioning={isTransitioning}
+                                            transitionDelay={TRANSITION_DELAY}
+                                            handleImageLoad={handleImageLoad}
+                                            isSingleView={true}
+                                            onClick={() => handleImageClick(img.src)}
+                                        />
+                                    );
+                                })}
                         </div>
                     </div>
 
-                    <div
-                        className="transition-opacity duration-300"
-                        style={{
-                            opacity: showDeck ? 1 : 0,
-                            pointerEvents: showDeck ? 'auto' : 'none',
-                            width: '100%',
-                            height: '100%',
-                            position: 'relative',
-                            visibility: showDeck ? 'visible' : 'hidden',
-                        }}
-                    >
-                        {images
-                            .filter((_, index) => index === currentIndex)
-                            .map((img, index) => {
-                                const isLoaded = loadedImages.has(currentIndex);
-                                const dims = imageDimensions.get(currentIndex);
+                    {renderControls()}
+                    <div className="flex items-center justify-center gap-1 mt-3">{renderDots()}</div>
+                </div>
+            </div>
 
-                                return (
-                                    <PhotoCard
-                                        key={index}
-                                        img={img}
-                                        index={currentIndex}
-                                        currentIndex={currentIndex}
-                                        isLoaded={isLoaded}
-                                        dimensions={dims ?? null}
-                                        cardWidth={CARD_W}
-                                        cardHeight={CARD_H}
-                                        isTransitioning={isTransitioning}
-                                        transitionDelay={TRANSITION_DELAY}
-                                        handleImageLoad={handleImageLoad}
-                                        isSingleView={true}
-                                    />
-                                );
-                            })}
+            {/* Enlarged image modal */}
+            {enlargedImage && (
+                <div
+                    className="fixed -inset-20 flex items-center justify-center z-50 bg-black/50"
+                    onClick={closeModal}
+                >
+                    <div className="relative z-10" onClick={(e) => e.stopPropagation()}>
+                        <div className="relative flex items-center justify-center">
+                            {/* Loading overlay */}
+                            {!enlargedImageLoaded && (
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-white text-lg">LOADING...</span>
+                                </div>
+                            )}
+
+                            {/* Image itself */}
+                            <Image
+                                src={enlargedImage}
+                                alt="Selected image"
+                                width={1200}
+                                height={800}
+                                className="object-contain shadow-xl transition-opacity"
+                                onLoadingComplete={() => setEnlargedImageLoaded(true)}
+                            />
+
+                            {/* Close button */}
+                            {enlargedImageLoaded && (
+                                <button
+                                    className="absolute top-2 right-2 bg-black bg-opacity-70 text-white w-8 h-8 rounded-full flex items-center justify-center z-30 hover:bg-opacity-90"
+                                    onClick={closeModal}
+                                    aria-label="Close image"
+                                >
+                                    ✕
+                                </button>
+                            )}
+                        </div>
                     </div>
                 </div>
-
-                {renderControls()}
-                <div className="flex items-center justify-center gap-1 mt-3">{renderDots()}</div>
-            </div>
-        </div>
+            )}
+        </>
     );
 };
 

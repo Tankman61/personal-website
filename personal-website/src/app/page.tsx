@@ -298,7 +298,7 @@ export default function Home() {
 
             {activeTab === 1 && (
               <div className="flex flex-col space-y-6">
-                <div className="text-airbus-green text-xl mx-auto -mb-5">TL;DR</div>
+                <div className="text-airbus-green text-xl mx-auto -mb-4">TL;DR</div>
                 <div className="scale-90">
                   <div className="text-base">
                     • SE AT <span className="text-airbus-green">UWATERLOO</span> -{' '}
@@ -313,16 +313,16 @@ export default function Home() {
                   </div>
 
                   <div>
-                    <div className="text-[18px] mb-1 mt-1 text-airbus-blue font-semibold">
+                    <div className="text-[18px] mb-1 mt-3 text-airbus-blue font-semibold">
                       • SO FAR:
                     </div>
                     <div className="space-y-3 text-sm">
                       <div>
                         ↳ BUILT <span className="text-airbus-green text-base">CCCSOLUTIONS</span> -
-                        LARGEST CCC SOLUTION REPOSITORY
+                        LARGEST REPOSITORY FOR CANADIAN COMPUTING
                       </div>
-                      <div className="ml-4 text-xs">
-                        W/ <span className="text-airbus-dark-blue font-bold text-lg">2800+</span>{' '}
+                      <div className="ml-4 -mt-3">
+                          COMPETITION SOLUTIONS W/ <span className="text-airbus-dark-blue font-bold text-lg">2800+</span>{' '}
                         USERS AND{' '}
                         <span className="text-airbus-dark-blue font-bold text-lg">270+</span>{' '}
                         SOLUTIONS
@@ -331,22 +331,18 @@ export default function Home() {
                       <div>
                         ↳ WON {' '}
                         <span className="text-airbus-dark-blue font-bold text-base">3 </span>
-                          HACKATHONS -
-                        <span className="text-airbus-green text-base"> INCL. HACK THE NORTH</span>
-                      </div>
-                      <div>
-                        ↳ CREATED THIS{' '}
-                        <span className="text-airbus-green text-base">A350 FMS PORTFOLIO</span>
+                          HACKATHONS - (INCL.
+                        <span className="text-airbus-green"> HACK THE NORTH</span>)
                       </div>
                     </div>
                   </div>
-                  <div className="-mt-2 mb-4">
+                  <div className="mt-4 mb-6">
                     <PhotoDeck images={[Image5, Image4, Image3, Image1, Image2]} />
                   </div>
                   <div className="text-[12px] text-airbus-blue">
                     {' '}
                     FUN LITTLE FACT: IVE LOVED AVIATION SINCE I WAS 3 AND LOVE TAKING COCKPIT
-                    PHOTOS. ABOVE ARE SOME OF MY FAVORITES :)
+                    PHOTOS WHEN I GET THE CHANCE. ABOVE ARE SOME OF MY FAVORITES :)
                   </div>
                 </div>
               </div>

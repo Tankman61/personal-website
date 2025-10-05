@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/Button';
 import PhotoDeck from '@/components/PhotoDeck';
-import Image1 from '../../public/assets/images/gallery1.jpg';
-import Image2 from '../../public/assets/images/gallery2.jpg';
-import Image3 from '../../public/assets/images/gallery3.jpg';
-import Image4 from '../../public/assets/images/gallery4.jpg';
-import Image5 from '../../public/assets/images/gallery5.jpg';
+import Image1 from '../../public/assets/images/gallery1.webp';
+import Image2 from '../../public/assets/images/gallery2.webp';
+import Image3 from '../../public/assets/images/gallery3.webp';
+import Image4 from '../../public/assets/images/gallery4.webp';
+import Image5 from '../../public/assets/images/gallery5.webp';
 import SEWebRingLogo from '../../public/assets/icons/logo_w.svg';
 import { PROJECTS, } from '../../public/assets/constants/constants';
 import Image from 'next/image';

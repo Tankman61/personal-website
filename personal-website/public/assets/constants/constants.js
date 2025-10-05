@@ -1,49 +1,49 @@
 // MAATCHAA
-import maatchaa1 from '../images/projects/maatchaa/1.png';
-import maatchaa2 from '../images/projects/maatchaa/2.png';
+import maatchaa1 from '../images/projects/maatchaa/1.webp';
+import maatchaa2 from '../images/projects/maatchaa/2.webp';
 
 // CCCSOLUTIONS
-import ccc1 from '../images/projects/cccsolutions/1.png';
-import ccc2 from '../images/projects/cccsolutions/2.png';
-import ccc3 from '../images/projects/cccsolutions/3.png';
+import ccc1 from '../images/projects/cccsolutions/1.webp';
+import ccc2 from '../images/projects/cccsolutions/2.webp';
+import ccc3 from '../images/projects/cccsolutions/3.webp';
 
 // DIGITAL FLIGHT DYNAMICS A350X
-import a350x1 from '../images/projects/a350x/1.png';
-import a350x2 from '../images/projects/a350x/2.png';
-import a350x3 from '../images/projects/a350x/3.png';
-import a350x4 from '../images/projects/a350x/4.png';
+import a350x1 from '../images/projects/a350x/1.webp';
+import a350x2 from '../images/projects/a350x/2.webp';
+import a350x3 from '../images/projects/a350x/3.webp';
+import a350x4 from '../images/projects/a350x/4.webp';
 
 // PAWDITOR
-import pawditor1 from '../images/projects/pawditor/1.png';
-import pawditor2 from '../images/projects/pawditor/2.png';
-import pawditor3 from '../images/projects/pawditor/3.png';
-import pawditor4 from '../images/projects/pawditor/4.png';
+import pawditor1 from '../images/projects/pawditor/1.webp';
+import pawditor2 from '../images/projects/pawditor/2.webp';
+import pawditor3 from '../images/projects/pawditor/3.webp';
+import pawditor4 from '../images/projects/pawditor/4.webp';
 
 // MATHIFY
-import mathify1 from '../images/projects/mathify/1.png';
-import mathify2 from '../images/projects/mathify/2.png';
-import mathify3 from '../images/projects/mathify/3.png';
+import mathify1 from '../images/projects/mathify/1.webp';
+import mathify2 from '../images/projects/mathify/2.webp';
+import mathify3 from '../images/projects/mathify/3.webp';
 
 // A350 PORTFOLIO
-import portfolio1 from '../images/projects/portfolio/1.png';
-import portfolio2 from '../images/projects/portfolio/2.png';
-import portfolio3 from '../images/projects/portfolio/3.png';
+import portfolio1 from '../images/projects/portfolio/1.webp';
+import portfolio2 from '../images/projects/portfolio/2.webp';
+import portfolio3 from '../images/projects/portfolio/3.webp';
 
 // FOCUSFLOW
-import focusflow1 from '../images/projects/focusflow/1.png';
+import focusflow1 from '../images/projects/focusflow/1.webp';
 
 // SATDUEL
-import satduel1 from '../images/projects/satduel/1.png';
-import satduel2 from '../images/projects/satduel/2.png';
-import satduel3 from '../images/projects/satduel/3.png';
-import satduel4 from '../images/projects/satduel/4.png';
+import satduel1 from '../images/projects/satduel/1.webp';
+import satduel2 from '../images/projects/satduel/2.webp';
+import satduel3 from '../images/projects/satduel/3.webp';
+import satduel4 from '../images/projects/satduel/4.webp';
 
 // NOTECONVERT
-import noteconvert1 from '../images/projects/noteconvert/1.png';
-import noteconvert2 from '../images/projects/noteconvert/2.png';
+import noteconvert1 from '../images/projects/noteconvert/1.webp';
+import noteconvert2 from '../images/projects/noteconvert/2.webp';
 
 // FUKUSHIMA 2044
-import fukushima1 from '../images/projects/fukushima2044/1.png';
+import fukushima1 from '../images/projects/fukushima2044/1.webp';
 
 export const PROJECTS = [
   {

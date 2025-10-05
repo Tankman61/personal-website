@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const GALLERY_DIR = join(__dirname, '../public/assets/images/gallery');
+const IMAGES_DIR = join(__dirname, '../public/assets/images');
 const MAX_WIDTH = 1920;
 const QUALITY = 80;
 
@@ -57,9 +57,9 @@ async function processDirectory(dirPath) {
 }
 
 console.log('Starting image optimization...\n');
-console.log(`Gallery directory: ${GALLERY_DIR}\n`);
+console.log(`Images directory: ${IMAGES_DIR}\n`);
 
-await processDirectory(GALLERY_DIR);
+await processDirectory(IMAGES_DIR);
 
 console.log('\n✅ Image optimization complete!');
 console.log('\nNext steps:');

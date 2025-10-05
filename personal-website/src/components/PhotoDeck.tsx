@@ -562,7 +562,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                 alt="Selected image"
                                 width={1200}
                                 height={800}
-                                className="object-contain shadow-xl transition-opacity max-w-[100vw] max-h-[100vh]"
+                                className="object-contain shadow-xl transition-opacity max-h-[100vh] max-w-[150vw]"
                                 onLoadingComplete={() => setEnlargedImageLoaded(true)}
                             />
 

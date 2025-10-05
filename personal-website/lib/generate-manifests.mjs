@@ -18,9 +18,24 @@ try {
         fs.writeFileSync(manifestPath, JSON.stringify([], null, 2));
         console.log('Created empty gallery manifest (no gallery directory).');
     } else {
-        const imageFiles = fs
-            .readdirSync(assetsDir)
-            .filter((file) => /\.(png|jpe?g|webp|gif|avif)$/i.test(file));
+        const allFiles = fs.readdirSync(assetsDir);
+
+        // Prioritize WebP files - if both .webp and .png/.jpg exist, use .webp only
+        const webpFiles = new Set(
+            allFiles
+                .filter(file => file.endsWith('.webp'))
+                .map(file => file.replace('.webp', ''))
+        );
+
+        const imageFiles = allFiles
+            .filter((file) => /\.(png|jpe?g|webp|gif|avif)$/i.test(file))
+            .filter(file => {
+                // If it's a webp file, include it
+                if (file.endsWith('.webp')) return true;
+                // If a webp version exists, exclude the old format
+                const baseName = file.replace(/\.(png|jpe?g)$/i, '');
+                return !webpFiles.has(baseName);
+            });
 
         if (imageFiles.length === 0) {
             console.log('No image files found in gallery directory.');

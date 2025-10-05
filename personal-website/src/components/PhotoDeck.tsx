@@ -229,6 +229,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
     // Get cached image
     const getCachedImage = useCallback((src: string) => {
         if (imageCache.current.has(src)) {
+
             return imageCache.current.get(src);
         }
 

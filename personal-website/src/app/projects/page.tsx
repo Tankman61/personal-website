@@ -165,7 +165,7 @@ export default function Projects() {
                     src: typeof img === 'string' ? img : img.src,
                   }))}
                   singlePhotoView={true}
-                  cardWidth={500}
+                  cardWidth={425}
                   cardHeight={225}
                 />
 

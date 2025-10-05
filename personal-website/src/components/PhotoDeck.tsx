@@ -138,12 +138,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
     const [connectionSpeed, setConnectionSpeed] = useState('fast');
     const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
     const [enlargedImageLoaded, setEnlargedImageLoaded] = useState(false);
-
-    // Track if currently visible images are loaded
-    const visibleImagesLoaded = useMemo(() => {
-        if (images.length === 0) return true;
-        return loadedImages.has(currentIndex);
-    }, [currentIndex, images.length, loadedImages]);
+    const [allImagesPreloaded, setAllImagesPreloaded] = useState(false);
 
     const preloadedIndexesRef = useRef<Set<number>>(new Set());
     const imageCache = useRef(new Map());
@@ -206,6 +201,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
         setLoadedImages(new Set());
         setIsTransitioning(false);
         setCurrentIndex(0);
+        setAllImagesPreloaded(false);
         preloadedIndexesRef.current = new Set();
     }, [images, singlePhotoView]);
 
@@ -267,7 +263,6 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
     // Handle image load - simplified without dimension calculations
     const handleImageLoad = useCallback(
-
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (index: number, e: React.SyntheticEvent<HTMLImageElement>) => {
             setLoadedImages((prev) => {
@@ -307,50 +302,39 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
         });
     }, [images, handleImageLoad, getCachedImage]);
 
-    // Optimized batch loading strategy
+    // Complete preloading strategy - preload ALL images before showing deck
     useEffect(() => {
-        const timeouts: NodeJS.Timeout[] = [];
+        if (images.length === 0) return;
 
-        const priorityIndexes = [
-            currentIndex,
-            (currentIndex + 1) % images.length,
-            (currentIndex - 1 + images.length) % images.length,
-        ];
+        const preloadAllImages = async () => {
+            setShowLoading(true);
+            setShowDeck(false);
+            setAllImagesPreloaded(false);
 
-        Promise.all(priorityIndexes.map(index => preloadImage(index)))
-            .then(() => {
-                const remainingIndexes = Array.from(
-                    { length: images.length },
-                    (_, i) => i
-                ).filter(i => !priorityIndexes.includes(i));
+            // Preload all images concurrently
+            const promises = images.map((_, index) => preloadImage(index));
 
-                const loadBatch = (indexes: number[], batchSize = 2, delay = 100) => {
-                    if (indexes.length === 0) return;
+            try {
+                await Promise.all(promises);
+                setAllImagesPreloaded(true);
 
-                    const batch = indexes.slice(0, batchSize);
-                    const remaining = indexes.slice(batchSize);
+                // Small delay for smooth transition
+                setTimeout(() => {
+                    setShowLoading(false);
+                    setShowDeck(true);
+                }, 300);
+            } catch (error) {
+                console.error('Error preloading images:', error);
+                // Fallback: show deck anyway after a timeout
+                setTimeout(() => {
+                    setShowLoading(false);
+                    setShowDeck(true);
+                }, 2000);
+            }
+        };
 
-                    const timeout = setTimeout(() => {
-                        Promise.all(batch.map(index => preloadImage(index)))
-                            .then(() => loadBatch(remaining, batchSize, delay * 1.5));
-                    }, delay);
-
-                    timeouts.push(timeout);
-                };
-
-                loadBatch(remainingIndexes);
-            });
-
-        return () => timeouts.forEach(clearTimeout);
-    }, [images, currentIndex, preloadImage]);
-
-    // Loading to deck transition
-    useEffect(() => {
-        if (singlePhotoView && loadedImages.has(currentIndex)) {
-            setShowLoading(false);
-            setShowDeck(true);
-        }
-    }, [loadedImages, currentIndex, singlePhotoView]);
+        preloadAllImages();
+    }, [images, preloadImage]);
 
     // Fixed container style - no dynamic sizing
     const containerStyle: React.CSSProperties = useMemo(() => ({
@@ -384,13 +368,13 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                         }
                     }
                 }}
-                disabled={!loadedImages.has(currentIndex) || isTransitioning}
+                disabled={!allImagesPreloaded || isTransitioning}
                 className={`w-2 h-2 rounded-full transition-transform duration-200 ${
                     index === currentIndex ? 'bg-cyan-300' : 'bg-gray-500 hover:bg-gray-400'
                 }`}
             />
         )),
-        [currentIndex, images.length, isTransitioning, loadedImages, preloadImage, TRANSITION_DELAY]
+        [currentIndex, images.length, isTransitioning, allImagesPreloaded, preloadImage, TRANSITION_DELAY]
     );
 
     // Render controls
@@ -414,9 +398,9 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                         className="relative flex items-center justify-center"
                         style={containerStyle}
                     >
-                        {!visibleImagesLoaded && (
+                        {!allImagesPreloaded && (
                             <div
-                                className="absolute border-2 border-white bg-black flex flex-col items-center justify-center"
+                                className="absolute border-2 border-white bg-black flex flex-col items-center justify-center transition-opacity duration-300"
                                 style={{
                                     width: CARD_W,
                                     height: CARD_H,
@@ -424,44 +408,58 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                     top: '50%',
                                     transform: 'translate(-50%, -50%)',
                                     zIndex: 1000,
+                                    opacity: showLoading ? 1 : 0,
+                                    pointerEvents: showLoading ? 'auto' : 'none',
                                 }}
                             >
-                                <div className="text-airbus-green text-sm mb-2">LOADING PHOTOS</div>
+                                <div className="text-airbus-green text-sm mb-2">LOADING IMAGES</div>
                                 <div className="text-airbus-green text-xs">
                                     {loadedImages.size}/{images.length}
                                 </div>
                             </div>
                         )}
 
-                        {images.map((img, index) => {
-                            // Only render visible images (virtualization)
-                            if (index < visibleRange.start || index > visibleRange.end) return null;
+                        <div
+                            className="transition-opacity duration-300"
+                            style={{
+                                opacity: showDeck ? 1 : 0,
+                                pointerEvents: showDeck ? 'auto' : 'none',
+                                width: '100%',
+                                height: '100%',
+                                position: 'relative',
+                                visibility: showDeck ? 'visible' : 'hidden',
+                            }}
+                        >
+                            {images.map((img, index) => {
+                                // Only render visible images (virtualization)
+                                if (index < visibleRange.start || index > visibleRange.end) return null;
 
-                            const offset = index - currentIndex;
-                            const isLoaded = loadedImages.has(index);
-                            const isSingleImage = images.length === 1;
-                            const isCurrent = index === currentIndex;
-                            const isVisible = isSingleImage || isCurrent || Math.abs(offset) <= 2;
+                                const offset = index - currentIndex;
+                                const isLoaded = loadedImages.has(index);
+                                const isSingleImage = images.length === 1;
+                                const isCurrent = index === currentIndex;
+                                const isVisible = isSingleImage || isCurrent || Math.abs(offset) <= 2;
 
-                            if (!isVisible) return null;
+                                if (!isVisible) return null;
 
-                            return (
-                                <PhotoCard
-                                    key={index}
-                                    img={img}
-                                    index={index}
-                                    currentIndex={currentIndex}
-                                    isLoaded={isLoaded}
-                                    cardWidth={CARD_W}
-                                    cardHeight={CARD_H}
-                                    isTransitioning={isTransitioning}
-                                    transitionDelay={TRANSITION_DELAY}
-                                    handleImageLoad={handleImageLoad}
-                                    isSingleView={false}
-                                    totalImages={images.length}
-                                />
-                            );
-                        })}
+                                return (
+                                    <PhotoCard
+                                        key={index}
+                                        img={img}
+                                        index={index}
+                                        currentIndex={currentIndex}
+                                        isLoaded={isLoaded}
+                                        cardWidth={CARD_W}
+                                        cardHeight={CARD_H}
+                                        isTransitioning={isTransitioning}
+                                        transitionDelay={TRANSITION_DELAY}
+                                        handleImageLoad={handleImageLoad}
+                                        isSingleView={false}
+                                        totalImages={images.length}
+                                    />
+                                );
+                            })}
+                        </div>
                     </div>
 
                     {renderControls()}
@@ -481,58 +479,60 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                         className="relative flex items-center justify-center"
                         style={containerStyle}
                     >
-                        {showLoading && (
-                            <div
-                                className="absolute border-2 border-white bg-black flex flex-col items-center justify-center"
-                                style={{
-                                    width: CARD_W,
-                                    height: CARD_H,
-                                    left: '50%',
-                                    top: '50%',
-                                    transform: 'translate(-50%, -50%)',
-                                    zIndex: 1000,
-                                }}
-                            >
-                                <div className="text-airbus-green text-sm mb-2">LOADING PHOTOS</div>
-                                <div className="text-airbus-green text-xs">
-                                    {loadedImages.size}/{images.length}
-                                </div>
+                        <div
+                            className="absolute border-2 border-white bg-black flex flex-col items-center justify-center transition-opacity duration-300"
+                            style={{
+                                width: CARD_W,
+                                height: CARD_H,
+                                left: '50%',
+                                top: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                zIndex: 1000,
+                                opacity: showLoading ? 1 : 0,
+                                pointerEvents: showLoading ? 'auto' : 'none',
+                            }}
+                        >
+                            <div className="text-airbus-green text-sm mb-2">LOADING IMAGES</div>
+                            <div className="text-airbus-green text-xs">
+                                {loadedImages.size}/{images.length}
                             </div>
-                        )}
+                        </div>
 
-                        {showDeck && (
-                            <div
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    position: 'relative',
-                                }}
-                            >
-                                {images
-                                    .filter((_, index) => index === currentIndex)
-                                    .map((img) => {
-                                        const imgIndex = images.indexOf(img);
-                                        const isLoaded = loadedImages.has(imgIndex);
+                        <div
+                            className="transition-opacity duration-300"
+                            style={{
+                                opacity: showDeck ? 1 : 0,
+                                pointerEvents: showDeck ? 'auto' : 'none',
+                                width: '100%',
+                                height: '100%',
+                                position: 'relative',
+                                visibility: showDeck ? 'visible' : 'hidden',
+                            }}
+                        >
+                            {images
+                                .filter((_, index) => index === currentIndex)
+                                .map((img) => {
+                                    const imgIndex = images.indexOf(img);
+                                    const isLoaded = loadedImages.has(imgIndex);
 
-                                        return (
-                                            <PhotoCard
-                                                key={imgIndex}
-                                                img={img}
-                                                index={imgIndex}
-                                                currentIndex={currentIndex}
-                                                isLoaded={isLoaded}
-                                                cardWidth={CARD_W}
-                                                cardHeight={CARD_H}
-                                                isTransitioning={isTransitioning}
-                                                transitionDelay={TRANSITION_DELAY}
-                                                handleImageLoad={handleImageLoad}
-                                                isSingleView={true}
-                                                onClick={() => handleImageClick(img.src)}
-                                            />
-                                        );
-                                    })}
-                            </div>
-                        )}
+                                    return (
+                                        <PhotoCard
+                                            key={imgIndex}
+                                            img={img}
+                                            index={imgIndex}
+                                            currentIndex={currentIndex}
+                                            isLoaded={isLoaded}
+                                            cardWidth={CARD_W}
+                                            cardHeight={CARD_H}
+                                            isTransitioning={isTransitioning}
+                                            transitionDelay={TRANSITION_DELAY}
+                                            handleImageLoad={handleImageLoad}
+                                            isSingleView={true}
+                                            onClick={() => handleImageClick(img.src)}
+                                        />
+                                    );
+                                })}
+                        </div>
                     </div>
 
                     {renderControls()}

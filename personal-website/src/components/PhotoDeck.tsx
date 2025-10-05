@@ -267,7 +267,9 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
     // Handle image load - simplified without dimension calculations
     const handleImageLoad = useCallback(
-        (index: number, _: React.SyntheticEvent<HTMLImageElement>) => {
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        (index: number, e: React.SyntheticEvent<HTMLImageElement>) => {
             setLoadedImages((prev) => {
                 if (prev.has(index)) return prev;
                 const newSet = new Set(prev);

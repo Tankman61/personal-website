@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import galleryImageUrls from '@/lib/gallery-manifest.json';
 
@@ -8,6 +8,23 @@ export default function GalleryPage() {
   const images = galleryImageUrls as string[];
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+        const handleEscapeKey = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' && selectedImage) {
+                closeImage();
+            }
+        };
+
+        if (selectedImage) {
+            document.addEventListener('keydown', handleEscapeKey);
+        }
+
+        return () => {
+            document.removeEventListener('keydown', handleEscapeKey);
+        };
+    }, [selectedImage]);
+
 
   const openImage = (image: string) => {
     setSelectedImage(image);

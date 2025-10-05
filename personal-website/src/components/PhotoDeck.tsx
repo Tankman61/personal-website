@@ -226,6 +226,23 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
         };
     }, [currentIndex, images.length]);
 
+    // escape key to close modal
+    useEffect(() => {
+        const handleEscapeKey = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' && enlargedImage) {
+                closeModal();
+            }
+        };
+
+        if (enlargedImage) {
+            document.addEventListener('keydown', handleEscapeKey);
+        }
+
+        return () => {
+            document.removeEventListener('keydown', handleEscapeKey);
+        };
+    }, [enlargedImage, closeModal]);
+
     // Get cached image
     const getCachedImage = useCallback((src: string) => {
         if (imageCache.current.has(src)) {

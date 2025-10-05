@@ -17,6 +17,7 @@ interface PhotoCardProps {
     handleImageLoad: (index: number, e: React.SyntheticEvent<HTMLImageElement>) => void;
     isSingleView: boolean;
     onClick?: () => void;
+    isFadingOut?: boolean;
 }
 
 // Photo card component (memoized)
@@ -32,7 +33,8 @@ const PhotoCard = React.memo<PhotoCardProps>(({
                                                   transitionDelay,
                                                   handleImageLoad,
                                                   isSingleView,
-                                                  onClick
+                                                  onClick,
+                                                  isFadingOut = false
                                               }) => {
     const offset = index - currentIndex;
     const isCurrent = index === currentIndex;
@@ -40,14 +42,30 @@ const PhotoCard = React.memo<PhotoCardProps>(({
     const style = useMemo((): React.CSSProperties => {
         if (isSingleView) {
             const dims = dimensions || { width: cardWidth, height: cardHeight };
+
+            // Crossfade logic for single view
+            let opacity = 1;
+            let zIndex = 100;
+
+            if (isFadingOut && isTransitioning) {
+                // Old image fades out on top
+                opacity = 0;
+                zIndex = 101;
+            } else if (isCurrent && !isFadingOut) {
+                // New image visible below
+                opacity = 1;
+                zIndex = 100;
+            }
+
             return {
                 width: dims.width,
                 height: dims.height,
                 left: '50%',
                 top: '50%',
                 transform: 'translate(-50%, -50%)',
-                opacity: isTransitioning ? 0 : 1,
-                transition: `opacity ${transitionDelay}ms ease-in`,
+                opacity: opacity,
+                zIndex: zIndex,
+                transition: `opacity ${transitionDelay}ms ease-in-out`,
             };
         } else {
             return {
@@ -66,7 +84,7 @@ const PhotoCard = React.memo<PhotoCardProps>(({
                 transition: `transform ${transitionDelay}ms ease-out, opacity ${transitionDelay}ms ease-out`,
             };
         }
-    }, [isSingleView, dimensions, offset, isTransitioning, cardWidth, cardHeight, transitionDelay]);
+    }, [isSingleView, dimensions, offset, isTransitioning, cardWidth, cardHeight, transitionDelay, isFadingOut, isCurrent]);
 
     return (
         <div
@@ -79,7 +97,7 @@ const PhotoCard = React.memo<PhotoCardProps>(({
                 alt={`Photo ${index + 1}`}
                 fill
                 sizes={isSingleView ? `${dimensions?.width || cardWidth}px` : "(max-width: 768px) 100vw, 285px"}
-                className={isSingleView ? "object-contain" : "object-cover"}
+                className="object-contain"
                 style={{ opacity: isLoaded ? 1 : 0, transition: `opacity ${transitionDelay}ms ease-in` }}
                 onLoad={(e) => handleImageLoad(index, e)}
                 priority={isCurrent || Math.abs(offset) <= 1}
@@ -106,6 +124,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                                  cardHeight = 190,
                                              }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [previousIndex, setPreviousIndex] = useState<number | null>(null);
     const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
     const [imageDimensions, setImageDimensions] = useState<
         Map<number, { width: number; height: number }>
@@ -145,7 +164,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
     // Adaptive transition delay based on connection speed
     const TRANSITION_DELAY = useMemo(() => {
-        return connectionSpeed === 'slow' ? 220 : 180;
+        return connectionSpeed === 'slow' ? 400 : 350;
     }, [connectionSpeed]);
 
     // Detect network connection speed
@@ -256,7 +275,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
         return img;
     }, []);
 
-    // Navigation with optimized transition times
+    // Navigation with crossfade transition
     const changePhoto = useCallback(
         (delta: number) => {
             if (images.length <= 1 || isTransitioning) return;
@@ -264,22 +283,28 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
             const currentDims = imageDimensions.get(currentIndex);
             if (currentDims) activeImageRef.current = currentDims;
 
-            setIsTransitioning(true);
-
-            // Preload target image first
             const nextIndex = (currentIndex + delta + images.length) % images.length;
+
+            // Set previous image for crossfade
+            setPreviousIndex(currentIndex);
 
             // Check if image is already preloaded
             if (preloadedIndexesRef.current.has(nextIndex)) {
+                // Image ready - start crossfade immediately
+                setCurrentIndex(nextIndex);
+                setIsTransitioning(true);
                 setTimeout(() => {
-                    setCurrentIndex(nextIndex);
-                    setTimeout(() => setIsTransitioning(false), TRANSITION_DELAY);
+                    setIsTransitioning(false);
+                    setPreviousIndex(null);
                 }, TRANSITION_DELAY);
             } else {
+                // Load image first, then crossfade
                 preloadImage(nextIndex).then(() => {
+                    setCurrentIndex(nextIndex);
+                    setIsTransitioning(true);
                     setTimeout(() => {
-                        setCurrentIndex(nextIndex);
-                        setTimeout(() => setIsTransitioning(false), TRANSITION_DELAY);
+                        setIsTransitioning(false);
+                        setPreviousIndex(null);
                     }, TRANSITION_DELAY);
                 });
             }
@@ -508,6 +533,8 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
 
                             if (!isVisible) return null;
 
+                            const dims = imageDimensions.get(index);
+
                             return (
                                 <PhotoCard
                                     key={index}
@@ -515,7 +542,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                     index={index}
                                     currentIndex={currentIndex}
                                     isLoaded={isLoaded}
-                                    dimensions={null}
+                                    dimensions={dims ?? null}
                                     cardWidth={CARD_W}
                                     cardHeight={CARD_H}
                                     isTransitioning={isTransitioning}
@@ -575,16 +602,18 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                             }}
                         >
                             {images
-                                .filter((_, index) => index === currentIndex)
-                                .map((img, index) => {
-                                    const isLoaded = loadedImages.has(currentIndex);
-                                    const dims = imageDimensions.get(currentIndex);
+                                .filter((_, index) => index === currentIndex || (previousIndex !== null && index === previousIndex))
+                                .map((img) => {
+                                    const imgIndex = images.indexOf(img);
+                                    const isLoaded = loadedImages.has(imgIndex);
+                                    const dims = imageDimensions.get(imgIndex);
+                                    const isFadingOut = previousIndex !== null && imgIndex === previousIndex;
 
                                     return (
                                         <PhotoCard
-                                            key={index}
+                                            key={imgIndex}
                                             img={img}
-                                            index={currentIndex}
+                                            index={imgIndex}
                                             currentIndex={currentIndex}
                                             isLoaded={isLoaded}
                                             dimensions={dims ?? null}
@@ -595,6 +624,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                             handleImageLoad={handleImageLoad}
                                             isSingleView={true}
                                             onClick={() => handleImageClick(img.src)}
+                                            isFadingOut={isFadingOut}
                                         />
                                     );
                                 })}

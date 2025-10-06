@@ -509,17 +509,25 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                 visibility: showDeck ? 'visible' : 'hidden',
                             }}
                         >
-                            {images
-                                .filter((_, index) => index === currentIndex)
-                                .map((img) => {
-                                    const imgIndex = images.indexOf(img);
-                                    const isLoaded = loadedImages.has(imgIndex);
+                            {images.map((img, index) => {
+                                const isLoaded = loadedImages.has(index);
+                                const isCurrent = index === currentIndex;
 
-                                    return (
+                                return (
+                                    <div
+                                        key={index}
+                                        style={{
+                                            display: isCurrent ? 'block' : 'none',
+                                            width: '100%',
+                                            height: '100%',
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                        }}
+                                    >
                                         <PhotoCard
-                                            key={imgIndex}
                                             img={img}
-                                            index={imgIndex}
+                                            index={index}
                                             currentIndex={currentIndex}
                                             isLoaded={isLoaded}
                                             cardWidth={CARD_W}
@@ -530,8 +538,9 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                                             isSingleView={true}
                                             onClick={() => handleImageClick(img.src)}
                                         />
-                                    );
-                                })}
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
 

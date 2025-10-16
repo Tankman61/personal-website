@@ -250,7 +250,7 @@ export default function Home() {
                   <div className="text-center">
                     <div className="border" style={{ borderColor: '#454647', borderWidth: '2px' }}>
                       <div className="bg-black text-white px-6 py-2 text-[17px]">ACTIVE</div>
-                      <div className="text-airbus-green px-6 py-2 text-[17px]">DFD A350X</div>
+                      <div className="text-airbus-green px-6 py-2 text-[17px]">MAATCHAA</div>
                     </div>
                   </div>
                   <div className="flex flex-col items-center justify-center mt-4 mr-8">

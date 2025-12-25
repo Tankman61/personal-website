@@ -2,8 +2,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 // for gallery images
-// for gallery images
-// for gallery images
 const assetsDir = path.join(process.cwd(), 'public/assets/images/gallery');
 const manifestPath = path.join(process.cwd(), 'src/lib/gallery-manifest.json');
 console.log(`Looking for gallery images in: ${assetsDir}`);

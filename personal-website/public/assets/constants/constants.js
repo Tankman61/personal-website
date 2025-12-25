@@ -1,3 +1,9 @@
+// VIBETRADE
+import vibetrade1 from '../images/projects/vibetrade/vibetrade1.png';
+import vibetrade2 from '../images/projects/vibetrade/vibetrade2.png';
+import vibetrade3 from '../images/projects/vibetrade/vibetrade3.png';
+import vibetrade4 from '../images/projects/vibetrade/vibetrade4.png';
+
 // MAATCHAA
 import maatchaa1 from '../images/projects/maatchaa/1.webp';
 import maatchaa2 from '../images/projects/maatchaa/2.webp';
@@ -46,6 +52,20 @@ import noteconvert2 from '../images/projects/noteconvert/2.webp';
 import fukushima1 from '../images/projects/fukushima2044/1.webp';
 
 export const PROJECTS = [
+    {
+    title: 'VIBETRADE',
+    shortTitle: 'VIBETRADE',
+    description: (
+      <>
+        VIBETRADE IS AN AGENTIC VTUBER THAT HELPS YOU TRADE YOUR CRYPTO THROUGH REAL-TIME MARKET DATA. BUILT FOR HACKWESTERN 12.
+      </>
+    ),
+    images: [vibetrade1, vibetrade2, vibetrade3, vibetrade4],
+    date: '2025',
+    technologies: ['LANGGRAPH', ' FASTAPI', 'ELEVENLABS', 'POLYMARKET', 'SUPABASE', 'NEXT.JS'],
+    link: 'https://devpost.com/software/vibetrade',
+    github: 'https://github.com/tankman61/VibeTrade',
+  },
   {
     title: 'MAATCHAA',
     shortTitle: 'MAATCHAA',

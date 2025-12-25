@@ -24,23 +24,19 @@ export default async function PostPage(props: PageProps) {
   const source = fs.readFileSync(postFile, 'utf-8');
   const { content, data } = matter(source);
 
-  const imageFiles = fs
-    .readdirSync(postDir)
-    .filter((f) => /\.(png|jpg|jpeg|webp|gif)$/.test(f))
-    .reduce(
-      (acc, filename, index) => {
-        const key = index === 0 ? 'imageRef' : `imageRef${index + 1}`;
-        acc[key] = `/blog/posts/${slug}/${filename}`;
-        return acc;
-      },
-      {} as Record<string, string>,
-    );
+  // Import image if it exists
+  let imageRef = null;
+  const imagePath = path.join(postDir, 'image.png');
+  if (fs.existsSync(imagePath)) {
+    // Dynamically import the image
+    imageRef = await import(`@/app/blog/posts/${slug}/image.png`);
+  }
 
   // serialize
   const mdxSource = await serialize(content, {
     scope: {
       ...data,
-      ...imageFiles,
+      imageRef: imageRef?.default || null,
     },
   });
 

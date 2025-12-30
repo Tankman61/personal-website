@@ -108,6 +108,19 @@ export default function ContactPage() {
           marginLeft: '-0.5%',
         }}
       />
+        <div className="mt-auto">
+        <div className="flex items-center justify-center gap-3">
+            <a href={`https://se30webring.com?from=${window.location.href}&dir=prev`} className="no-underline text-[#FFCE1A] text-2xl leading-none flex items-center">←</a>
+            <a href="https://se30webring.com" target="_blank" className="no-underline flex items-center">
+                <img
+                    src="https://se30webring.com/assets/icon-yellow.svg"
+                    alt="SE '30 Webring"
+                    className="w-8 h-8"
+                />
+            </a>
+            <a href={`https://se30webring.com?from=${window.location.href}&dir=next`} className="no-underline text-[#FFCE1A] text-2xl leading-none flex items-center">→</a>
+        </div>
+       </div>
     </main>
   );
 }

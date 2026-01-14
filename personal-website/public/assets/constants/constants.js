@@ -57,7 +57,7 @@ export const PROJECTS = [
     shortTitle: 'VIBETRADE',
     description: (
       <>
-        VIBETRADE IS AN AGENTIC VTUBER THAT HELPS YOU TRADE YOUR CRYPTO THROUGH REAL-TIME MARKET DATA. BUILT FOR HACKWESTERN 12.
+        AGENTIC VTUBERS THAT HELP YOU TRADE YOUR CRYPTO THROUGH REAL-TIME MARKET DATA. BUILT FOR HACKWESTERN 12.
       </>
     ),
     images: [vibetrade1, vibetrade2, vibetrade3, vibetrade4],

@@ -10,6 +10,7 @@ const AirbusPrinter = forwardRef<PrinterRef>((props, ref) => {
   const [hasPrinted, setHasPrinted] = useState(false);
   const [printingComplete, setPrintingComplete] = useState(false);
   const [printerDuration, setPrinterDuration] = useState(2000);
+  const [printedAt, setPrintedAt] = useState<Date | null>(null);
 
   const printerAudioRef = useRef<HTMLAudioElement | null>(null);
   const paperAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -33,6 +34,7 @@ const AirbusPrinter = forwardRef<PrinterRef>((props, ref) => {
   const startPrintSequence = () => {
     if (hasPrinted) return;
 
+    setPrintedAt(new Date());
     setHasPrinted(true);
     setPaperVisible(true);
     setPrinting(false);
@@ -166,8 +168,8 @@ const AirbusPrinter = forwardRef<PrinterRef>((props, ref) => {
             >
               <div className="px-4 pt-3 text-xs font-mono text-gray-900 leading-relaxed">
                 <div className="text-right text-xs mb-3 space-y-0">
-                  <div>DATE : {new Date().toLocaleDateString('en-GB').replace(/\//g, ' ')}</div>
-                  <div>TIME : {new Date().toLocaleTimeString('en-GB', { hour12: false })}</div>
+                    <div>DATE : {(printedAt ?? new Date()).toLocaleDateString('en-GB').replace(/\//g, ' ')}</div>
+                    <div>TIME : {(printedAt ?? new Date()).toLocaleTimeString('en-GB', { hour12: false })}</div>
                 </div>
 
                 <div className="mb-3 tracking-wide space-y-0.5">

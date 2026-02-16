@@ -16,12 +16,12 @@ interface HomeComponentProps {
     blogCount: number;
 }
 
-export default function HomeComponent({blogCount}: HomeComponentProps) {
+export function HomeComponent({blogCount}: HomeComponentProps) {
     const [activeTab, setActiveTab] = useState(0);
     const borderWidth = 2;
     return (
         <main className="px-8 flex items-start justify-center overflow-x-hidden">
-            <div className="w-full overflow-hidden" style={{ maxWidth: '612px' }}>
+            <div className="w-full overflow-hidden" style={{maxWidth: '612px'}}>
                 {/* Tab Container */}
                 <div className="relative flex w-full">
                     {/* Left Tab */}
@@ -41,7 +41,8 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
                                 borderBottom: activeTab === 0 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >
-              <span className="text-sm px-[80px] rounded-none group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
+              <span
+                  className="text-sm px-[80px] rounded-none group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
                 STATUS
               </span>
                         </div>
@@ -98,7 +99,8 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
                                 borderBottom: activeTab === 1 ? 'none' : `${borderWidth}px solid white`,
                             }}
                         >
-              <span className="text-sm px-[80px] rounded-none group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
+              <span
+                  className="text-sm px-[80px] rounded-none group-hover:outline-2 group-hover:outline-airbus-blue outline-airbus-blue transition-none">
                 TL;DR
               </span>
                         </div>
@@ -149,7 +151,8 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
                     }}
                 >
                     {/* Screen bezel effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-gray-700 via-transparent to-gray-800 pointer-events-none"></div>
+                    <div
+                        className="absolute inset-0 bg-gradient-to-br from-gray-700 via-transparent to-gray-800 pointer-events-none"></div>
 
                     <div className="relative bg-black h-full p-3 overflow-y-auto">
                         {activeTab === 0 && (
@@ -158,7 +161,7 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
                                     WILLIAM YANG / SOFTWARE DEVELOPER
                                 </div>
                                 <div className="mb-2">
-                                    <div className="border p-1.5 inline-block" style={{ borderColor: '#454647' }}>
+                                    <div className="border p-1.5 inline-block" style={{borderColor: '#454647'}}>
                                         <div className="flex gap-x-2 items-center">
                                             <div
                                                 className="flex items-center px-2 cursor-pointer"
@@ -220,7 +223,7 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
 
                                 {/* Education */}
                                 <div className="mb-1">
-                                    <div className="inline-block border" style={{ borderColor: '#454647' }}>
+                                    <div className="inline-block border" style={{borderColor: '#454647'}}>
                                         <div className="flex items-center px-3 py-2">
                                             <span className="text-white mr-2 text-[17px]">EDUCATION:</span>
                                             <span className="text-airbus-blue text-[17px]">
@@ -231,7 +234,7 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
                                 </div>
 
                                 {/* Separator Line */}
-                                <div className="mb-1" style={{ borderTop: '1px solid #454647' }}></div>
+                                <div className="mb-1" style={{borderTop: '1px solid #454647'}}></div>
 
                                 {/* Currently Working */}
                                 <div className="flex items-center mb-8">
@@ -241,7 +244,7 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
 
                                 <div className="flex justify-between items-start mb-8">
                                     <div className="text-center">
-                                        <div className="border" style={{ borderColor: '#454647', borderWidth: '2px' }}>
+                                        <div className="border" style={{borderColor: '#454647', borderWidth: '2px'}}>
                                             <div className="bg-black text-white px-6 py-2 text-[17px]">ACTIVE</div>
                                             <div className="text-airbus-green px-6 py-2 text-[17px]">MAATCHAA</div>
                                         </div>
@@ -253,7 +256,7 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
                                 </div>
 
                                 {/* Separator Line */}
-                                <div className="mb-4" style={{ borderTop: '1px solid #454647' }}></div>
+                                <div className="mb-4" style={{borderTop: '1px solid #454647'}}></div>
 
                                 {/* Stats */}
                                 <div>
@@ -269,7 +272,8 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
                                             </div>
                                             <div className="flex justify-between">
                                                 <span className="text-white text-[17px]">BLOGS</span>
-                                                <span className="text-airbus-green text-[17px]">{blogCount.toString().padStart(2,'0')}</span>
+                                                <span
+                                                    className="text-airbus-green text-[17px]">{blogCount.toString().padStart(2, '0')}</span>
                                             </div>
                                         </div>
                                         <Button
@@ -290,15 +294,12 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
                                 <div className="text-airbus-green text-xl mx-auto -mb-4">TL;DR</div>
                                 <div className="scale-90">
                                     <div className="text-base">
-                                        • SE AT <span className="text-airbus-green">UWATERLOO</span> -{' '}
-                                        <span className="text-[15px]">
-                      SEEKING <span className="text-airbus-green">SUMMER 2026 INTERNSHIPS</span>
-                    </span>
+                                        • SE AT <span className="text-airbus-green">UWATERLOO</span>
                                     </div>
 
                                     <div className="text-base">
-                                        • DEVELOPER AT{' '}
-                                        <span className="text-airbus-green">DIGITAL FLIGHT DYNAMICS</span>
+                                        • INCOMING AT{' '}
+                                        <span className="text-airbus-green">NOKIA (SUMMER 2026)</span>
                                     </div>
 
                                     <div>
@@ -307,13 +308,16 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
                                         </div>
                                         <div className="space-y-3 text-sm">
                                             <div>
-                                                ↳ BUILT <span className="text-airbus-green text-base">CCCSOLUTIONS</span> -
+                                                ↳ BUILT <span
+                                                className="text-airbus-green text-base">CCCSOLUTIONS</span> -
                                                 LARGEST REPOSITORY FOR CANADIAN COMPUTING
                                             </div>
                                             <div className="ml-4 -mt-3">
-                                                COMPETITION SOLUTIONS W/ <span className="text-airbus-dark-blue font-bold text-lg">2800+</span>{' '}
+                                                COMPETITION SOLUTIONS W/ <span
+                                                className="text-airbus-dark-blue font-bold text-lg">2800+</span>{' '}
                                                 USERS AND{' '}
-                                                <span className="text-airbus-dark-blue font-bold text-lg">270+</span>{' '}
+                                                <span
+                                                    className="text-airbus-dark-blue font-bold text-lg">270+</span>{' '}
                                                 SOLUTIONS
                                             </div>
 
@@ -326,7 +330,7 @@ export default function HomeComponent({blogCount}: HomeComponentProps) {
                                         </div>
                                     </div>
                                     <div className="mt-4 mb-6">
-                                        <PhotoDeck images={[Image5, Image4, Image3, Image1, Image2]} />
+                                        <PhotoDeck images={[Image5, Image4, Image3, Image1, Image2]}/>
                                     </div>
                                     <div className="text-[12px] text-airbus-blue">
                                         {' '}

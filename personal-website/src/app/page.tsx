@@ -1,4 +1,4 @@
-import HomeComponent from "@/components/HomeComponent";
+import {HomeComponent} from "@/components/HomeComponent";
 import { getNumberOfPosts } from "../../lib/posts";
 
 export default function Home() {

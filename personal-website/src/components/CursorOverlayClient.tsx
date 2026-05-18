@@ -15,16 +15,20 @@ export default function CursorOverlayClient() {
     const handler = () => setShowCursor(true);
     window.addEventListener('splash-complete', handler);
 
-    // Detect first mouse movement
+    // Detect first interaction (mouse move OR touch/pen tap) so the overlay
+    // mounts on mobile too — touch devices never fire mousemove.
     const moveHandler = () => {
       setHasMoved(true);
-      window.removeEventListener('mousemove', moveHandler);
+      window.removeEventListener('pointermove', moveHandler);
+      window.removeEventListener('pointerdown', moveHandler);
     };
-    window.addEventListener('mousemove', moveHandler);
+    window.addEventListener('pointermove', moveHandler);
+    window.addEventListener('pointerdown', moveHandler);
 
     return () => {
       window.removeEventListener('splash-complete', handler);
-      window.removeEventListener('mousemove', moveHandler);
+      window.removeEventListener('pointermove', moveHandler);
+      window.removeEventListener('pointerdown', moveHandler);
     };
   }, []);
 

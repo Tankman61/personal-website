@@ -1,24 +1,37 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 import { Button } from './Button';
 
 /**
- * Single-photo viewer (the only variant - the old tilted "deck" home variant
- * was removed).
+ * Single-photo viewer. Switching is instant (no animation, no transition lock).
  *
- * Switching is instant: there is no transition, no JS preloader, and no
- * blocking "LOADING" gate. `next/image` serves optimized WebP/AVIF directly
- * (the previous code preloaded the multi-MB raw originals via
- * `new window.Image()`, which is why production was slow).
+ * Loading strategy ("paint one, then warm the rest"):
+ *  - Only the current image is mounted at first, with `priority` and a blur
+ *    placeholder, so first paint is immediate and nothing competes for
+ *    bandwidth.
+ *  - Once that image has loaded, every other image is mounted hidden and
+ *    eagerly fetched in the background using the SAME sizes/quality, so the
+ *    optimized bytes are byte-identical to what navigation will request.
+ *  - Mounted images stay mounted, so every later switch is a pure visibility
+ *    toggle: zero network, zero decode, genuinely instant.
+ *
+ * There is intentionally no up-front blocking preloader (that is what made
+ * production slow) and `next/image` does all WebP/AVIF optimization.
  */
 
+type ImageInput = StaticImageData | { src: string; width?: number; height?: number };
+
 interface PhotoDeckProps {
-  images: { src: string; width?: number; height?: number }[];
+  images: ImageInput[];
   /** Kept for call-site compatibility; the viewer is always single-photo now. */
   singlePhotoView?: boolean;
   cardWidth?: number;
   cardHeight?: number;
+}
+
+function hasBlur(img: ImageInput): img is StaticImageData {
+  return typeof (img as StaticImageData).blurDataURL === 'string';
 }
 
 const PhotoDeck: React.FC<PhotoDeckProps> = ({
@@ -27,6 +40,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
   cardHeight = 190,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [firstLoaded, setFirstLoaded] = useState(false);
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
   const [enlargedImageLoaded, setEnlargedImageLoaded] = useState(false);
 
@@ -37,6 +51,7 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
   // Reset when the image set changes (e.g. switching projects).
   useEffect(() => {
     setCurrentIndex(0);
+    setFirstLoaded(false);
     setEnlargedImage(null);
   }, [images]);
 
@@ -63,9 +78,15 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
     return () => document.removeEventListener('keydown', onKey);
   }, [enlargedImage, closeModal]);
 
+  const onAnyLoad = useCallback(() => {
+    setFirstLoaded((done) => done || true);
+  }, []);
+
   if (count === 0) return null;
 
-  const currentSrc = images[currentIndex].src;
+  const current = images[currentIndex];
+  const currentSrc = current.src;
+  const sizes = `${CARD_W}px`;
 
   return (
     <>
@@ -86,15 +107,30 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
               }}
               onClick={() => setEnlargedImage(currentSrc)}
             >
-              <Image
-                src={currentSrc}
-                alt={`Photo ${currentIndex + 1} of ${count}`}
-                fill
-                sizes={`${CARD_W}px`}
-                quality={70}
-                priority
-                className="object-cover cursor-pointer"
-              />
+              {images.map((img, index) => {
+                const isCurrent = index === currentIndex;
+                // Mount the current image immediately; mount the rest only
+                // after the first one has loaded (background warm-up).
+                if (!isCurrent && !firstLoaded) return null;
+
+                const blur = hasBlur(img);
+                return (
+                  <Image
+                    key={img.src}
+                    src={blur ? img : img.src}
+                    alt={`Photo ${index + 1} of ${count}`}
+                    fill
+                    sizes={sizes}
+                    quality={72}
+                    priority={isCurrent && !firstLoaded}
+                    loading={isCurrent && !firstLoaded ? undefined : 'eager'}
+                    placeholder={blur ? 'blur' : 'empty'}
+                    onLoad={onAnyLoad}
+                    className="object-cover cursor-pointer"
+                    style={{ visibility: isCurrent ? 'visible' : 'hidden' }}
+                  />
+                );
+              })}
             </div>
           </div>
 

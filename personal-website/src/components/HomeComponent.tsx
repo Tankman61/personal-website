@@ -238,15 +238,15 @@ export function HomeComponent({blogCount}: HomeComponentProps) {
 
                                 {/* Currently Working */}
                                 <div className="flex items-center mb-8">
-                                    <span className="text-white mr-4 text-[17px]">CURRENTLY</span>
-                                    <span className="text-airbus-green text-[17px]">WORKING ON:</span>
+                                    <span className="text-white mr-4 text-[17px]">ONGOING</span>
+                                    <span className="text-airbus-green text-[17px]">WORK:</span>
                                 </div>
 
                                 <div className="flex justify-between items-start mb-8">
                                     <div className="text-center">
                                         <div className="border" style={{borderColor: '#454647', borderWidth: '2px'}}>
                                             <div className="bg-black text-white px-6 py-2 text-[17px]">ACTIVE</div>
-                                            <div className="text-airbus-green px-6 py-2 text-[17px]">MAATCHAA</div>
+                                            <div className="text-airbus-green px-6 py-2 text-[17px]">NOKIA</div>
                                         </div>
                                     </div>
                                     <div className="flex flex-col items-center justify-center mt-4 mr-8">
@@ -290,7 +290,7 @@ export function HomeComponent({blogCount}: HomeComponentProps) {
                         )}
 
                         {activeTab === 1 && (
-                            <div className="flex flex-col space-y-6">
+                            <div className="flex flex-col space-y-5">
                                 <div className="text-airbus-green text-xl mx-auto -mb-4">TL;DR</div>
                                 <div className="scale-90">
                                     <div className="text-base">
@@ -298,38 +298,37 @@ export function HomeComponent({blogCount}: HomeComponentProps) {
                                     </div>
 
                                     <div className="text-base">
-                                        • INCOMING AT{' '}
+                                        • SWE INTERN AT{' '}
                                         <span className="text-airbus-green">NOKIA (SUMMER 2026)</span>
                                     </div>
 
                                     <div>
-                                        <div className="text-[18px] mb-1 mt-3 text-airbus-blue font-semibold">
-                                            • SO FAR:
+                                        <div className="text-[18px] mb-1 mt-2 text-airbus-blue font-semibold">
+                                            • HIGHLIGHTS:
                                         </div>
                                         <div className="space-y-3 text-sm">
                                             <div>
                                                 ↳ BUILT <span
                                                 className="text-airbus-green text-base">CCCSOLUTIONS</span> -
-                                                LARGEST REPOSITORY FOR CANADIAN COMPUTING
+                                                LARGEST REPOSITORY FOR CANADIAN COMPUTING COMPETITION SOLUTIONS
                                             </div>
-                                            <div className="ml-4 -mt-3">
-                                                COMPETITION SOLUTIONS W/ <span
-                                                className="text-airbus-dark-blue font-bold text-lg">2800+</span>{' '}
-                                                USERS AND{' '}
-                                                <span
-                                                    className="text-airbus-dark-blue font-bold text-lg">270+</span>{' '}
-                                                SOLUTIONS
+
+                                            <div>
+                                                ↳ DEVELOPER FOR{' '}
+                                                <span className="text-airbus-green text-base">WATONOMOUS</span>{' '}
+                                                (WATCLOUD) &{' '}
+                                                <span className="text-airbus-green text-base">UW BLUEPRINT</span>
                                             </div>
 
                                             <div>
                                                 ↳ WON {' '}
-                                                <span className="text-airbus-dark-blue font-bold text-base">3 </span>
+                                                <span className="text-airbus-dark-blue font-bold text-base">4 </span>
                                                 HACKATHONS - (INCL.
                                                 <span className="text-airbus-green"> HACK THE NORTH</span>)
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="mt-4 mb-6">
+                                    <div className="mt-3 mb-4">
                                         <PhotoDeck images={[Image5, Image4, Image3, Image1, Image2]}/>
                                     </div>
                                     <div className="text-[12px] text-airbus-blue">

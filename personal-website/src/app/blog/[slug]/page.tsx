@@ -33,11 +33,15 @@ export default async function PostPage(props: PageProps) {
   }
 
   // serialize
+  // next-mdx-remote v6 defaults blockJS:true, which strips all {expression}
+  // attributes (src={imageRef}, width={...}, etc). Blog MDX is fully
+  // author-trusted, so allow JS expressions; keep blockDangerousJS on.
   const mdxSource = await serialize(content, {
     scope: {
       ...data,
       imageRef: imageRef?.default || null,
     },
+    blockJS: false,
   });
 
   return (

@@ -52,20 +52,6 @@ import noteconvert2 from '../images/projects/noteconvert/2.webp';
 import fukushima1 from '../images/projects/fukushima2044/1.webp';
 
 export const PROJECTS = [
-    {
-    title: 'VIBETRADE',
-    shortTitle: 'VIBETRADE',
-    description: (
-      <>
-        AGENTIC VTUBERS THAT HELP YOU TRADE YOUR CRYPTO THROUGH REAL-TIME MARKET DATA. BUILT FOR HACKWESTERN 12.
-      </>
-    ),
-    images: [vibetrade1, vibetrade2, vibetrade3, vibetrade4],
-    date: '2025',
-    technologies: ['LANGGRAPH', ' FASTAPI', 'ELEVENLABS', 'POLYMARKET', 'SUPABASE', 'NEXT.JS'],
-    link: 'https://devpost.com/software/vibetrade',
-    github: 'https://github.com/tankman61/VibeTrade',
-  },
   {
     title: 'MAATCHAA',
     shortTitle: 'MAATCHAA',
@@ -107,6 +93,20 @@ export const PROJECTS = [
     technologies: ['REACT.JS', 'SVG', 'TYPESCRIPT', 'RUST', 'MSFS SDK'],
     link: 'https://www.youtube.com/channel/UC5jbh_w1LPAb6XO1EZkqvrw',
     discord: 'https://discord.com/invite/JtcFmhcAME',
+  },
+  {
+    title: 'VIBETRADE',
+    shortTitle: 'VIBETRADE',
+    description: (
+      <>
+        AGENTIC VTUBERS THAT HELP YOU TRADE YOUR CRYPTO THROUGH REAL-TIME MARKET DATA. BUILT FOR HACKWESTERN 12.
+      </>
+    ),
+    images: [vibetrade1, vibetrade2, vibetrade3, vibetrade4],
+    date: '2025',
+    technologies: ['LANGGRAPH', ' FASTAPI', 'ELEVENLABS', 'POLYMARKET', 'SUPABASE', 'NEXT.JS'],
+    link: 'https://devpost.com/software/vibetrade',
+    github: 'https://github.com/tankman61/VibeTrade',
   },
   {
     title: 'PAWDITOR',

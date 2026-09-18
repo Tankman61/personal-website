@@ -58,6 +58,13 @@ body {
   src: url('/fonts/MFDFont.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  /* MFDFont maps these codepoints but ships them as empty outlines, so they
+     render as blank space rather than falling back. Excluding them from the
+     face lets the next family in the stack draw them instead.
+     Omitted: ! " # $ ' , < = > ? @ [ \ ] ^ ` { | } ~
+     Lowercase is left mapped (and blank) on purpose - the site is all-caps. */
+  unicode-range: U+20, U+25-26, U+28-2B, U+2D-3B, U+41-5A, U+5F, U+61-7A,
+    U+7F-10FFFF;
 }
 
 @font-face {
@@ -74,7 +81,7 @@ body {
 }
 
 html {
-  font-family: 'MFDFont', sans-serif !important;
+  font-family: 'MFDFont', Arial, sans-serif !important;
 }
 
 html,

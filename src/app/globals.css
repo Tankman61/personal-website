@@ -58,6 +58,15 @@ body {
   src: url('/fonts/MFDFont.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  /* MFDFont maps 327 codepoints but ships most of them as empty outlines, so
+     they reserved advance width and drew nothing. CSS fallback could not help,
+     because fallback only triggers for codepoints a font does not map at all.
+     This range is exactly the 78 glyphs that have real outlines, so everything
+     else (, ' " ! ? and all accented Latin) falls through to the next family.
+     Lowercase is the one deliberate exception: kept mapped and blank, because
+     the site is all-caps and rendering it in Arial would look worse. */
+  unicode-range: U+20, U+25-26, U+28-2B, U+2D-3B, U+41-5A, U+5F, U+61-7A, U+B0,
+    U+25A1, U+25AF;
 }
 
 @font-face {
@@ -74,7 +83,7 @@ body {
 }
 
 html {
-  font-family: 'MFDFont', sans-serif !important;
+  font-family: 'MFDFont', Arial, sans-serif !important;
 }
 
 html,

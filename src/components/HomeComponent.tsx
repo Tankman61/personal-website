@@ -323,7 +323,7 @@ export function HomeComponent({blogCount}: HomeComponentProps) {
                                             <div>
                                                 ↳ WON {' '}
                                                 <span className="text-airbus-dark-blue font-bold text-base">4 </span>
-                                                HACKATHONS - (INCL.
+                                                HACKATHONS (INCL.
                                                 <span className="text-airbus-green"> HACK THE NORTH</span>)
                                             </div>
                                         </div>

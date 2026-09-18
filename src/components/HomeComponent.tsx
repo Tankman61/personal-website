@@ -329,7 +329,7 @@ export function HomeComponent({blogCount}: HomeComponentProps) {
                                         </div>
                                     </div>
                                     <div className="mt-3 mb-4">
-                                        <PhotoDeck images={[Image5, Image4, Image3, Image1, Image2]}/>
+                                        <PhotoDeck images={[Image1, Image2, Image5, Image4, Image3]}/>
                                     </div>
                                     <div className="text-[12px] text-airbus-blue">
                                         {' '}

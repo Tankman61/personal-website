@@ -1,5 +1,6 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Image, { type StaticImageData } from 'next/image';
 import { Button } from './Button';
 
@@ -105,7 +106,10 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                 top: '50%',
                 transform: 'translate(-50%, -50%)',
               }}
-              onClick={() => setEnlargedImage(currentSrc)}
+              onClick={() => {
+                setEnlargedImageLoaded(false);
+                setEnlargedImage(currentSrc);
+              }}
             >
               {images.map((img, index) => {
                 const isCurrent = index === currentIndex;
@@ -165,15 +169,16 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
         </div>
       </div>
 
-      {/* Enlarged image modal */}
-      {enlargedImage && (
-        <div
-          className="fixed -inset-20 flex items-center justify-center bg-black/50"
-          style={{ zIndex: 9999 }}
-          onClick={closeModal}
-        >
-          <div className="relative z-10" onClick={(e) => e.stopPropagation()}>
-            <div className="relative flex items-center justify-center">
+      {/* Enlarged image modal. Portaled to <body> so the site's scale
+          transforms do not trap, clip or shrink it. */}
+      {enlargedImage &&
+        createPortal(
+          <div
+            className="fixed inset-0 flex items-center justify-center bg-black/70"
+            style={{ zIndex: 9998 }}
+            onClick={closeModal}
+          >
+            <div className="relative" onClick={(e) => e.stopPropagation()}>
               {!enlargedImageLoaded && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-white text-lg">LOADING...</span>
@@ -187,14 +192,16 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                 height={800}
                 sizes="90vw"
                 quality={80}
-                className="object-contain shadow-xl max-h-[100vh] max-w-[150vw]"
+                className="object-contain shadow-xl max-h-[90vh] max-w-[90vw]"
+                style={{ width: 'auto', height: 'auto' }}
                 onLoad={() => setEnlargedImageLoaded(true)}
               />
 
+              {/* Close button, inside the image's top-right corner */}
               {enlargedImageLoaded && (
                 <button
                   type="button"
-                  className="absolute top-2 right-2 bg-black bg-opacity-70 text-white w-10 h-10 rounded-full flex items-center justify-center z-30 hover:bg-opacity-90 text-lg"
+                  className="absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center bg-black/70 hover:bg-black/90 text-white text-lg leading-none"
                   onClick={closeModal}
                   aria-label="Close image"
                 >
@@ -202,9 +209,9 @@ const PhotoDeck: React.FC<PhotoDeckProps> = ({
                 </button>
               )}
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 };

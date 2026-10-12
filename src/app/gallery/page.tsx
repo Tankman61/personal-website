@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import galleryImageUrls from '@/lib/gallery-manifest.json';
 
@@ -64,14 +65,16 @@ export default function GalleryPage() {
         </div>
       </div>
 
-      {/* Selected image modal */}
-      {selectedImage && (
-        <div
-          className="fixed -inset-20 flex items-center justify-center z-50 bg-black/50"
-          onClick={closeImage}
-        >
-          <div className="relative z-10" onClick={(e) => e.stopPropagation()}>
-            <div className="relative flex items-center justify-center">
+      {/* Selected image modal. Portaled to <body> so the site's scale
+          transform does not trap, clip or shrink it. */}
+      {selectedImage &&
+        createPortal(
+          <div
+            className="fixed inset-0 flex items-center justify-center bg-black/70"
+            style={{ zIndex: 9998 }}
+            onClick={closeImage}
+          >
+            <div className="relative" onClick={(e) => e.stopPropagation()}>
               {/* Loading overlay */}
               {!imageLoaded && (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -85,15 +88,16 @@ export default function GalleryPage() {
                 alt="Selected image"
                 width={1200}
                 height={800}
-                className="max-h-[80vh] max-w-[90vw] object-contain shadow-xl transition-opacity"
+                className="max-h-[90vh] max-w-[90vw] object-contain shadow-xl transition-opacity"
                 style={{ width: 'auto', height: 'auto' }}
                 onLoadingComplete={() => setImageLoaded(true)}
               />
 
-              {/* Close button */}
+              {/* Close button, inside the image's top-right corner */}
               {imageLoaded && (
                 <button
-                  className="absolute top-2 right-2 bg-black bg-opacity-70 text-white w-8 h-8 rounded-full flex items-center justify-center z-30 hover:bg-opacity-90"
+                  type="button"
+                  className="absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center bg-black/70 hover:bg-black/90 text-white text-lg leading-none"
                   onClick={closeImage}
                   aria-label="Close image"
                 >
@@ -101,9 +105,9 @@ export default function GalleryPage() {
                 </button>
               )}
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </main>
   );
 }

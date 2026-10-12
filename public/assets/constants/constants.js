@@ -37,7 +37,7 @@ import focusflow1 from '../images/projects/focusflow/1.webp';
 
 // SATDUEL
 import satduel1 from '../images/projects/satduel/1.png';
-import satduel2 from '../images/projects/satduel/3.png';
+import satduel2 from '../images/projects/satduel/2.png';
 import satduel3 from '../images/projects/satduel/3.png';
 
 // NOTECONVERT

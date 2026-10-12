@@ -10,8 +10,7 @@ import maatchaa2 from '../images/projects/maatchaa/2.webp';
 
 // CCCSOLUTIONS
 import ccc1 from '../images/projects/cccsolutions/1.webp';
-import ccc2 from '../images/projects/cccsolutions/2.webp';
-import ccc3 from '../images/projects/cccsolutions/3.webp';
+import ccc2 from '../images/projects/cccsolutions/2.png';
 
 // DIGITAL FLIGHT DYNAMICS A350X
 import a350x1 from '../images/projects/a350x/1.webp';
@@ -76,7 +75,7 @@ export const PROJECTS = [
         CURATED SOLUTIONS
       </>
     ),
-    images: [ccc1, ccc2, ccc3],
+    images: [ccc1, ccc2],
     date: '2024',
     technologies: ['REACT.JS', 'TAILWINDCSS', 'POCKETBASE'],
     link: 'https://cccsolutions.ca/',

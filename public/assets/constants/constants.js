@@ -21,8 +21,6 @@ import a350x4 from '../images/projects/a350x/4.webp';
 // PAWDITOR
 import pawditor1 from '../images/projects/pawditor/1.webp';
 import pawditor2 from '../images/projects/pawditor/2.webp';
-import pawditor3 from '../images/projects/pawditor/3.webp';
-import pawditor4 from '../images/projects/pawditor/4.webp';
 
 // MATHIFY
 import mathify1 from '../images/projects/mathify/1.webp';
@@ -38,14 +36,13 @@ import portfolio3 from '../images/projects/portfolio/3.webp';
 import focusflow1 from '../images/projects/focusflow/1.webp';
 
 // SATDUEL
-import satduel1 from '../images/projects/satduel/1.webp';
-import satduel2 from '../images/projects/satduel/2.webp';
-import satduel3 from '../images/projects/satduel/3.webp';
-import satduel4 from '../images/projects/satduel/4.webp';
+import satduel1 from '../images/projects/satduel/1.png';
+import satduel2 from '../images/projects/satduel/3.png';
+import satduel3 from '../images/projects/satduel/3.png';
 
 // NOTECONVERT
-import noteconvert1 from '../images/projects/noteconvert/1.webp';
-import noteconvert2 from '../images/projects/noteconvert/2.webp';
+// import noteconvert1 from '../images/projects/noteconvert/1.webp';
+// import noteconvert2 from '../images/projects/noteconvert/2.webp';
 
 // FUKUSHIMA 2044
 import fukushima1 from '../images/projects/fukushima2044/1.webp';
@@ -56,8 +53,8 @@ export const PROJECTS = [
     shortTitle: 'MAATCHAA',
     description: (
       <>
-          MAATCHAA CONNECTS SMALL-MEDIUM SIZED BUSINESSES TO TRENDING YOUTUBE SHORTS. FINALIST AT HACK THE NORTH 2025
-
+        MAATCHAA CONNECTS SMALL-MEDIUM SIZED BUSINESSES TO TRENDING YOUTUBE SHORTS. FINALIST AT HACK
+        THE NORTH 2025
       </>
     ),
     images: [maatchaa1, maatchaa2],
@@ -98,7 +95,8 @@ export const PROJECTS = [
     shortTitle: 'VIBETRADE',
     description: (
       <>
-        AGENTIC VTUBERS THAT HELP YOU TRADE YOUR CRYPTO THROUGH REAL-TIME MARKET DATA. BUILT FOR HACKWESTERN 12.
+        AGENTIC VTUBERS THAT HELP YOU TRADE YOUR CRYPTO THROUGH REAL-TIME MARKET DATA. BUILT FOR
+        HACKWESTERN 12.
       </>
     ),
     images: [vibetrade1, vibetrade2, vibetrade3, vibetrade4],
@@ -116,11 +114,38 @@ export const PROJECTS = [
         SECURITY ISSUES
       </>
     ),
-    images: [pawditor1, pawditor2, pawditor3, pawditor4],
+    images: [pawditor1, pawditor2],
     date: '2025',
     technologies: ['SVELTEKIT', 'PLAYWRIGHT', 'GEMINI', 'DOCKER', 'ELYSIAJS'],
     link: 'https://devpost.com/software/pawditor',
     github: 'http://github.com/stockermc/spurhacks2025/',
+  },
+  {
+    title: 'SATDUEL',
+    shortTitle: 'SATDUEL',
+    description: (
+      <>SAT PRACTICE PLATFORM WHERE STUDENTS CAN DUEL EACH OTHER IN REAL-TIME PRACTICE SESSIONS</>
+    ),
+    images: [satduel1, satduel2, satduel3],
+    date: '2024',
+    technologies: ['DJANGO', 'REACT.JS', 'PYTHON', 'SQLITE', 'JAVASCRIPT'],
+    link: 'https://satduel.com',
+    github: null,
+  },
+  {
+    title: 'A350 PORTFOLIO',
+    shortTitle: 'PORTFOLIO',
+    description: (
+      <>
+        THIS VERY WEBSITE! AIRBUS A350 FMS-STYLED PERSONAL PORTFOLIO BUILT TO SHOWCASE EVERYTHING
+        ABOUT ME.
+      </>
+    ),
+    images: [portfolio1, portfolio2, portfolio3],
+    date: '2025',
+    technologies: ['NEXT.JS', 'TYPESCRIPT', 'TAILWINDCSS', 'SVG'],
+    link: 'https://williamyang.ca',
+    github: 'https://github.com/tankman61/personal-website',
   },
   {
     title: 'MATHIFY',
@@ -138,25 +163,10 @@ export const PROJECTS = [
     github: 'https://github.com/tankman61/mathify',
   },
   {
-    title: 'A350 PORTFOLIO',
-    shortTitle: 'PORTFOLIO',
-    description: (
-      <>
-        THIS VERY WEBSITE! AIRBUS A350 FMS-STYLED PERSONAL PORTFOLIO BUILT TO SHOWCASE MY PROJECTS
-        AND PASSIONS
-      </>
-    ),
-    images: [portfolio1, portfolio2, portfolio3],
-    date: '2025',
-    technologies: ['NEXT.JS', 'TYPESCRIPT', 'TAILWINDCSS', 'SVG'],
-    link: 'https://williamyang.ca',
-    github: 'https://github.com/tankman61/personal-website',
-  },
-  {
     title: 'FOCUSFLOW',
     shortTitle: 'FOCUSFLOW',
     description: (
-      <>BROWSER EXTENSION USING OLLAMA TO INTELLIGENTLY DETECT AND BLOCK DISTRACTING WEBSITES</>
+      <>BROWSER EXTENSION USING QWEN TO INTELLIGENTLY DETECT AND BLOCK DISTRACTING WEBSITES</>
     ),
     images: [focusflow1],
     date: '2025',
@@ -164,30 +174,18 @@ export const PROJECTS = [
     link: null,
     github: 'https://github.com/tankman61/yrhacks2025',
   },
-  {
-    title: 'SATDUEL',
-    shortTitle: 'SATDUEL',
-    description: (
-      <>SAT PRACTICE PLATFORM WHERE STUDENTS CAN DUEL EACH OTHER IN REAL-TIME PRACTICE SESSIONS</>
-    ),
-    images: [satduel1, satduel2, satduel3, satduel4],
-    date: '2024',
-    technologies: ['DJANGO', 'REACT.JS', 'PYTHON', 'SQLITE', 'JAVASCRIPT'],
-    link: 'https://satduel.com',
-    github: null,
-  },
-  {
-    title: 'NOTECONVERT',
-    shortTitle: 'NOTECONV.',
-    description: (
-      <>TRANSFORM AUDIO RECORDINGS INTO STRUCTURED STUDY NOTES. 2ND PLACE AT RECESSHACKS 4.0</>
-    ),
-    images: [noteconvert1, noteconvert2],
-    date: '2024',
-    technologies: ['PYTHON', 'OPENAI API', 'REACT .JS'],
-    link: null,
-    github: 'https://github.com/Agilan75/NoteConvert',
-  },
+  // {
+  //   title: 'NOTECONVERT',
+  //   shortTitle: 'NOTECONV.',
+  //   description: (
+  //     <>TRANSFORM AUDIO RECORDINGS INTO STRUCTURED STUDY NOTES. 2ND PLACE AT RECESSHACKS 4.0</>
+  //   ),
+  //   images: [noteconvert1, noteconvert2],
+  //   date: '2024',
+  //   technologies: ['PYTHON', 'OPENAI API', 'REACT .JS'],
+  //   link: null,
+  //   github: 'https://github.com/Agilan75/NoteConvert',
+  // },
   {
     title: 'FUKUSHIMA 2044',
     shortTitle: 'FUKUSHIMA',

@@ -246,12 +246,12 @@ export function HomeComponent({blogCount}: HomeComponentProps) {
                                     <div className="text-center">
                                         <div className="border" style={{borderColor: '#454647', borderWidth: '2px'}}>
                                             <div className="bg-black text-white px-6 py-2 text-[17px]">ACTIVE</div>
-                                            <div className="text-airbus-green px-6 py-2 text-[17px]">NOKIA</div>
+                                            <div className="text-airbus-green px-6 py-2 text-[17px]">UWATERLOO</div>
                                         </div>
                                     </div>
                                     <div className="flex flex-col items-center justify-center mt-4 mr-8">
-                                        <div className="text-white text-[16px] mb-2">SECOND</div>
-                                        <div className="text-airbus-green text-[16px]">CCCSOLUTIONS</div>
+                                        <div className="text-white text-[16px] mb-2">PREVIOUS</div>
+                                        <div className="text-airbus-green text-[16px]">NOKIA</div>
                                     </div>
                                 </div>
 

@@ -7,20 +7,19 @@
     "build": "next build",
     "prebuild": "node lib/generate-manifests.mjs",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.0",
-    "@next/mdx": "^15.5.2",
+    "@next/mdx": "^16.4.3",
     "gray-matter": "^4.0.3",
-    "next": "^16.0.7",
+    "next": "^16.4.3",
     "next-mdx-remote": "^6.0.0",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "yaml": "^2.8.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -28,11 +27,11 @@
     "autoprefixer": "^10.4.21",
     "baseline-browser-mapping": "^2.10.31",
     "eslint": "^9",
-    "eslint-config-next": "15.3.2",
+    "eslint-config-next": "^16.4.3",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "react-icons": "^5.5.0",
-    "sharp": "^0.34.4",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.1.12",
     "typescript": "^5"
   }

@@ -296,25 +296,34 @@ export function HomeComponent({blogCount}: HomeComponentProps) {
                                     <div className="text-base">
                                         • SE AT <span className="text-airbus-green">UWATERLOO</span>
                                     </div>
+
                                     <div className="text-base">
                                         • INCOMING SWE INTERN AT{' '}
                                         <span className="text-airbus-green">CLOUDFLARE (WINTER 2027)</span>
                                     </div>
+
                                     <div className="text-base">
                                         • PREV SWE INTERN AT{' '}
                                         <span className="text-airbus-green">NOKIA</span>
                                     </div>
+
                                     <div>
-                                        • BUILT <span
-                                        className="text-airbus-green text-base">CCCSOLUTIONS</span> -
-                                        THE LARGEST REPOSITORY FOR CANADIAN COMPUTING COMPETITION SOLUTIONS
-                                    </div>
-                                    <div>
-                                        • FINALIST AT <span
-                                        className="text-airbus-green text-base">HACK THE NORTH 2025</span> WITH MAATCHAA - MATCHING SHOPIFY STORES WITH YOUTUBE SHORTS CREATORS
-                                    </div>
-                                    <div>
-                                        • OUTSIDE OF TECH, I ENJOY HISTORY, AVIATION, FORMULA1 AND MUSIC!
+                                        <div className="text-[18px] mb-1 mt-2 text-airbus-blue font-semibold">
+                                            • HIGHLIGHTS:
+                                        </div>
+                                        <div className="space-y-3 text-sm">
+                                            <div>
+                                                ↳ BUILT <span
+                                                className="text-airbus-green text-base">CCCSOLUTIONS</span> -
+                                                THE LARGEST REPOSITORY FOR CANADIAN COMPUTING COMPETITION SOLUTIONS
+                                            </div>
+
+                                            <div>
+                                                ↳ FINALIST AT{' '}
+                                                <span className="text-airbus-green text-base">HACK THE NORTH 2025</span>{' '}
+                                                WITH MAATCHAA
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="mt-3 mb-4">
                                         <PhotoDeck images={[Image1, Image2, Image5, Image4, Image3]}/>
